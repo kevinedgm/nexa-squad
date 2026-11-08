@@ -1,5 +1,11 @@
 # Cambios
 
+## 0.3.0 (2026-11-08)
+
+- Guía de comandos (`comandos/comandos.json` → `comandos/comandos.md`): qué decir según lo que quieres y a quién invoca. Se instala en `.nexa-squad/comandos.md`.
+- CLI: `comandos` muestra la guía y `quien "<frase>"` sugiere el comando para lo que describes.
+- Cada skill tiene su sección "Cómo se invoca"; Orka responde "¿a quién invoco?" y ya no pregunta el escenario cuando la frase lo dice.
+
 ## 0.2.0 (2026-11-08)
 
 - Composición como centro del squad: Kompa compone formularios completos, patrones (colección, maestro-detalle, cuadrícula de medidas, línea de tiempo) y cada pieza en su contexto (ancho, vecinos, iconos, leyendas).

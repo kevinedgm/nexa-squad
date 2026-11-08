@@ -32,6 +32,8 @@ No toda petición recorre la cadena completa. Orka reconoce el escenario y decid
 | Migrar o rediseñar legacy | Inqa | Nada |
 | Un solo rol | El rol nombrado | Todos los demás |
 
+Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`, generado desde `comandos/comandos.json`).
+
 ## Reglas comunes
 
 1. **Una decisión por rol.** Cada rol decide solo lo suyo (su skill lo dice en la primera línea). Lo que pertenece a otro rol va como devolución a su dueño, nunca se resuelve en silencio.

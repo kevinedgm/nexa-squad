@@ -57,6 +57,8 @@ ${C.bold}${SQUAD.name}${C.reset} — ${SQUAD.roles.map((r) => r.skill).join(' �
 ${C.bold}Comandos${C.reset}
   install        Copia el squad en un proyecto (o --global)
   list           Muestra los roles y dónde se instala cada uno
+  comandos       Guía: qué decir y a quién invocar según lo que quieras
+  quien "<frase>" Sugiere el comando para lo que describes
   help           Muestra esta ayuda
 
 ${C.bold}Opciones${C.reset}
@@ -71,6 +73,7 @@ ${C.bold}Ejemplos${C.reset}
   npx github:${SQUAD.repo} install --target claude
   npx github:${SQUAD.repo} install --target claude --only inqa
   npx github:${SQUAD.repo} list
+  npx github:${SQUAD.repo} quien "el formulario de cuentas se ve mal"
 `;
 }
 
@@ -130,11 +133,12 @@ function writeBlock(file, lines, args) {
 
 function writePolicy(args) {
   const dest = join(args.base, `.${SQUAD.slug}`, 'politica.md');
-  if (args.dryRun) { log(`  ${C.cyan}copiaría${C.reset} política y estándares → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`); return dest; }
+  if (args.dryRun) { log(`  ${C.cyan}copiaría${C.reset} política, estándares y comandos → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`); return dest; }
   mkdirSync(dirname(dest), { recursive: true });
   cpSync(join(PKG_ROOT, 'AGENTS.md'), dest, { force: true });
   cpSync(join(PKG_ROOT, 'estandares', 'estandares.md'), join(dirname(dest), 'estandares.md'), { force: true });
-  log(`  ${ok('ok')}       política y estándares → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`);
+  cpSync(join(PKG_ROOT, 'comandos', 'comandos.md'), join(dirname(dest), 'comandos.md'), { force: true });
+  log(`  ${ok('ok')}       política, estándares y comandos → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`);
   return dest;
 }
 
@@ -188,8 +192,36 @@ function doList() {
   log(`  kiro    skills → .agents/skills/<skill>/   (sin subagentes)\n`);
 }
 
+async function doQuien(frase) {
+  const { quien, DATA } = await import('./comandos.mjs');
+  if (!frase) { log(err('Escribe lo que quieres, p. ej.: quien "el formulario de cuentas se ve mal"')); process.exit(2); }
+  const r = quien(frase);
+  if (!r.length) {
+    log(`\n  No lo reconocí. Empieza con ${C.bold}/orka${C.reset} y descríbelo con tus palabras: Orka elige el escenario.`);
+    log(`  Guía completa: ${C.bold}npx github:${SQUAD.repo} comandos${C.reset}\n`);
+    return;
+  }
+  const [best, ...rest] = r;
+  const c = best.c;
+  log(`\n  ${C.bold}${c.quiero}${C.reset}`);
+  log(`  Di:        ${C.cyan}${c.decir}${C.reset}`);
+  log(`  Ejemplo:   ${C.dim}${c.ejemplo}${C.reset}`);
+  log(`  Invoca:    ${c.invoca}  ·  arranca en ${c.arranca}`);
+  log(`  Qué pasa:  ${c.que_pasa}`);
+  const alt = rest.filter((x) => x.score >= best.score - 1).slice(0, 2);
+  if (alt.length) log(`\n  ${C.dim}También podría ser: ${alt.map((x) => `${x.c.id} (${x.c.decir})`).join('  ·  ')}${C.reset}`);
+  if (DATA.comandos.length) log('');
+}
+
+async function doComandos() {
+  const { renderMd } = await import('./comandos.mjs');
+  log(renderMd());
+}
+
 const args = parseArgs(process.argv.slice(2));
 const cmd = args._[0] || 'help';
 if (cmd === 'install') doInstall(args);
 else if (cmd === 'list') doList();
+else if (cmd === 'comandos') await doComandos();
+else if (cmd === 'quien' || cmd === 'quién') await doQuien(args._.slice(1).join(' '));
 else log(helpText());

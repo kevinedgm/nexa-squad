@@ -1,0 +1,286 @@
+{
+  "nota": "Fuente única de la guía de comandos. Genera comandos/comandos.md con `npm run comandos`; `npm test` falla si quedó desactualizada.",
+  "comandos": [
+    {
+      "id": "nuevo",
+      "grupo": "cadena",
+      "quiero": "Construir una funcionalidad nueva desde una descripción",
+      "decir": "/orka quiero una funcionalidad para <qué> en <módulo>",
+      "ejemplo": "/orka quiero una funcionalidad para registrar signos vitales en la consulta",
+      "invoca": "orka",
+      "arranca": "inqa",
+      "que_pasa": "Cadena completa. Inqa te pregunta las reglas y tú las apruebas antes de diseñar.",
+      "claves": [
+        "nueva",
+        "nuevo",
+        "construir",
+        "construye",
+        "crear",
+        "crea",
+        "quiero una funcionalidad",
+        "necesito una funcionalidad",
+        "desde cero"
+      ]
+    },
+    {
+      "id": "extender",
+      "grupo": "cadena",
+      "quiero": "Agregar un comportamiento a un módulo que ya existe",
+      "decir": "/orka en <módulo>, cuando <pasa X>, ahora tiene que <pasar Y>",
+      "ejemplo": "/orka en pagos, cuando se rechace un pago, ahora hay que avisar al cliente",
+      "invoca": "orka",
+      "arranca": "inqa",
+      "que_pasa": "Inqa documenta solo el cambio; los roles cuya decisión no cambia se saltan.",
+      "claves": [
+        "cuando",
+        "ahora tiene que",
+        "ahora debe",
+        "agrega",
+        "agregar",
+        "añade",
+        "extender",
+        "extiende",
+        "además",
+        "que también"
+      ]
+    },
+    {
+      "id": "traer",
+      "grupo": "cadena",
+      "quiero": "Traer una funcionalidad de otra aplicación y adaptarla",
+      "decir": "/orka lee <funcionalidad> de <app o ruta> y tráela aquí, pero para <qué>",
+      "ejemplo": "/orka lee la bitácora de análisis de la app del laboratorio y tráela aquí, pero para radiología",
+      "invoca": "orka",
+      "arranca": "inqa",
+      "que_pasa": "Inqa lee la app de origen y arma una tabla igual / adaptado / no se trae que tú apruebas; Arko la traduce a tu stack.",
+      "claves": [
+        "trae",
+        "traer",
+        "tráela",
+        "otra app",
+        "otra aplicación",
+        "otro sistema",
+        "igual que",
+        "copia de",
+        "como en",
+        "lee de"
+      ]
+    },
+    {
+      "id": "corregir",
+      "grupo": "cadena",
+      "quiero": "Corregir cómo se ve o se acomoda un módulo ya construido (por ejemplo, con Fruti Squad)",
+      "decir": "/orka corrige la composición de <módulo>; no cambies lo que hace",
+      "ejemplo": "/orka corrige la composición del módulo de cuentas; lo que más me molesta es el formulario de alta",
+      "invoca": "orka",
+      "arranca": "vera",
+      "que_pasa": "Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos. Si un hallazgo cambia lo que hace el módulo, va a Inqa.",
+      "claves": [
+        "corrige",
+        "corregir",
+        "arregla",
+        "se ve mal",
+        "composición",
+        "acomodo",
+        "mal acomodado",
+        "descuadrado",
+        "desordenado",
+        "diseño está mal"
+      ]
+    },
+    {
+      "id": "migrar",
+      "grupo": "cadena",
+      "quiero": "Migrar o rediseñar un módulo legacy completo",
+      "decir": "/orka migra <módulo>",
+      "ejemplo": "/orka migra el módulo gestor",
+      "invoca": "orka",
+      "arranca": "inqa",
+      "que_pasa": "Cadena completa; lo que hace el legacy es evidencia, no requisito.",
+      "claves": [
+        "migra",
+        "migrar",
+        "legacy",
+        "rediseña",
+        "rediseñar",
+        "rehacer",
+        "moderniza"
+      ]
+    },
+    {
+      "id": "continuar",
+      "grupo": "cadena",
+      "quiero": "Seguir un módulo que quedó a medias o saber cómo va",
+      "decir": "/orka continúa <módulo>  ·  /orka ¿cómo va <módulo>?",
+      "ejemplo": "/orka continúa el gestor",
+      "invoca": "orka",
+      "arranca": "el primer documento pendiente",
+      "que_pasa": "Orka lee la bitácora y sigue donde se quedó; no repite lo aprobado.",
+      "claves": [
+        "continúa",
+        "continuar",
+        "sigue",
+        "retoma",
+        "cómo va",
+        "en qué va",
+        "estado",
+        "avance"
+      ]
+    },
+    {
+      "id": "analizar",
+      "grupo": "rol",
+      "quiero": "Solo entender qué hace un módulo y escribir sus requisitos",
+      "decir": "/inqa analiza <módulo>",
+      "ejemplo": "/inqa analiza el módulo de pagos",
+      "invoca": "inqa",
+      "arranca": "inqa",
+      "que_pasa": "Documento de requisitos con hechos, supuestos y hasta 5 preguntas para ti.",
+      "claves": [
+        "analiza",
+        "analizar",
+        "requisitos",
+        "reglas de negocio",
+        "qué hace",
+        "entender"
+      ]
+    },
+    {
+      "id": "arquitectura",
+      "grupo": "rol",
+      "quiero": "Definir cómo se construye por detrás: datos, API, permisos",
+      "decir": "/arko define la arquitectura de <módulo>",
+      "ejemplo": "/arko define cómo se guardan los medicamentos por diagnóstico",
+      "invoca": "arko",
+      "arranca": "arko",
+      "que_pasa": "Arquitectura y checklist de implementación; necesita requisitos aprobados.",
+      "claves": [
+        "arquitectura",
+        "backend",
+        "back-end",
+        "base de datos",
+        "tabla",
+        "api",
+        "endpoint",
+        "permisos",
+        "servidor"
+      ]
+    },
+    {
+      "id": "estructura",
+      "grupo": "rol",
+      "quiero": "Definir qué pantallas hay, qué contienen y en qué orden",
+      "decir": "/fluxa define las pantallas de <módulo>",
+      "ejemplo": "/fluxa define la estructura del registro de usuarios",
+      "invoca": "fluxa",
+      "arranca": "fluxa",
+      "que_pasa": "Vistas, secciones, campos, unidades, condicionales y el patrón de cada región.",
+      "claves": [
+        "pantallas",
+        "vistas",
+        "flujo",
+        "estructura",
+        "qué campos",
+        "orden de los campos",
+        "secciones",
+        "pasos"
+      ]
+    },
+    {
+      "id": "componer",
+      "grupo": "rol",
+      "quiero": "Definir cómo se acomoda una vista: anchos, filas, jerarquía, superficies",
+      "decir": "/kompa compón <vista o formulario>",
+      "ejemplo": "/kompa compón el formulario de registro",
+      "invoca": "kompa",
+      "arranca": "kompa",
+      "que_pasa": "Composición con fuente de cada regla; necesita la estructura de Fluxa.",
+      "claves": [
+        "compón",
+        "componer",
+        "acomoda",
+        "jerarquía",
+        "espaciado",
+        "ancho",
+        "columnas",
+        "título y subtítulo",
+        "superficie",
+        "iconos"
+      ]
+    },
+    {
+      "id": "componentes",
+      "grupo": "rol",
+      "quiero": "Saber qué componentes se reutilizan y qué hay que pedir a Fruti Squad",
+      "decir": "/kura revisa los componentes de <módulo>",
+      "ejemplo": "/kura ¿qué componentes necesita la cuadrícula de signos vitales?",
+      "invoca": "kura",
+      "arranca": "kura",
+      "que_pasa": "Reutilizar, variante o pedido a Fruti Squad en docs/componentes/pedidos/.",
+      "claves": [
+        "componente",
+        "componentes",
+        "reutilizar",
+        "variante",
+        "fruti",
+        "design hub",
+        "pedido",
+        "token"
+      ]
+    },
+    {
+      "id": "construir",
+      "grupo": "rol",
+      "quiero": "Escribir el código de una fase ya aprobada",
+      "decir": "/forja construye la fase <n> de <módulo>",
+      "ejemplo": "/forja construye la fase 1 del gestor",
+      "invoca": "forja",
+      "arranca": "forja",
+      "que_pasa": "Código y reporte de la fase; necesita los documentos aprobados.",
+      "claves": [
+        "programa",
+        "implementa",
+        "construye la fase",
+        "código",
+        "codifica"
+      ]
+    },
+    {
+      "id": "revisar",
+      "grupo": "rol",
+      "quiero": "Revisar lo construido, o solo auditar un módulo sin corregir nada",
+      "decir": "/vera revisa la fase <n> de <módulo>  ·  /vera diagnostica <módulo>",
+      "ejemplo": "/vera diagnostica el módulo de cuentas",
+      "invoca": "vera",
+      "arranca": "vera",
+      "que_pasa": "Hallazgos con evidencia, fuente y dueño; no corrige.",
+      "claves": [
+        "revisa",
+        "revisar",
+        "audita",
+        "auditar",
+        "diagnostica",
+        "verifica",
+        "qa",
+        "pruebas"
+      ]
+    },
+    {
+      "id": "ayuda",
+      "grupo": "ayuda",
+      "quiero": "No sé a quién invocar",
+      "decir": "/orka ¿a quién invoco para <lo que quiero>?",
+      "ejemplo": "/orka ¿a quién invoco para que el autocomplete no ocupe todo el ancho?",
+      "invoca": "orka",
+      "arranca": "orka",
+      "que_pasa": "Orka te responde con el comando de esta guía y, si quieres, lo ejecuta.",
+      "claves": [
+        "ayuda",
+        "a quién",
+        "quién",
+        "qué comando",
+        "no sé"
+      ]
+    }
+  ]
+}

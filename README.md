@@ -27,6 +27,18 @@ Tú describes el trabajo, no el protocolo:
 "kompa, compón el formulario de registro"
 ```
 
+### ¿A quién invoco?
+
+Si no sabes qué decir, pregúntale al squad:
+
+```bash
+npx github:kevinedgm/nexa-squad quien "el formulario de cuentas se ve mal"
+#   Di: /orka corrige la composición de <módulo>; no cambies lo que hace
+npx github:kevinedgm/nexa-squad comandos      # guía completa
+```
+
+O dentro de Claude Code: `/orka ¿a quién invoco para …?`. La guía completa, con un comando por caso, está en [comandos/comandos.md](comandos/comandos.md) y se instala en `.nexa-squad/comandos.md`.
+
 ### Escenarios
 
 | Escenario | Arranca en | Qué se salta |
@@ -123,6 +135,7 @@ Pueden convivir en el mismo proyecto. Para evitar que una frase como "rediseña 
 squad.json            nombres, orden y decisión de cada rol (fuente para el instalador)
 AGENTS.md             política común (la que se instala como .nexa-squad/politica.md)
 estandares/           catálogo de estándares (se instala como .nexa-squad/estandares.md)
+comandos/             guía de comandos: comandos.json (fuente) y comandos.md (generado)
 skills/<rol>/         SKILL.md + references/ (se leen solo cuando el SKILL.md lo indica)
 agents/<rol>-agent.md envoltorio de subagente de cada rol
 bin/install.mjs       instalador sin dependencias
@@ -133,7 +146,8 @@ docs/                 arquitectura y guía de cambios
 ## Desarrollo
 
 ```bash
-npm test     # valida el paquete (scripts/check.mjs)
+npm test           # valida el paquete (scripts/check.mjs)
+npm run comandos   # regenera comandos/comandos.md tras editar comandos.json
 ```
 
 Para cambiar o agregar un rol, sigue [docs/contribuir.md](docs/contribuir.md).

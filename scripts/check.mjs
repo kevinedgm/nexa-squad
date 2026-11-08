@@ -37,5 +37,9 @@ for (const d of readdirSync(join(ROOT, 'skills'))) if (!skills.includes(d)) erro
 for (const f of readdirSync(join(ROOT, 'agents'))) if (!SQUAD.roles.some((r) => `${r.agent}.md` === f)) errors.push(`agents/${f} no está en squad.json`);
 
 if (!existsSync(join(ROOT, 'estandares', 'estandares.md'))) errors.push('falta estandares/estandares.md');
+// Guía de comandos: cada comando invoca un rol real y el .md está al día con el .json.
+const { DATA, renderMd, MD_PATH } = await import('../bin/comandos.mjs');
+for (const c of DATA.comandos) if (!skills.includes(c.invoca)) errors.push(`comando ${c.id}: invoca "${c.invoca}", que no es un rol`);
+if (!existsSync(MD_PATH) || readFileSync(MD_PATH, 'utf8') !== renderMd()) errors.push('comandos/comandos.md desactualizado: corre npm run comandos');
 if (errors.length) { console.error(errors.map((e) => '✗ ' + e).join('\n')); process.exit(1); }
 console.log(`✓ ${SQUAD.roles.length} roles, ${SQUAD.roles.filter((r) => r.agent).length} subagentes: todo coherente`);
