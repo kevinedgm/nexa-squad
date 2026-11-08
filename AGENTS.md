@@ -19,6 +19,19 @@ Este archivo es la política común del squad para Claude Code, Codex y Kiro. Es
 
 Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 
+## Escenarios
+
+No toda petición recorre la cadena completa. Orka reconoce el escenario y decide dónde arranca y qué roles se saltan (detalle en `skills/orka/references/escenarios.md`):
+
+| Escenario | Arranca en | Se salta |
+|---|---|---|
+| Nuevo | Inqa | Nada |
+| Extender un módulo existente | Inqa, solo el cambio | Los roles cuya decisión no cambia |
+| Traer una funcionalidad de otra aplicación | Inqa, con tabla de adaptación | Nada; se adapta al stack de destino |
+| Corregir la composición de algo ya construido | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
+| Migrar o rediseñar legacy | Inqa | Nada |
+| Un solo rol | El rol nombrado | Todos los demás |
+
 ## Reglas comunes
 
 1. **Una decisión por rol.** Cada rol decide solo lo suyo (su skill lo dice en la primera línea). Lo que pertenece a otro rol va como devolución a su dueño, nunca se resuelve en silencio.
@@ -28,7 +41,8 @@ Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 5. **El entorno nunca bloquea.** Configuración de servidor, versiones o herramientas no se preguntan: van al checklist docs/implementacion/<modulo>.md.
 6. **Lo irreversible espera a Kevin.** Borrar o migrar datos, o cambiar algo que afecta a otros módulos, solo se ejecuta tras el punto de control 2.
 7. **Cada entrega empieza con un resumen de máximo 5 líneas.**
-8. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia.
+8. **Nada se decide por gusto.** Toda regla de estructura, composición, componentes o revisión cita su fuente del catálogo `.nexa-squad/estandares.md` (en este repo, `estandares/estandares.md`), según su orden de autoridad. Lo que no tiene fuente es preferencia: se marca como supuesto y nunca bloquea.
+9. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia.
 
 ## Skill o subagente
 

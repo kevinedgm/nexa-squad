@@ -130,10 +130,11 @@ function writeBlock(file, lines, args) {
 
 function writePolicy(args) {
   const dest = join(args.base, `.${SQUAD.slug}`, 'politica.md');
-  if (args.dryRun) { log(`  ${C.cyan}copiaría${C.reset} política → ${C.dim}${relative(args.base, dest)}${C.reset}`); return dest; }
+  if (args.dryRun) { log(`  ${C.cyan}copiaría${C.reset} política y estándares → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`); return dest; }
   mkdirSync(dirname(dest), { recursive: true });
   cpSync(join(PKG_ROOT, 'AGENTS.md'), dest, { force: true });
-  log(`  ${ok('ok')}       política → ${C.dim}${relative(args.base, dest)}${C.reset}`);
+  cpSync(join(PKG_ROOT, 'estandares', 'estandares.md'), join(dirname(dest), 'estandares.md'), { force: true });
+  log(`  ${ok('ok')}       política y estándares → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`);
   return dest;
 }
 

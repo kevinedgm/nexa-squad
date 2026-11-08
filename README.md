@@ -2,7 +2,7 @@
 
 # Nexa Squad
 
-**Un squad de agentes que convierte una petición en un módulo terminado: requisitos, arquitectura, pantallas, componentes, código y revisión, cada parte con un solo dueño.**
+**Un squad de agentes que compone módulos completos con los componentes que ya existen: qué va junto a qué, qué ancho toma cada pieza, qué jerarquía, qué superficie, apoyado en estándares y no en gusto.**
 
 Orka → Inqa → Arko → Fluxa → Kompa → Kura → Forja → Vera
 
@@ -12,16 +12,31 @@ Orka → Inqa → Arko → Fluxa → Kompa → Kura → Forja → Vera
 
 ## Qué es
 
-Nexa Squad es un conjunto portable de skills y subagentes para **migrar, rediseñar o construir módulos completos** (front y back) en una aplicación existente, sobre todo en código legacy.
+Nexa Squad es un conjunto portable de skills y subagentes para **construir, extender, traer, corregir o migrar módulos completos** (front y back) en una aplicación existente.
+
+Su centro es la **composición**: poner los componentes en contexto. Fruti Squad fabrica buenos componentes; Nexa decide cómo se acomodan en una pantalla real (formularios, colecciones, maestro-detalle como diagnósticos CIE-10 con sus medicamentos, cuadrículas de medidas como signos vitales, líneas de tiempo como bitácoras). Cada regla cita su fuente en el [catálogo de estándares](estandares/estandares.md) (WCAG, GOV.UK, Material 3, HIG, Nielsen, Baymard, Gestalt…).
 
 Tú describes el trabajo, no el protocolo:
 
 ```text
+/orka quiero una funcionalidad para registrar signos vitales en consulta
+/orka en el módulo de pagos, cuando se rechace un pago, ahora hay que avisar al cliente
+/orka lee la bitácora de análisis de la app del laboratorio y tráela aquí, pero para radiología
+/orka el módulo de cuentas lo hice con Fruti y la composición está mal: corrígelo
 /orka migra el módulo gestor
-/orka continúa el gestor
-"usa inqa para analizar el módulo de pagos"
-"vera, revisa la fase 2 del gestor"
+"kompa, compón el formulario de registro"
 ```
+
+### Escenarios
+
+| Escenario | Arranca en | Qué se salta |
+|---|---|---|
+| Funcionalidad nueva | Inqa | Nada |
+| Extender un módulo ("cuando pase X, ahora debe pasar Y") | Inqa, solo el cambio | Los roles cuya decisión no cambia |
+| Traer una funcionalidad de otra aplicación | Inqa, con tabla de adaptación (igual / adaptado / no se trae) | Nada; Arko la adapta a tu stack |
+| Corregir la composición de algo ya construido | Vera en modo diagnóstico | Inqa y Arko, salvo que un hallazgo cambie comportamiento o datos |
+| Migrar o rediseñar legacy | Inqa | Nada |
+| Un solo rol | El rol que nombres | Todos los demás |
 
 Orka decide qué rol trabaja, resuelve lo que se puede inferir y solo te consulta en dos momentos: cuando hay reglas de negocio que aprobar y antes de cualquier acción irreversible.
 
@@ -96,8 +111,9 @@ El razonamiento completo está en [docs/arquitectura.md](docs/arquitectura.md).
 
 | | Fruti Squad | Nexa Squad |
 |---|---|---|
-| Produce | Componentes compartidos y su Design Hub | Módulos completos (front y back) |
-| Puente | — | Kura es el único que le hace pedidos a Fruti Squad |
+| Produce | Componentes compartidos, tokens y su Design Hub | Módulos completos (front y back) compuestos con esas piezas |
+| Lee del otro | — | Perfil del proyecto (stack: Vue, React, Tailwind, CSS), `tokens.json`, registro de componentes y páginas del Hub |
+| Puente | — | Kura es el único que le hace pedidos a Fruti Squad (`docs/componentes/pedidos/<id>.md`); si no hay Hub, el primer pedido inicia los fundamentos |
 
 Pueden convivir en el mismo proyecto. Para evitar que una frase como "rediseña este formulario" active a los dos, invoca a Nexa Squad por su nombre (`/orka`, "usa inqa…").
 
@@ -106,6 +122,7 @@ Pueden convivir en el mismo proyecto. Para evitar que una frase como "rediseña 
 ```text
 squad.json            nombres, orden y decisión de cada rol (fuente para el instalador)
 AGENTS.md             política común (la que se instala como .nexa-squad/politica.md)
+estandares/           catálogo de estándares (se instala como .nexa-squad/estandares.md)
 skills/<rol>/         SKILL.md + references/ (se leen solo cuando el SKILL.md lo indica)
 agents/<rol>-agent.md envoltorio de subagente de cada rol
 bin/install.mjs       instalador sin dependencias

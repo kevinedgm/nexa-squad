@@ -36,5 +36,6 @@ for (const r of SQUAD.roles.filter((x) => x.agent)) if (!orq.includes(r.agent)) 
 for (const d of readdirSync(join(ROOT, 'skills'))) if (!skills.includes(d)) errors.push(`skills/${d} no está en squad.json`);
 for (const f of readdirSync(join(ROOT, 'agents'))) if (!SQUAD.roles.some((r) => `${r.agent}.md` === f)) errors.push(`agents/${f} no está en squad.json`);
 
+if (!existsSync(join(ROOT, 'estandares', 'estandares.md'))) errors.push('falta estandares/estandares.md');
 if (errors.length) { console.error(errors.map((e) => '✗ ' + e).join('\n')); process.exit(1); }
 console.log(`✓ ${SQUAD.roles.length} roles, ${SQUAD.roles.filter((r) => r.agent).length} subagentes: todo coherente`);
