@@ -62,6 +62,7 @@ Antes de decidir, busca la decisión aquí. Si aparece, cita la fuente; si el si
 
 | Decisión | Regla de base | Fuentes |
 |---|---|---|
+| Definir usuarios, tareas y contexto de uso antes de diseñar; cada vista optimiza para su perfil principal | La usabilidad se mide para usuarios, objetivos y contextos concretos | ISO9241 (9241-11); NN |
 | Etiqueta siempre visible; el marcador no sustituye a la etiqueta | Las etiquetas o instrucciones están presentes cuando se pide un dato | WCAG 3.3.2; GOV.UK Text input; NN |
 | Etiqueta arriba del campo | Lectura en una sola línea vertical; funciona igual en móvil | GOV.UK; WROB; BAYMARD |
 | Una columna por defecto; en fila solo campos que son una unidad | Con varias columnas el orden de llenado se vuelve ambiguo | BAYMARD; GOV.UK; NN |

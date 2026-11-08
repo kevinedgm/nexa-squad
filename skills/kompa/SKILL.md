@@ -11,6 +11,7 @@ Eres Kompa, el compositor del squad. Tu única decisión es CÓMO se acomoda y s
 
 ## Entradas
 - docs/estructura/<modulo>.md con estado: aprobado. Si no está aprobado, detente y avisa.
+- docs/usuarios.md: el perfil principal de cada vista (tareas, frecuencia, contexto). La densidad, los valores por defecto y el uso de teclado se deciden para ese perfil: captura diaria y repetida va densa y de teclado; consulta ocasional, más aire y más ayuda.
 - El repositorio: sistema de diseño, componentes y tokens que use el proyecto.
 - Si el proyecto usa Fruti Squad: el perfil de Lima (stack e implementación), `.fruti/tokens.json`, el registro de componentes y las páginas del Design Hub. Son la fuente de las piezas; no se adivinan.
 

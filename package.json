@@ -1,6 +1,6 @@
 {
   "name": "nexa-squad",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Nexa Squad — Orka · Inqa · Arko · Fluxa · Kompa · Kura · Forja · Vera: de la petición al módulo terminado (requisitos, arquitectura, pantallas, componentes, código y revisión).",
   "bin": {
     "nexa-squad": "bin/install.mjs"

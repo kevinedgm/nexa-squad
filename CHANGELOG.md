@@ -1,5 +1,10 @@
 # Cambios
 
+## 0.4.0 (2026-11-08)
+
+- Perfiles de usuario: `docs/usuarios.md` (uno por producto) define quién usa el sistema, sus tareas, frecuencia, contexto y quién revisa el trabajo de quién. Lo escribe Inqa con lo que diga Kevin y se aprueba en el punto de control 1.
+- Todos los roles lo usan: requisitos por perfil (Inqa), permisos y rastro por perfil (Arko), perfil principal por vista (Fluxa), densidad según el perfil (Kompa), recorridos por perfil (Vera). Orka pregunta por los perfiles si faltan.
+
 ## 0.3.0 (2026-11-08)
 
 - Guía de comandos (`comandos/comandos.json` → `comandos/comandos.md`): qué decir según lo que quieres y a quién invoca. Se instala en `.nexa-squad/comandos.md`.

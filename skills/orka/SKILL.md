@@ -25,6 +25,9 @@ Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 - Si pregunta a quién invocar, qué comando usar o "ayuda", busca su caso en esa guía y respóndele con la frase exacta y qué pasará; ofrece ejecutarla tú en ese momento. No arranques la cadena sin que diga que sí.
 - No preguntes por el escenario cuando la frase ya lo dice: "corrige la composición", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
 
+## Perfiles de usuario
+Antes del primer módulo de un producto, comprueba si existe `docs/usuarios.md`. Si no existe y Kevin no describió los roles en su petición, pregúntale una vez, en sus palabras: quién usa el sistema, qué hace cada uno y quién revisa el trabajo de quién. Pasa su respuesta a Inqa, que la formaliza; los perfiles se aprueban en el punto de control 1. Si Kevin los describe en la misma petición ("es para un laboratorio: la analista captura la bitácora y el supervisor revisa"), no preguntes: úsalos.
+
 ## Escenarios
 Antes del primer paso, reconoce el escenario: decide en qué rol arranca la cadena, qué roles se saltan y si los documentos se escriben completos o como cambio.
 

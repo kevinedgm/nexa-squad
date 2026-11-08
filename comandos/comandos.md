@@ -10,6 +10,7 @@ En Claude Code cada rol se invoca con `/<rol>`. En Codex y Kiro, di "usa <rol> p
 
 | Quiero… | Di | Invoca | Arranca en | Qué pasa |
 |---|---|---|---|---|
+| Decir quién usa el sistema y qué hace cada uno, para que todo se diseñe para ellos | `/orka el sistema es para <dónde>: <rol> hace <tareas>; <otro rol> revisa <qué>` | orka | inqa | Inqa escribe docs/usuarios.md (tareas, frecuencia, contexto, quién revisa a quién); tú lo apruebas y todos los roles diseñan para esos perfiles. |
 | Construir una funcionalidad nueva desde una descripción | `/orka quiero una funcionalidad para <qué> en <módulo>` | orka | inqa | Cadena completa. Inqa te pregunta las reglas y tú las apruebas antes de diseñar. |
 | Agregar un comportamiento a un módulo que ya existe | `/orka en <módulo>, cuando <pasa X>, ahora tiene que <pasar Y>` | orka | inqa | Inqa documenta solo el cambio; los roles cuya decisión no cambia se saltan. |
 | Traer una funcionalidad de otra aplicación y adaptarla | `/orka lee <funcionalidad> de <app o ruta> y tráela aquí, pero para <qué>` | orka | inqa | Inqa lee la app de origen y arma una tabla igual / adaptado / no se trae que tú apruebas; Arko la traduce a tu stack. |

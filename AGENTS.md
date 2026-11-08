@@ -44,7 +44,8 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
 6. **Lo irreversible espera a Kevin.** Borrar o migrar datos, o cambiar algo que afecta a otros módulos, solo se ejecuta tras el punto de control 2.
 7. **Cada entrega empieza con un resumen de máximo 5 líneas.**
 8. **Nada se decide por gusto.** Toda regla de estructura, composición, componentes o revisión cita su fuente del catálogo `.nexa-squad/estandares.md` (en este repo, `estandares/estandares.md`), según su orden de autoridad. Lo que no tiene fuente es preferencia: se marca como supuesto y nunca bloquea.
-9. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia.
+9. **Se diseña para perfiles concretos.** `docs/usuarios.md` define quién usa el producto, sus tareas, frecuencia y contexto, y quién revisa el trabajo de quién. Cada requisito nombra a su perfil, cada vista tiene un perfil principal y cada hallazgo dice a qué perfil afecta.
+10. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia.
 
 ## Skill o subagente
 

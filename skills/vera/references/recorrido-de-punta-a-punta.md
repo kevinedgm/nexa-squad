@@ -25,7 +25,7 @@ Regla del eslabón más débil: una tarea se califica por su peor paso, no por e
 
 - Escribe en una frase lo que el módulo promete, tomada de los requisitos. Todo el recorrido prueba esa frase; la distancia entre la promesa y lo que pasa es la revisión.
 - Recorre sin guía: no leas notas del constructor ni pidas que te enseñen dónde está algo. Si necesitas una explicación para avanzar, eso ya es hallazgo: el usuario no tendrá a nadie al lado.
-- Usa datos a escala real y usuarios de cada nivel de acceso (1-4).
+- Usa datos a escala real y recorre como cada perfil de `docs/usuarios.md` (y cada nivel de acceso que tenga). Recorre también las relaciones entre perfiles: lo que captura uno y revisa otro es una sola tarea con una unión en medio.
 - Si la app no corre completa, no hay recorrido: el hallazgo es que no hay nada que revisar de punta a punta. Se anota en Pendientes.
 
 ## 3. El mapa de tareas

@@ -46,6 +46,7 @@ Regla única: **empieza con `/orka` y di lo que quieres con tus palabras.** Orka
 
 | Lo que quieres | Escribe |
 |---|---|
+| Decir para quién es el sistema (una vez por producto) | `/orka el sistema es para un laboratorio: la analista captura la bitácora y el supervisor la revisa` |
 | Construir algo nuevo | `/orka quiero una funcionalidad para registrar signos vitales en la consulta` |
 | Agregar un comportamiento a un módulo que ya existe | `/orka en pagos, cuando se rechace un pago, ahora hay que avisar al cliente` |
 | Traer una funcionalidad de otra aplicación | `/orka lee la bitácora de la app del laboratorio y tráela aquí, pero para radiología` |
@@ -66,6 +67,18 @@ npx github:kevinedgm/nexa-squad quien "el formulario de cuentas se ve mal"
 ```
 
 La lista completa de frases está en la [guía de comandos](comandos/comandos.md).
+
+### Para quién se diseña
+
+Lo primero que necesita el squad es saber **quién usa el sistema y qué hace cada persona**. Dilo con tus palabras, una vez por producto. Inqa lo convierte en `docs/usuarios.md`: cada perfil con sus tareas, qué tan seguido las hace, en qué contexto trabaja y quién revisa el trabajo de quién.
+
+A partir de ahí cada decisión se toma para un perfil:
+- la captura diaria de la analista se diseña densa y para usarse con teclado;
+- la vista del supervisor se diseña para revisar y liberar por lote;
+- el servidor impide que alguien libere lo que él mismo capturó;
+- Vera revisa el recorrido de cada perfil.
+
+Si no lo dices, Orka te lo pregunta antes del primer módulo.
 
 ### Llamar a un solo agente
 
@@ -93,6 +106,7 @@ Todo lo demás lo resuelve él, y lo que tuvo que suponer queda anotado.
 Cada agente escribe su documento en la carpeta `docs/` de tu proyecto. Así puedes revisarlo, y una sesión nueva sigue donde se quedó la anterior.
 
 ```text
+docs/usuarios.md                quién usa el sistema y qué hace cada perfil (uno por producto)
 docs/orquestacion/cuentas.md    bitácora de Orka: en qué va, qué supuso, qué te pregunta
 docs/requisitos/cuentas.md      qué debe hacer (Inqa)
 docs/estructura/cuentas.md      pantallas y su contenido (Fluxa)

@@ -2,6 +2,27 @@
   "nota": "Fuente única de la guía de comandos. Genera comandos/comandos.md con `npm run comandos`; `npm test` falla si quedó desactualizada.",
   "comandos": [
     {
+      "id": "perfiles",
+      "grupo": "cadena",
+      "quiero": "Decir quién usa el sistema y qué hace cada uno, para que todo se diseñe para ellos",
+      "decir": "/orka el sistema es para <dónde>: <rol> hace <tareas>; <otro rol> revisa <qué>",
+      "ejemplo": "/orka el sistema es para un laboratorio: la analista captura resultados en la bitácora y el supervisor los revisa y libera",
+      "invoca": "orka",
+      "arranca": "inqa",
+      "que_pasa": "Inqa escribe docs/usuarios.md (tareas, frecuencia, contexto, quién revisa a quién); tú lo apruebas y todos los roles diseñan para esos perfiles.",
+      "claves": [
+        "perfiles",
+        "perfil",
+        "usuarios",
+        "quién usa",
+        "roles de usuario",
+        "el sistema es para",
+        "supervisor",
+        "analista",
+        "revisa lo que"
+      ]
+    },
+    {
       "id": "nuevo",
       "grupo": "cadena",
       "quiero": "Construir una funcionalidad nueva desde una descripción",
