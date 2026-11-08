@@ -17,6 +17,20 @@ Idea tomada de "Building agents: when to fold subagents into your main agent loo
 4. **Corre cada caso dos veces.** Un mismo cambio puede pasar una vez y fallar la siguiente; solo cuenta lo que pasa en las dos.
 5. Anota el resultado en `evals/resultados.md`: fecha, versión del squad, qué cambió, caso, corrida 1, corrida 2.
 
+## Juntar un agente con Orka, uno a la vez
+
+El interruptor es `.nexa-squad/ejecucion.json` en el proyecto de prueba:
+
+```json
+{ "en-conversacion": ["fluxa"] }
+```
+
+Con la lista vacía, Orka lanza a todos como subagentes (forma actual). Cada rol que agregues corre dentro de la conversación de Orka. Orden sugerido, de más a menos acoplado: `fluxa`, `kompa`, `kura`, `inqa`. Forja y Vera se quedan como subagentes.
+
+1. **Línea base:** lista vacía, corre los 6 casos dos veces, anota en `resultados.md`.
+2. Agrega `fluxa`, corre de nuevo y compara caso por caso.
+3. Si ningún caso empeora, déjalo y agrega el siguiente. Si alguno empeora, quítalo y anota por qué.
+
 ## Cómo se compara un cambio
 
 - Corre todos los casos antes y después del cambio.

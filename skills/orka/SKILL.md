@@ -50,7 +50,10 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
 1. Lee el estado: el encabezado YAML de cada documento en docs/ y tu bitácora docs/orquestacion/<modulo>.md. Si no existe la bitácora, créala.
 2. Si la bitácora no tiene escenario, reconócelo (tabla "Escenarios") y anota en la bitácora el escenario, su evidencia y los roles que se saltan con su motivo.
 3. Elige el siguiente paso dentro del escenario: el primer documento que falta, que no está aprobado o que tiene devoluciones abiertas.
-4. Lanza el subagente de ese paso con un encargo corto: módulo, ruta de los documentos de entrada, qué se espera y las respuestas o supuestos ya decididos que le afectan. Lanza un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
+4. Ejecuta el rol de ese paso según `.nexa-squad/ejecucion.json`:
+   - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada, qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
+   - Si el rol **está** en `en-conversacion`: carga su skill aquí mismo y haz su trabajo en esta conversación, con todo lo que ya leíste. Aplica las reglas de su skill (no las de su subagente): puede preguntarle a Kevin directamente, pero junta las preguntas en un solo bloque. Al terminar, vuelve a tu papel de Orka y apruébalo o devuélvelo igual que a un subagente.
+   - Si el archivo no existe, todos van como subagentes.
 5. Al recibir su resultado, clasifica cada pregunta (sección "Resolver preguntas").
 6. Si el documento cumple los criterios de aprobación, cambia su estado a `aprobado` y agrega `aprobado-por: orquestador`. Si no, devuélvelo al mismo rol con la causa.
 7. Enruta las devoluciones que el rol dejó para otros (sección "Devoluciones").

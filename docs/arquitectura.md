@@ -70,4 +70,4 @@ Fuente: Anthropic, *Building agents: when to fold subagents into your main agent
 | Subagente útil cuando hay contexto que crece mucho o trabajo en paralelo que se descarta | Forja lee y escribe mucho código; Vera necesita independencia del razonamiento de Forja | Se quedan como subagentes |
 | Medir antes de cambiar: ~10 tareas doradas, correr dos veces, cambiar una cosa a la vez | No había evaluaciones | Se agregó `evals/` con 6 casos |
 
-Plan: correr `evals/` con la forma actual; después mover Fluxa, Kompa y Kura a skills dentro de la conversación de Orka (una a la vez) y conservar cada cambio solo si ningún caso empeora.
+Plan (aprobado por Kevin): correr `evals/` con la forma actual; después agregar uno a uno `fluxa`, `kompa`, `kura` e `inqa` a `.nexa-squad/ejecucion.json` (`en-conversacion`) y conservar cada cambio solo si ningún caso empeora.

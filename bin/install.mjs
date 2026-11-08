@@ -175,6 +175,12 @@ function doInstall(args) {
   }
 
   writePolicy(args);
+  // Qué roles corren en la conversación de Orka en vez de como subagente (se prueba uno a uno con evals/).
+  const ejec = join(args.base, `.${SQUAD.slug}`, 'ejecucion.json');
+  if (!existsSync(ejec)) {
+    if (args.dryRun) log(`  ${C.cyan}crearía${C.reset} ${relative(args.base, ejec)}`);
+    else { writeFileSync(ejec, JSON.stringify({ 'en-conversacion': [], nota: 'Roles que Orka ejecuta en su propia conversación en lugar de lanzarlos como subagentes. Vacío = todos como subagentes. Cambia uno a la vez y mide con evals/.' }, null, 2) + '\n'); log(`  ${ok('ok')}       ${relative(args.base, ejec)}`); }
+  }
   const lines = instructionLines(roles, target);
   if (target === 'claude') writeBlock(join(args.base, args.global ? join('.claude', 'CLAUDE.md') : 'CLAUDE.md'), lines, args);
   else if (target === 'codex') writeBlock(join(args.base, 'AGENTS.md'), lines, args);
