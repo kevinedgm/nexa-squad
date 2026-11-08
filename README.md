@@ -1,8 +1,12 @@
 <div align="center">
 
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/nexa-squad-oscuro.svg"><img src="assets/marca/nexa-squad.svg" alt="Nexa Squad" width="96"></picture>
+
 # Nexa Squad
 
 **Ocho agentes que diseñan y construyen módulos completos acomodando bien los componentes que ya tienes.**
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/orka-oscuro.svg"><img src="assets/marca/orka.svg" alt="Orka" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/inqa-oscuro.svg"><img src="assets/marca/inqa.svg" alt="Inqa" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/arko-oscuro.svg"><img src="assets/marca/arko.svg" alt="Arko" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/fluxa-oscuro.svg"><img src="assets/marca/fluxa.svg" alt="Fluxa" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/kompa-oscuro.svg"><img src="assets/marca/kompa.svg" alt="Kompa" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/kura-oscuro.svg"><img src="assets/marca/kura.svg" alt="Kura" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/forja-oscuro.svg"><img src="assets/marca/forja.svg" alt="Forja" width="32"></picture>&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/vera-oscuro.svg"><img src="assets/marca/vera.svg" alt="Vera" width="32"></picture>
 
 Orka · Inqa · Arko · Fluxa · Kompa · Kura · Forja · Vera
 
@@ -129,16 +133,16 @@ docs/revision/cuentas-…md       hallazgos y veredicto (Vera)
 
 ## El equipo
 
-| Agente | Qué decide | Llámalo solo cuando… |
-|---|---|---|
-| **Orka** · Conductor | Quién trabaja y en qué orden | Siempre puedes empezar por él |
-| **Inqa** · Product Analyst | Qué debe hacer la funcionalidad y con qué reglas | Quieres entender un módulo o escribir sus requisitos |
-| **Arko** · Systems Architect | Cómo se guarda y se protege en el servidor | Necesitas definir datos, API o permisos |
-| **Fluxa** · Flow Designer | Qué pantallas hay, qué contienen y en qué orden | Necesitas definir campos, secciones o pasos |
-| **Kompa** · Layout Composer | Cómo se acomoda cada parte: anchos, filas, jerarquía, superficies | Una vista ya tiene su contenido y falta acomodarla |
-| **Kura** · Component Curator | Qué componente se usa y qué se pide a Fruti Squad | Quieres saber si algo ya existe o hay que pedirlo |
-| **Forja** · Build Engineer | Cómo se escribe el código | Los documentos están aprobados y toca programar |
-| **Vera** · QA Auditor | Si pasa y a quién regresa cada problema | Quieres revisar o auditar sin corregir |
+| | Agente | Lema | Qué decide | Llámalo solo cuando… |
+|---|---|---|---|---|
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/orka-oscuro.svg"><img src="assets/marca/orka.svg" alt="Orka" width="32"></picture> | **Orka** · Conductor | Dirige el squad: quién trabaja ahora y qué se aprueba solo. | Quién trabaja y en qué orden | Siempre puedes empezar por él |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/inqa-oscuro.svg"><img src="assets/marca/inqa.svg" alt="Inqa" width="32"></picture> | **Inqa** · Product Analyst | Qué debe hacer la funcionalidad, para quién y cómo se comprueba. | Qué debe hacer la funcionalidad y con qué reglas | Quieres entender un módulo o escribir sus requisitos |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/arko-oscuro.svg"><img src="assets/marca/arko.svg" alt="Arko" width="32"></picture> | **Arko** · Systems Architect | Cómo se construye por detrás: datos, API y permisos. | Cómo se guarda y se protege en el servidor | Necesitas definir datos, API o permisos |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/fluxa-oscuro.svg"><img src="assets/marca/fluxa.svg" alt="Fluxa" width="32"></picture> | **Fluxa** · Flow Designer | Qué pantallas hay, qué contienen y en qué orden. | Qué pantallas hay, qué contienen y en qué orden | Necesitas definir campos, secciones o pasos |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/kompa-oscuro.svg"><img src="assets/marca/kompa.svg" alt="Kompa" width="32"></picture> | **Kompa** · Layout Composer | Cómo se acomoda cada sección: qué crece, qué cede y qué nunca se mueve. | Cómo se acomoda cada parte: anchos, filas, jerarquía, superficies | Una vista ya tiene su contenido y falta acomodarla |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/kura-oscuro.svg"><img src="assets/marca/kura.svg" alt="Kura" width="32"></picture> | **Kura** · Component Curator | Reutilizar antes que crear. | Qué componente se usa y qué se pide a Fruti Squad | Quieres saber si algo ya existe o hay que pedirlo |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/forja-oscuro.svg"><img src="assets/marca/forja.svg" alt="Forja" width="32"></picture> | **Forja** · Build Engineer | Escribe el código que cumple lo aprobado, fase por fase. | Cómo se escribe el código | Los documentos están aprobados y toca programar |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="assets/marca/vera-oscuro.svg"><img src="assets/marca/vera.svg" alt="Vera" width="32"></picture> | **Vera** · QA Auditor | Si pasa, o a quién regresa cada hallazgo. | Si pasa y a quién regresa cada problema | Quieres revisar o auditar sin corregir |
 
 Cada decisión tiene un solo dueño. Si un agente encuentra algo que no le toca, se lo regresa a su dueño en lugar de resolverlo él.
 
@@ -200,7 +204,7 @@ npm run comandos   # regenera comandos/comandos.md después de editar comandos.j
 
 Antes de cambiar cómo trabaja un agente, corre las tareas de prueba de [evals/](evals/README.md) antes y después del cambio, y conserva el cambio solo si ningún caso empeora.
 
-Para cambiar o agregar un agente, sigue [docs/contribuir.md](docs/contribuir.md).
+Para cambiar o agregar un agente, sigue [docs/contribuir.md](docs/contribuir.md). La identidad visual (símbolos, color, tipografía y reglas de uso) está en [docs/marca.md](docs/marca.md); los archivos, en `assets/marca/`.
 
 ## Licencia
 
