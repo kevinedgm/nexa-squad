@@ -9,6 +9,10 @@
 - Se reutiliza y vive en el Design Hub → **Fruti Squad**.
 - Es una funcionalidad del producto, con datos, reglas y un rol que la usa → **Nexa Squad**.
 
+**Las pantallas del producto son de Nexa.** Cuando los dos squads están instalados (existe `.nexa-squad/`), Fruti no diseña pantallas ni módulos del producto, ni siquiera como prototipo. Kiwi responde en una línea con la frase para Nexa. Fruti sí diseña **patrones** reutilizables de pantalla, por ejemplo "el formulario de alta estándar": cómo se agrupan los campos, dónde van las acciones y cómo se adapta a pantallas chicas. Nexa usa ese patrón al armar "el alta de muestra de la recepcionista".
+
+Si Nexa no está instalado, Fruti sigue diseñando pantallas completas.
+
 Ejemplo con la misma palabra, "autocomplete":
 - "Necesito un autocomplete que busque mientras escribo y se pueda usar con teclado" → Fruti. Es una pieza.
 - "En Cuentas, la recepcionista busca la muestra pendiente con un autocomplete y la paga" → Nexa. Es un módulo que usa la pieza.
@@ -30,7 +34,7 @@ Ejemplo con la misma palabra, "autocomplete":
 | Migrar un módulo legacy | Nexa | `/orka migra el módulo gestor` |
 | Definir los roles del producto | Nexa | `/orka init` |
 
-Si un pedido empieza con `/orka`, lo toma Nexa. Si no, una frase como "rediseña este formulario" la toma Fruti. Por eso, cuando quieras a Nexa, empieza siempre con `/orka`.
+Para Nexa, empieza siempre con `/orka`. Si una frase como "rediseña el formulario de cuentas" le llega a Fruti y Nexa está instalado, Kiwi no la diseña: te responde con la frase para Nexa. Si lo que querías era el patrón reutilizable, pídelo así: "diseña el patrón de formulario de alta".
 
 ## 3. De qué se encarga cada uno
 
@@ -42,7 +46,7 @@ Si un pedido empieza con `/orka`, lo toma Nexa. Si no, una frase como "rediseña
 | Decide | Anatomía, variantes, estados y transiciones, API, tokens, ciclo de vida | Reglas de negocio, roles y permisos, datos y API del servidor, qué pantallas hay, cómo se acomodan las piezas en cada una |
 | Entrega | Componente en el código, contrato, registro, página del Design Hub | Módulo funcionando, documentos en `docs/` y revisión por rol |
 | Dónde guarda su estado | `.fruti/` (perfil, tokens, registro, handoffs) | `docs/` (producto, requisitos, estructura, composición, componentes, revisión) |
-| No hace | No decide reglas de negocio, roles ni el servidor de un módulo | No crea ni modifica componentes, variantes ni tokens |
+| No hace | No decide reglas de negocio, roles ni el servidor de un módulo. Con Nexa instalado, no diseña pantallas del producto | No crea ni modifica componentes, variantes, patrones ni tokens |
 
 ## 4. Cuándo trabajan juntos
 
@@ -68,13 +72,19 @@ Ejemplo: Cuentas tiene buenos componentes, pero el autocomplete ocupa todo el an
    - de acomodo (anchos, filas, jerarquía) → los corrige Nexa (Kompa y Forja);
    - de la pieza misma (no tiene la variante que hace falta, o su comportamiento está mal) → Kura escribe un pedido y vuelve al caso A.
 
-### C. Cambia la marca o un token
+### C. Rediseñar una aplicación existente
+
+1. Fruti (Kiwi) entiende la dirección visual, hace el inventario y tú apruebas el alcance.
+2. El plan de Fruti cubre fundamentos, primitivas, patrones y componentes. Las vistas quedan con `owner: nexa`.
+3. Cada vista se rediseña con Nexa: `/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>`. Nexa la arma con las piezas y los patrones nuevos.
+
+### D. Cambia la marca o un token
 
 1. Fruti cambia el token en `.fruti/tokens.json` (Lima) y regenera lo que depende de él.
 2. Los módulos de Nexa usan tokens, no valores sueltos, así que el cambio les llega solo.
 3. Si quieres comprobar que ningún módulo se rompió, pídele a Nexa `/vera diagnostica el módulo de <módulo>`.
 
-### D. Un producto que empieza desde cero
+### E. Un producto que empieza desde cero
 
 1. Con Nexa, `/orka init` define el producto y sus roles.
 2. Con Fruti, `fruti foundations` propone los fundamentos visuales y Lima los aprueba. Si no se hace antes, el primer pedido de Kura inicia el Design Hub.

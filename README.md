@@ -150,9 +150,9 @@ Los dos pueden estar instalados en el mismo proyecto:
 
 - Nexa lee los componentes, el registro y los tokens de Fruti (`.fruti/`) y nunca los modifica.
 - Si falta un componente o una variante, **Kura** escribe un pedido en `docs/componentes/pedidos/`. Ningún otro agente de Nexa lo hace. Forja deja ese lugar como pendiente hasta que Fruti entrega la pieza.
-- Empieza con `/orka` cuando quieras a Nexa, para que una frase como "rediseña este formulario" no la tome Fruti.
+- **Las pantallas del producto son de Nexa.** Con los dos squads instalados, Fruti diseña piezas y patrones reutilizables, y si le pides una pantalla del producto te responde con la frase para Nexa. Empieza con `/orka` cuando quieras a Nexa.
 
-La guía completa, con qué pedirle a cada uno, los cuatro casos en que trabajan juntos y quién manda cuando no coinciden, está en [docs/nexa-y-fruti.md](docs/nexa-y-fruti.md).
+La guía completa, con qué pedirle a cada uno, los cinco casos en que trabajan juntos y quién manda cuando no coinciden, está en [docs/nexa-y-fruti.md](docs/nexa-y-fruti.md).
 
 ## Opciones de instalación
 
