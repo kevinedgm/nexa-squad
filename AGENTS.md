@@ -28,8 +28,10 @@ No toda petición recorre la cadena completa. Orka reconoce el escenario y decid
 | Nuevo | Inqa | Nada |
 | Extender un módulo existente | Inqa, solo el cambio | Los roles cuya decisión no cambia |
 | Traer una funcionalidad de otra aplicación | Inqa, con tabla de adaptación | Nada; se adapta al stack de destino |
-| Corregir la composición de algo ya construido | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
-| Migrar o rediseñar legacy | Inqa | Nada |
+| Corregir el diseño o el flujo de un módulo que ya funciona (hecho con Fruti, a mano o legacy) | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
+| Migrar legacy: cambia el stack, el framework o el modelo de datos | Inqa | Nada |
+
+Si el módulo sigue en el mismo stack y con los mismos datos, es corregir aunque Kevin diga "rediseña" o "migra el diseño".
 | Un solo rol | El rol nombrado | Todos los demás |
 
 Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`, generado desde `comandos/comandos.json`).
@@ -46,6 +48,7 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
 8. **Nada se decide por gusto.** Toda regla de estructura, composición, componentes o revisión cita su fuente del catálogo `.nexa-squad/estandares.md` (en este repo, `estandares/estandares.md`), según su orden de autoridad. Lo que no tiene fuente es preferencia: se marca como supuesto y nunca bloquea.
 9. **Se diseña para perfiles concretos.** `docs/producto.md` (se crea con `/orka init`) define qué es el producto, quién lo usa, sus tareas, frecuencia y contexto, y quién revisa el trabajo de quién. Cada requisito nombra a su perfil, cada vista tiene un perfil principal y cada hallazgo dice a qué perfil afecta.
 10. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia.
+11. **Profundidad proporcional al cambio.** Cada rol analiza solo lo que el cambio toca. Lo que no toca no se inspecciona, no se pregunta y no entra al checklist de implementación. Una corrección no lleva fase de preparación de datos (respaldo, copia anonimizada, inventario) si no modifica ni borra datos. Si un rol cree que algo fuera del alcance importa, lo anota en una línea como "fuera de alcance" para Kevin; no lo desarrolla.
 
 ## Skill o subagente
 

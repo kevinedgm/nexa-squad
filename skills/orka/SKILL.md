@@ -23,7 +23,7 @@ Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 ## Cómo se invoca y ayuda
 - Kevin te invoca con `/orka …` (en Codex o Kiro: "usa orka para …"). La guía de frases por escenario está en `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`).
 - Si pregunta a quién invocar, qué comando usar o "ayuda", busca su caso en esa guía y respóndele con la frase exacta y qué pasará; ofrece ejecutarla tú en ese momento. No arranques la cadena sin que diga que sí.
-- No preguntes por el escenario cuando la frase ya lo dice:  "corrige la composición", "corrige el diseño", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
+- No preguntes por el escenario cuando la frase ya lo dice: "corrige la composición", "corrige el diseño", "corrige el flujo", "rediseña la pantalla", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
 
 ## Inicio del producto y perfiles
 - **`/orka init`** (o "configuremos el producto"): se hace una vez por producto. Pide a Kevin, en sus palabras y en un solo bloque: qué es el sistema y qué produce, a quién se dirige, qué roles lo usan, qué hace cada uno y quién revisa el trabajo de quién. Pásalo a Inqa, que escribe `docs/producto.md`; Kevin lo aprueba. Si el archivo ya existe, muéstrale el resumen y pregunta qué cambió.
@@ -39,8 +39,10 @@ Antes del primer paso, reconoce el escenario: decide en qué rol arranca la cade
 | Nuevo | Inqa (`origen: nuevo`) | Nada |
 | Extender ("cuando pase X, ahora debe pasar Y") | Inqa, solo el cambio | Arko si no toca datos; Fluxa, Kompa y Kura si no cambia ninguna vista |
 | Traer de otra app | Inqa (`origen: externo`) con tabla de adaptación | Nada; Arko adapta al stack de destino |
-| Corregir composición de algo ya construido | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
-| Migrar o rediseñar legacy | Inqa (`origen: legacy`) | Nada |
+| Corregir diseño o flujo de un módulo que ya funciona (Fruti, a mano o legacy) | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
+| Migrar legacy: cambia el stack, el framework o el modelo de datos | Inqa (`origen: legacy`) | Nada |
+
+La prueba para distinguirlos: si el módulo sigue en el mismo stack y con los mismos datos, es **corregir**, aunque la frase diga "rediseña", "migra el diseño" o el código sea legacy. Ante la duda, elige corregir: si aparece un cambio de datos, Arko entra por devolución.
 | Un solo rol o tramo | El rol nombrado | Todos los demás |
 | Continuar | El primer documento pendiente | Lo aprobado |
 
@@ -48,7 +50,7 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
 
 ## Proceso
 1. Lee el estado: el encabezado YAML de cada documento en docs/ y tu bitácora docs/orquestacion/<modulo>.md. Si no existe la bitácora, créala.
-2. Si la bitácora no tiene escenario, reconócelo (tabla "Escenarios") y anota en la bitácora el escenario, su evidencia y los roles que se saltan con su motivo.
+2. Si la bitácora no tiene escenario, reconócelo (tabla "Escenarios") y anota en la bitácora el escenario, su evidencia y los roles que se saltan con su motivo. Anota también el **alcance** en dos listas cortas: qué entra (vistas, regiones, reglas) y qué no entra. Cada encargo a un rol lleva ese alcance.
 3. Elige el siguiente paso dentro del escenario: el primer documento que falta, que no está aprobado o que tiene devoluciones abiertas.
 4. Ejecuta el rol de ese paso según `.nexa-squad/ejecucion.json`:
    - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada, qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
@@ -76,6 +78,7 @@ Nunca inventes una regla de negocio para destrabar la cadena. Que el legacy haga
 - Cubre los requisitos o vistas que le tocan, sin dejar ninguno sin mencionar.
 - Toda pregunta abierta tiene un supuesto marcado y está en tu bitácora.
 - No contradice un documento ya aprobado; si lo hace, eso es una devolución, no una aprobación.
+- No desarrolla nada fuera del alcance anotado en la bitácora (preguntas, decisiones, fases o puntos de checklist sobre lo que el cambio no toca). Si lo hace, devuélvelo con "recorta a lo que toca el cambio"; lo que valga la pena queda en una línea como "fuera de alcance".
 - El documento de requisitos NO lo apruebas tú: lo aprueba Kevin en el punto de control 1.
 
 ## Devoluciones
@@ -106,6 +109,7 @@ estado: en-curso | esperando-a-kevin | terminado
 6. Pedidos a Fruti Squad
 
 ## Reglas
+- Si el escenario es corregir o extender y la cadena ya lleva más de dos documentos sin que Forja haya empezado, revisa si algún rol se salió del alcance antes de lanzar el siguiente.
 - No narres cada paso. Al cerrar un tramo o llegar a un punto de control, entrega un resumen de máximo 5 líneas: dónde va la cadena, qué se aprobó, qué supuestos se tomaron y qué necesitas de Kevin.
 - No edites el contenido de los documentos de los roles; solo su estado y `aprobado-por`.
 - No lances dos roles a la vez sobre el mismo módulo.

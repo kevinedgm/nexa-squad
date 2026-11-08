@@ -2,6 +2,9 @@
 
 ## Sin publicar
 
+- Profundidad proporcional al cambio (regla común 11): cada rol analiza solo lo que el cambio toca; lo demás queda en una línea "fuera de alcance". Orka anota el alcance en la bitácora y devuelve los documentos que se salen de él.
+- Corregir frente a migrar: corregir el diseño o el flujo de un módulo que sigue en el mismo stack y con los mismos datos es "corregir", aunque sea legacy o la frase diga "rediseña". "Migrar" queda solo para cambios de stack, framework o modelo de datos.
+- Arko: sin fase de preparación de datos (respaldo, copia anonimizada, inventario) si el cambio no modifica ni borra datos; el checklist de implementación lista solo lo que el cambio toca.
 - `.nexa-squad/ejecucion.json`: lista de roles que Orka ejecuta en su propia conversación en lugar de como subagentes; vacía por defecto. Sirve para juntar roles uno a uno midiendo con `evals/`.
 - `evals/`: 6 tareas de prueba con rúbrica (registro, CIE-10, signos vitales, corregir cuentas, traer bitácora, captura y revisión) para medir cambios antes de hacerlos.
 - `docs/arquitectura.md`: revisión frente al artículo de Anthropic sobre cuándo juntar subagentes en el agente principal.

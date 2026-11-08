@@ -92,12 +92,12 @@
     {
       "id": "corregir",
       "grupo": "cadena",
-      "quiero": "Corregir cómo se ve o se acomoda un módulo ya construido (por ejemplo, con Fruti Squad)",
+      "quiero": "Corregir el diseño o el flujo de un módulo que ya funciona (hecho con Fruti Squad, a mano o legacy), sin cambiar stack ni datos",
       "decir": "/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>",
       "ejemplo": "/orka corrige el diseño del módulo de cuentas; lo usa la recepcionista para pagar muestras pendientes, adjuntar vouchers y marcarlas como pagadas o canceladas",
       "invoca": "orka",
       "arranca": "vera",
-      "que_pasa": "Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos. Si un hallazgo cambia lo que hace el módulo, va a Inqa.",
+      "que_pasa": "Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos, sin inventario ni preparación de datos. Si un hallazgo cambia lo que hace el módulo, va a Inqa.",
       "claves": [
         "corrige",
         "corregir",
@@ -110,24 +110,28 @@
         "desordenado",
         "diseño está mal",
         "corrige el diseño",
-        "el diseño"
+        "el diseño",
+        "corrige el flujo",
+        "rediseña la pantalla",
+        "rediseña el diseño",
+        "flujo de operación",
+        "rediseña",
+        "rediseñar"
       ]
     },
     {
       "id": "migrar",
       "grupo": "cadena",
-      "quiero": "Migrar o rediseñar un módulo legacy completo",
-      "decir": "/orka migra <módulo>",
-      "ejemplo": "/orka migra el módulo gestor",
+      "quiero": "Migrar un módulo legacy: cambia el stack, el framework o el modelo de datos",
+      "decir": "/orka migra <módulo> a <stack o base nueva>",
+      "ejemplo": "/orka migra el módulo gestor a la base nueva",
       "invoca": "orka",
       "arranca": "inqa",
-      "que_pasa": "Cadena completa; lo que hace el legacy es evidencia, no requisito.",
+      "que_pasa": "Cadena completa; lo que hace el legacy es evidencia, no requisito. Si el stack y los datos se quedan igual, es corregir.",
       "claves": [
         "migra",
         "migrar",
         "legacy",
-        "rediseña",
-        "rediseñar",
         "rehacer",
         "moderniza"
       ]

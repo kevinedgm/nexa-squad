@@ -31,7 +31,8 @@ Ejemplo con la misma palabra, "autocomplete":
 | Agregar un comportamiento a un módulo existente | Nexa | `/orka en pagos, avisa al cliente cuando se rechace un pago` |
 | Traer una funcionalidad de otra aplicación | Nexa | `/orka trae la bitácora del laboratorio, pero para radiología` |
 | Corregir cómo se acomoda un módulo ya construido | Nexa | `/orka corrige el diseño de cuentas; lo usa la recepcionista para…` |
-| Migrar un módulo legacy | Nexa | `/orka migra el módulo gestor` |
+| Corregir el diseño o el flujo de un módulo que ya funciona | Nexa | `/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>` |
+| Migrar un módulo legacy a otro stack o a otra base de datos | Nexa | `/orka migra el módulo gestor a la base nueva` |
 | Definir los roles del producto | Nexa | `/orka init` |
 
 Para Nexa, empieza siempre con `/orka`. Si una frase como "rediseña el formulario de cuentas" le llega a Fruti y Nexa está instalado, Kiwi no la diseña: te responde con la frase para Nexa. Si lo que querías era el patrón reutilizable, pídelo así: "diseña el patrón de formulario de alta".

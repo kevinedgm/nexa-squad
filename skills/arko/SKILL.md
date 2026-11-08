@@ -29,6 +29,7 @@ Lee `docs/producto.md`: los permisos en servidor se definen por perfil, y cada r
 - Si un requisito es técnicamente inviable o contradictorio, no lo cambies: devuélvelo al analista con la causa.
 - Los permisos se exigen en el servidor, nunca solo en la pantalla.
 - Toda operación irreversible (eliminar, migrar datos) lleva plan de respaldo y forma de verificarla.
+- Proporción: si el cambio no modifica ni borra datos, no hay fase de preparación (respaldo, copia anonimizada, inventario). Las pruebas de caracterización cubren solo el código que el cambio toca. Analiza solo lo que está en el alcance de la bitácora; lo demás, una línea "fuera de alcance".
 - Cambios a datos existentes: indica cuántos registros afecta y cómo se prueba antes en local.
 - No elijas librerías visuales ni estilos; si un requisito lo implica, márcalo "para compositor".
 - No inventes cifras. Lo no confirmado sobre reglas o datos queda como supuesto o pregunta.
@@ -65,6 +66,6 @@ estado: borrador | con-preguntas | aprobado
 9. Plan por fases, ligado al orden de trabajo del analista, con cómo verificar cada fase
 10. Devoluciones al analista y pendientes para compositor
 
-Además, un archivo aparte `docs/implementacion/<modulo>.md`: checklist breve de lo que hay que revisar o configurar al implementar o desplegar (p. ej. que el servidor acepte archivos de 20 MB, que la carpeta de documentos no sea accesible desde la web). Una línea por punto, sin preguntas.
+Además, un archivo aparte `docs/implementacion/<modulo>.md`: checklist breve de lo que hay que revisar o configurar al implementar o desplegar **por este cambio** (p. ej., si el cambio agrega subida de archivos, que el servidor acepte su tamaño). Una línea por punto, sin preguntas. Si el cambio no toca nada del entorno, el archivo dice "sin cambios de entorno" y nada más.
 
 El documento está listo solo cuando estado = aprobado por Kevin.
