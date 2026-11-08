@@ -1,0 +1,20 @@
+{
+  "name": "nexa-squad",
+  "version": "0.1.0",
+  "description": "Nexa Squad — Orka · Inqa · Arko · Fluxa · Kompa · Kura · Forja · Vera: de la petición al módulo terminado (requisitos, arquitectura, pantallas, componentes, código y revisión).",
+  "bin": {
+    "nexa-squad": "bin/install.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/check.mjs"
+  },
+  "files": ["bin/", "skills/", "agents/", "AGENTS.md", "squad.json", "install.sh", "README.md", "LICENSE"],
+  "engines": { "node": ">=16" },
+  "keywords": ["claude-code", "skills", "subagents", "codex", "kiro", "legacy", "nexa-squad"],
+  "author": "kevinedgm",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/kevinedgm/nexa-squad.git" },
+  "bugs": { "url": "https://github.com/kevinedgm/nexa-squad/issues" },
+  "homepage": "https://github.com/kevinedgm/nexa-squad#readme"
+}

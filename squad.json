@@ -1,0 +1,64 @@
+{
+  "name": "Nexa Squad",
+  "slug": "nexa-squad",
+  "repo": "kevinedgm/nexa-squad",
+  "tagline": "Squad de composición e integración (front y back) para construir módulos de punta a punta: requisitos, arquitectura, estructura, composición, componentes, construcción y revisión.",
+  "roles": [
+    {
+      "order": 0,
+      "skill": "orka",
+      "agent": null,
+      "title": "Orka Conductor",
+      "decides": "Qué rol trabaja ahora y qué se aprueba solo o se escala a Kevin"
+    },
+    {
+      "order": 1,
+      "skill": "inqa",
+      "agent": "inqa-agent",
+      "title": "Inqa Product Analyst",
+      "decides": "Qué debe hacer la funcionalidad, para quién, con qué reglas y cómo se comprueba"
+    },
+    {
+      "order": 2,
+      "skill": "arko",
+      "agent": "arko-agent",
+      "title": "Arko Systems Architect",
+      "decides": "Cómo se construye por detrás: datos, APIs, reglas en servidor"
+    },
+    {
+      "order": 3,
+      "skill": "fluxa",
+      "agent": "fluxa-agent",
+      "title": "Fluxa Flow Designer",
+      "decides": "Flujo de la pantalla: vistas, grupos, orden y prioridad de acciones"
+    },
+    {
+      "order": 4,
+      "skill": "kompa",
+      "agent": "kompa-agent",
+      "title": "Kompa Layout Composer",
+      "decides": "Cómo se acomoda cada sección: jerarquía, espaciados con tokens, qué cede en pantallas chicas"
+    },
+    {
+      "order": 5,
+      "skill": "kura",
+      "agent": "kura-agent",
+      "title": "Kura Component Curator",
+      "decides": "Si algo se reutiliza, se vuelve variante o componente nuevo (regla de 3 usos)"
+    },
+    {
+      "order": 6,
+      "skill": "forja",
+      "agent": "forja-agent",
+      "title": "Forja Build Engineer",
+      "decides": "Cómo se escribe el código para cumplir lo aprobado, fase por fase"
+    },
+    {
+      "order": 7,
+      "skill": "vera",
+      "agent": "vera-agent",
+      "title": "Vera QA Auditor",
+      "decides": "Si pasa o a quién regresa cada hallazgo"
+    }
+  ]
+}
