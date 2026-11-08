@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/marca/kit/squad-social-1280x640.png" alt="Nexa Squad: ocho agentes que diseñan y construyen módulos completos" width="100%">
+
 # Nexa Squad
 
 **Ocho agentes que diseñan y construyen módulos completos acomodando bien los componentes que ya tienes.**
@@ -131,14 +133,14 @@ docs/revision/cuentas-…md       hallazgos y veredicto (Vera)
 
 | Agente | Qué decide | Llámalo solo cuando… |
 |---|---|---|
-| **Orka** · Conductor | Quién trabaja y en qué orden | Siempre puedes empezar por él |
-| **Inqa** · Product Analyst | Qué debe hacer la funcionalidad y con qué reglas | Quieres entender un módulo o escribir sus requisitos |
-| **Arko** · Systems Architect | Cómo se guarda y se protege en el servidor | Necesitas definir datos, API o permisos |
-| **Fluxa** · Flow Designer | Qué pantallas hay, qué contienen y en qué orden | Necesitas definir campos, secciones o pasos |
-| **Kompa** · Layout Composer | Cómo se acomoda cada parte: anchos, filas, jerarquía, superficies | Una vista ya tiene su contenido y falta acomodarla |
-| **Kura** · Component Curator | Qué componente se usa y qué se pide a Fruti Squad | Quieres saber si algo ya existe o hay que pedirlo |
-| **Forja** · Build Engineer | Cómo se escribe el código | Los documentos están aprobados y toca programar |
-| **Vera** · QA Auditor | Si pasa y a quién regresa cada problema | Quieres revisar o auditar sin corregir |
+| <img src="assets/marca/orka/app-icon.svg" alt="" width="28" align="absmiddle"> **Orka** · Conductor | Quién trabaja y en qué orden | Siempre puedes empezar por él |
+| <img src="assets/marca/inqa/app-icon.svg" alt="" width="28" align="absmiddle"> **Inqa** · Product Analyst | Qué debe hacer la funcionalidad y con qué reglas | Quieres entender un módulo o escribir sus requisitos |
+| <img src="assets/marca/arko/app-icon.svg" alt="" width="28" align="absmiddle"> **Arko** · Systems Architect | Cómo se guarda y se protege en el servidor | Necesitas definir datos, API o permisos |
+| <img src="assets/marca/fluxa/app-icon.svg" alt="" width="28" align="absmiddle"> **Fluxa** · Flow Designer | Qué pantallas hay, qué contienen y en qué orden | Necesitas definir campos, secciones o pasos |
+| <img src="assets/marca/kompa/app-icon.svg" alt="" width="28" align="absmiddle"> **Kompa** · Layout Composer | Cómo se acomoda cada parte: anchos, filas, jerarquía, superficies | Una vista ya tiene su contenido y falta acomodarla |
+| <img src="assets/marca/kura/app-icon.svg" alt="" width="28" align="absmiddle"> **Kura** · Component Curator | Qué componente se usa y qué se pide a Fruti Squad | Quieres saber si algo ya existe o hay que pedirlo |
+| <img src="assets/marca/forja/app-icon.svg" alt="" width="28" align="absmiddle"> **Forja** · Build Engineer | Cómo se escribe el código | Los documentos están aprobados y toca programar |
+| <img src="assets/marca/vera/app-icon.svg" alt="" width="28" align="absmiddle"> **Vera** · QA Auditor | Si pasa y a quién regresa cada problema | Quieres revisar o auditar sin corregir |
 
 Cada decisión tiene un solo dueño. Si un agente encuentra algo que no le toca, se lo regresa a su dueño en lugar de resolverlo él.
 
@@ -177,6 +179,10 @@ Qué agrega a tu proyecto con `--target claude`:
 
 El instalador no sobrescribe nada sin `--force`, y al reinstalar solo cambia su propio bloque en `CLAUDE.md`. En Codex y Kiro las rutas son otras; las muestra `list`.
 
+## Marca
+
+Símbolos, colores, letra, portadas para marketplace y textos en español e inglés: [assets/marca](assets/marca/README.md).
+
 ## Para quien mantiene este repositorio
 
 Cada agente existe de dos formas. Como **skill**, trabaja en tu conversación y te puede preguntar. Como **subagente**, Orka lo lanza en cadena: trabaja aislado, no pregunta y devuelve un resumen. La fuente de cada agente es su `skills/<agente>/SKILL.md`; el subagente solo la carga. El razonamiento completo está en [docs/arquitectura.md](docs/arquitectura.md).
@@ -185,6 +191,7 @@ Cada agente existe de dos formas. Como **skill**, trabaja en tu conversación y 
 squad.json             nombres y orden de los agentes (lo lee el instalador)
 AGENTS.md              reglas comunes (se instalan como .nexa-squad/politica.md)
 estandares/            catálogo de estándares
+assets/marca/          identidad: símbolos, iconos, portadas y textos
 comandos/              guía de comandos: comandos.json (fuente) y comandos.md (generado)
 skills/<agente>/       SKILL.md y sus referencias
 agents/                versión de subagente de cada agente

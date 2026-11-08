@@ -2,6 +2,7 @@
 
 ## Sin publicar
 
+- `assets/marca/`: identidad de Nexa Squad (familia de símbolos «Huecos», tinta y cian, Bricolage Grotesque): símbolos, firmas, iconos de app, favicons, portadas de marketplace y textos en español e inglés. El README muestra la portada y el icono de cada agente.
 - `.nexa-squad/ejecucion.json`: lista de roles que Orka ejecuta en su propia conversación en lugar de como subagentes; vacía por defecto. Sirve para juntar roles uno a uno midiendo con `evals/`.
 - `evals/`: 6 tareas de prueba con rúbrica (registro, CIE-10, signos vitales, corregir cuentas, traer bitácora, captura y revisión) para medir cambios antes de hacerlos.
 - `docs/arquitectura.md`: revisión frente al artículo de Anthropic sobre cuándo juntar subagentes en el agente principal.

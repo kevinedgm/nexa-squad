@@ -1,0 +1,90 @@
+{
+  "nombre": "Nexa Squad",
+  "sistema": "Huecos: todos los símbolos son el mismo bloque; lo que se quita es lo que el agente hace.",
+  "construccion": {
+    "lienzo": 48,
+    "bloque": "40×40 en (4,4)",
+    "radio": 7,
+    "reticula": 4,
+    "canal_min": 4,
+    "hueco_min": 8,
+    "circulo_r_min": 4,
+    "cortes_max": 3,
+    "excepcion": "Kompa (cinco cortes, tres anchos)"
+  },
+  "color": {
+    "tinta": "#16161B",
+    "claro": "#F3F3EE",
+    "oscuro": "#101014",
+    "papel": "#F5F5F2",
+    "cian": "#22C3E6",
+    "cian_oscuro": "#00728A",
+    "sub_claro": "#5A5A65",
+    "sub_oscuro": "#B4B4AE"
+  },
+  "contraste": {
+    "cian/tinta": 8.6,
+    "cian_oscuro/claro": 5.0,
+    "tinta/blanco": 18.03,
+    "claro/oscuro": 17.05
+  },
+  "tipografia": {
+    "marca": "Bricolage Grotesque 700 en trazos",
+    "producto": "Bricolage Grotesque 400",
+    "web": "https://fonts.google.com/specimen/Bricolage+Grotesque"
+  },
+  "reglas": [
+    "El bloque siempre es neutro (tinta en claro, claro en oscuro); el cian vive solo dentro del hueco.",
+    "Un solo acento para toda la familia: lo que hace cada agente es lo que brilla.",
+    "Sobre claro, cian #22C3E6; sobre oscuro, cian oscuro #00728A. Nunca al revés.",
+    "Cada agente se reconoce por su hueco; el color nunca es la única señal.",
+    "Las plataformas (Claude Code, Codex, Kiro) se nombran en texto; nunca sus logotipos dentro de la marca."
+  ],
+  "productos": {
+    "squad": {
+      "nombre": "Nexa Squad",
+      "producto": "Composición de módulos",
+      "verbo": "componer"
+    },
+    "orka": {
+      "nombre": "Orka",
+      "producto": "Conductor",
+      "verbo": "dirigir"
+    },
+    "inqa": {
+      "nombre": "Inqa",
+      "producto": "Product Analyst",
+      "verbo": "separar"
+    },
+    "arko": {
+      "nombre": "Arko",
+      "producto": "Systems Architect",
+      "verbo": "proteger"
+    },
+    "fluxa": {
+      "nombre": "Fluxa",
+      "producto": "Flow Designer",
+      "verbo": "ordenar"
+    },
+    "kompa": {
+      "nombre": "Kompa",
+      "producto": "Layout Composer",
+      "verbo": "acomodar"
+    },
+    "kura": {
+      "nombre": "Kura",
+      "producto": "Component Curator",
+      "verbo": "reutilizar"
+    },
+    "forja": {
+      "nombre": "Forja",
+      "producto": "Build Engineer",
+      "verbo": "construir"
+    },
+    "vera": {
+      "nombre": "Vera",
+      "producto": "QA Auditor",
+      "verbo": "verificar"
+    }
+  }
+}
