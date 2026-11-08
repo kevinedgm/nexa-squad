@@ -144,13 +144,15 @@ Cada decisión tiene un solo dueño. Si un agente encuentra algo que no le toca,
 
 ## Con Fruti Squad
 
-Los dos squads pueden estar instalados en el mismo proyecto.
+**Fruti Squad fabrica las piezas; Nexa Squad arma los módulos con ellas.** Usa Fruti cuando el resultado es algo que se reutiliza en muchas pantallas (un componente, una variante, un token) y vive en el Design Hub. Usa Nexa cuando el resultado es una funcionalidad del producto que usa un rol, con sus datos, reglas y servidor.
 
-- **Fruti Squad** fabrica los componentes, los tokens (colores, tipografía, espacios) y el Design Hub.
-- **Nexa Squad** los usa para armar las pantallas. Lee el stack del proyecto (Vue, React, Tailwind o CSS) y los componentes que ya existen.
-- Si falta un componente o una variante, **Kura** escribe un pedido para Fruti Squad en `docs/componentes/pedidos/`. Ningún otro agente de Nexa lo hace. Si el proyecto aún no tiene Design Hub, ese primer pedido lo inicia.
+Los dos pueden estar instalados en el mismo proyecto:
 
-Para que una frase como "rediseña este formulario" no active a los dos squads, empieza con `/orka` cuando quieras a Nexa.
+- Nexa lee los componentes, el registro y los tokens de Fruti (`.fruti/`) y nunca los modifica.
+- Si falta un componente o una variante, **Kura** escribe un pedido en `docs/componentes/pedidos/`. Ningún otro agente de Nexa lo hace. Forja deja ese lugar como pendiente hasta que Fruti entrega la pieza.
+- Empieza con `/orka` cuando quieras a Nexa, para que una frase como "rediseña este formulario" no la tome Fruti.
+
+La guía completa, con qué pedirle a cada uno, los cuatro casos en que trabajan juntos y quién manda cuando no coinciden, está en [docs/nexa-y-fruti.md](docs/nexa-y-fruti.md).
 
 ## Opciones de instalación
 
@@ -170,7 +172,7 @@ Qué agrega a tu proyecto con `--target claude`:
 |---|---|
 | `.claude/skills/<agente>/` | Las instrucciones de cada agente |
 | `.claude/agents/<agente>-agent.md` | La versión que Orka usa al trabajar en cadena |
-| `.nexa-squad/` | Reglas comunes, catálogo de estándares y guía de comandos |
+| `.nexa-squad/` | Reglas comunes, catálogo de estándares, guía de comandos y guía de trabajo con Fruti Squad |
 | Un bloque en `CLAUDE.md` | Para que Claude Code cargue las reglas comunes |
 
 El instalador no sobrescribe nada sin `--force`, y al reinstalar solo cambia su propio bloque en `CLAUDE.md`. En Codex y Kiro las rutas son otras; las muestra `list`.

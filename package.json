@@ -10,7 +10,7 @@
     "test": "node scripts/check.mjs",
     "comandos": "node bin/comandos.mjs"
   },
-  "files": ["bin/", "skills/", "agents/", "estandares/", "comandos/", "AGENTS.md", "squad.json", "install.sh", "README.md", "LICENSE"],
+  "files": ["bin/", "skills/", "agents/", "estandares/", "comandos/", "docs/nexa-y-fruti.md", "AGENTS.md", "squad.json", "install.sh", "README.md", "LICENSE"],
   "engines": { "node": ">=16" },
   "keywords": ["claude-code", "skills", "subagents", "codex", "kiro", "legacy", "nexa-squad"],
   "author": "kevinedgm",

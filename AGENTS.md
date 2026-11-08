@@ -55,4 +55,4 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
 
 ## Frontera con Fruti Squad
 
-Este squad compone e integra **módulos** con las piezas que ya existen. Fruti Squad fabrica **componentes compartidos**. El único puente es Kura (curador de componentes): cuando un hueco necesita un componente o variante que no existe, escribe un pedido para Fruti Squad. Ningún otro rol le pide nada a Fruti Squad, y el constructor deja ese lugar marcado como pendiente.
+Este squad compone e integra **módulos** con las piezas que ya existen. Fruti Squad fabrica **componentes compartidos**. El único puente es Kura (curador de componentes): cuando un hueco necesita un componente o variante que no existe, escribe un pedido para Fruti Squad. Ningún otro rol le pide nada a Fruti Squad, y el constructor deja ese lugar marcado como pendiente. Cuándo usar cada squad y cómo colaboran: `.nexa-squad/nexa-y-fruti.md` (en este repo, `docs/nexa-y-fruti.md`).

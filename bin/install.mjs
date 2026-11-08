@@ -139,6 +139,7 @@ function writePolicy(args) {
   cpSync(join(PKG_ROOT, 'AGENTS.md'), dest, { force: true });
   cpSync(join(PKG_ROOT, 'estandares', 'estandares.md'), join(dirname(dest), 'estandares.md'), { force: true });
   cpSync(join(PKG_ROOT, 'comandos', 'comandos.md'), join(dirname(dest), 'comandos.md'), { force: true });
+  cpSync(join(PKG_ROOT, 'docs', 'nexa-y-fruti.md'), join(dirname(dest), 'nexa-y-fruti.md'), { force: true });
   log(`  ${ok('ok')}       política, estándares y comandos → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`);
   return dest;
 }
