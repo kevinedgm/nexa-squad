@@ -1,5 +1,10 @@
 # Cambios
 
+## Sin publicar
+
+- `evals/`: 6 tareas de prueba con rúbrica (registro, CIE-10, signos vitales, corregir cuentas, traer bitácora, captura y revisión) para medir cambios antes de hacerlos.
+- `docs/arquitectura.md`: revisión frente al artículo de Anthropic sobre cuándo juntar subagentes en el agente principal.
+
 ## 0.5.0 (2026-11-08)
 
 - `/orka init` y `npx … init`: se describe una vez qué es el producto, a quién se dirige, sus roles y quién revisa a quién. El documento pasa de `docs/usuarios.md` a `docs/producto.md`.

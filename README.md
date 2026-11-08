@@ -188,12 +188,15 @@ skills/<agente>/       SKILL.md y sus referencias
 agents/                versión de subagente de cada agente
 bin/                   instalador y ayuda de comandos
 scripts/check.mjs      validación del paquete
+evals/                 tareas de prueba con rúbrica para medir cambios al squad
 ```
 
 ```bash
 npm test           # valida nombres, referencias, guía de comandos y cadena
 npm run comandos   # regenera comandos/comandos.md después de editar comandos.json
 ```
+
+Antes de cambiar cómo trabaja un agente, corre las tareas de prueba de [evals/](evals/README.md) antes y después del cambio, y conserva el cambio solo si ningún caso empeora.
 
 Para cambiar o agregar un agente, sigue [docs/contribuir.md](docs/contribuir.md).
 

@@ -57,3 +57,17 @@ Ningún rol carga sus `references/` por adelantado. Cada SKILL.md dice qué refe
 
 - Forja y Vera todavía no tienen una prueba real; la primera evidencia útil es correr la fase 1 del gestor.
 - Para verificar el campo `skills:` de los subagentes: corre `/agents` y pídele a `inqa-agent` que diga qué skill tiene cargada.
+
+## 8. Revisión frente a "cuándo juntar subagentes en el agente principal"
+
+Fuente: Anthropic, *Building agents: when to fold subagents into your main agent loop*. Su tesis: un solo agente con skills que se cargan cuando hacen falta suele dar mejor calidad, menos costo y menos latencia que una cadena de subagentes; un subagente se conserva solo cuando la evaluación muestra que el agente único empeora.
+
+| Lo que dice el artículo | Cómo está Nexa | Lectura |
+|---|---|---|
+| Separar por contexto, no por tipo de problema; separar por tipo de problema crea un "teléfono descompuesto" | La cadena separa por tipo de problema: requisitos, estructura, composición, componentes | Riesgo real, mitigado en parte porque cada rol escribe un documento completo en `docs/` y el siguiente lo lee entero, no un resumen |
+| Juntar primero a los especialistas que encadenan su salida y tocan los mismos datos | Fluxa → Kompa → Kura trabajan sobre la misma vista, uno tras otro | Primer candidato a correr como skills en la conversación de Orka |
+| Un subagente que necesita hablar con el usuario no debería ser subagente | Inqa en cadena no puede preguntar; sus preguntas esperan al punto de control | Candidato a correr como skill |
+| Subagente útil cuando hay contexto que crece mucho o trabajo en paralelo que se descarta | Forja lee y escribe mucho código; Vera necesita independencia del razonamiento de Forja | Se quedan como subagentes |
+| Medir antes de cambiar: ~10 tareas doradas, correr dos veces, cambiar una cosa a la vez | No había evaluaciones | Se agregó `evals/` con 6 casos |
+
+Plan: correr `evals/` con la forma actual; después mover Fluxa, Kompa y Kura a skills dentro de la conversación de Orka (una a la vez) y conservar cada cambio solo si ningún caso empeora.
