@@ -10,11 +10,11 @@ En Claude Code cada rol se invoca con `/<rol>`. En Codex y Kiro, di "usa <rol> p
 
 | Quiero… | Di | Invoca | Arranca en | Qué pasa |
 |---|---|---|---|---|
-| Decir quién usa el sistema y qué hace cada uno, para que todo se diseñe para ellos | `/orka el sistema es para <dónde>: <rol> hace <tareas>; <otro rol> revisa <qué>` | orka | inqa | Inqa escribe docs/usuarios.md (tareas, frecuencia, contexto, quién revisa a quién); tú lo apruebas y todos los roles diseñan para esos perfiles. |
+| Describir el producto y quién lo usa (una vez, al empezar) | `/orka init` | orka | inqa | Inqa escribe docs/producto.md: qué es el producto, a quién se dirige, cada rol con sus tareas y quién revisa a quién. Tú lo apruebas y todos los agentes diseñan para esos roles. |
 | Construir una funcionalidad nueva desde una descripción | `/orka quiero una funcionalidad para <qué> en <módulo>` | orka | inqa | Cadena completa. Inqa te pregunta las reglas y tú las apruebas antes de diseñar. |
 | Agregar un comportamiento a un módulo que ya existe | `/orka en <módulo>, cuando <pasa X>, ahora tiene que <pasar Y>` | orka | inqa | Inqa documenta solo el cambio; los roles cuya decisión no cambia se saltan. |
 | Traer una funcionalidad de otra aplicación y adaptarla | `/orka lee <funcionalidad> de <app o ruta> y tráela aquí, pero para <qué>` | orka | inqa | Inqa lee la app de origen y arma una tabla igual / adaptado / no se trae que tú apruebas; Arko la traduce a tu stack. |
-| Corregir cómo se ve o se acomoda un módulo ya construido (por ejemplo, con Fruti Squad) | `/orka corrige la composición de <módulo>; no cambies lo que hace` | orka | vera | Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos. Si un hallazgo cambia lo que hace el módulo, va a Inqa. |
+| Corregir cómo se ve o se acomoda un módulo ya construido (por ejemplo, con Fruti Squad) | `/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>` | orka | vera | Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos. Si un hallazgo cambia lo que hace el módulo, va a Inqa. |
 | Migrar o rediseñar un módulo legacy completo | `/orka migra <módulo>` | orka | inqa | Cadena completa; lo que hace el legacy es evidencia, no requisito. |
 | Seguir un módulo que quedó a medias o saber cómo va | `/orka continúa <módulo>  ·  /orka ¿cómo va <módulo>?` | orka | el primer documento pendiente | Orka lee la bitácora y sigue donde se quedó; no repite lo aprobado. |
 

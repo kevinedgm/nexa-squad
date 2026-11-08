@@ -79,7 +79,7 @@ La app de origen es **evidencia de comportamiento**, nunca fuente de reglas ni d
 
 Caso típico: un módulo generado con Fruti Squad (por ejemplo, Cuentas) tiene componentes correctos pero mal acomodados.
 
-1. **Vera, modo diagnóstico.** Audita la pantalla funcionando y su código contra el catálogo de estándares y el sistema de diseño del proyecto (no hay documentos de Nexa contra los cuales comparar). Cada hallazgo cita su fuente y se clasifica por dueño.
+1. **Vera, modo diagnóstico.** Audita la pantalla funcionando y su código contra el catálogo de estándares y el sistema de diseño del proyecto (no hay documentos de Nexa contra los cuales comparar), recorriendo las tareas del perfil que usa el módulo (fila del módulo en `docs/producto.md` o lo que dijo Kevin). Cada hallazgo cita su fuente y se clasifica por dueño. Si Kevin nombra una tarea que el módulo hoy no permite (p. ej. adjuntar un voucher), no es corrección de composición: se anota para Inqa como escenario extender.
 2. **Orka agrupa los hallazgos por dueño** y lanza solo a quien le toca:
 
    | Hallazgo | Dueño | Ejemplo |

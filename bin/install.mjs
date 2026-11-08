@@ -57,6 +57,7 @@ ${C.bold}${SQUAD.name}${C.reset} — ${SQUAD.roles.map((r) => r.skill).join(' �
 ${C.bold}Comandos${C.reset}
   install        Copia el squad en un proyecto (o --global)
   list           Muestra los roles y dónde se instala cada uno
+  init           Crea docs/producto.md para describir el producto y sus roles
   comandos       Guía: qué decir y a quién invocar según lo que quieras
   quien "<frase>" Sugiere el comando para lo que describes
   help           Muestra esta ayuda
@@ -179,7 +180,7 @@ function doInstall(args) {
   else if (target === 'codex') writeBlock(join(args.base, 'AGENTS.md'), lines, args);
   else writeBlock(join(args.base, '.kiro', 'steering', `${SQUAD.slug}.md`), lines, args);
 
-  log(`\n${ok('Listo.')} ${target === 'claude' ? 'Prueba: /orka migra el módulo <nombre>  ·  o un rol suelto: "usa inqa para analizar…"' : 'Pide: "usa orka para migrar el módulo <nombre>".'}\n`);
+  log(`\n${ok('Listo.')} ${target === 'claude' ? 'Empieza con: /orka init  (describe el producto y sus roles)  ·  o un rol suelto: "usa inqa para analizar…"' : 'Pide: "usa orka para migrar el módulo <nombre>".'}\n`);
 }
 
 function doList() {
@@ -213,6 +214,38 @@ async function doQuien(frase) {
   if (DATA.comandos.length) log('');
 }
 
+function doInit(args) {
+  const base = resolve(args.dest || process.cwd());
+  const dest = join(base, 'docs', 'producto.md');
+  if (existsSync(dest) && !args.force) { log(warn(`  Ya existe ${relative(base, dest)}. Ábrelo o di /orka init para actualizarlo.`)); return; }
+  const tpl = `---
+producto: <nombre>
+estado: borrador
+perfiles: []
+---
+<!-- Llénalo con /orka init o a mano, con tus palabras. Inqa lo ordena y tú lo apruebas. -->
+
+## 1. El producto
+- Qué es y qué produce:
+- A quién se dirige:
+- Vocabulario del negocio:
+
+## 2. Roles (quién usa el sistema)
+- <Rol>: qué hace y qué tan seguido.
+
+## 3. Quién revisa a quién
+- <Rol> revisa / aprueba lo que hace <otro rol>.
+
+## 4. Módulos y quién los usa
+| Módulo | Lo usa | Qué hace ahí |
+|---|---|---|
+`;
+  if (args.dryRun) { log(`  ${C.cyan}crearía${C.reset} ${relative(base, dest)}`); return; }
+  mkdirSync(dirname(dest), { recursive: true });
+  writeFileSync(dest, tpl);
+  log(`  ${ok('ok')}       ${relative(base, dest)}  ${C.dim}(llénalo, o abre Claude Code y di /orka init)${C.reset}`);
+}
+
 async function doComandos() {
   const { renderMd } = await import('./comandos.mjs');
   log(renderMd());
@@ -222,6 +255,7 @@ const args = parseArgs(process.argv.slice(2));
 const cmd = args._[0] || 'help';
 if (cmd === 'install') doInstall(args);
 else if (cmd === 'list') doList();
+else if (cmd === 'init') doInit(args);
 else if (cmd === 'comandos') await doComandos();
 else if (cmd === 'quien' || cmd === 'quién') await doQuien(args._.slice(1).join(' '));
 else log(helpText());

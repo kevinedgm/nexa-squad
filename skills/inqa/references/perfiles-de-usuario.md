@@ -1,13 +1,13 @@
 # Perfiles de usuario del producto
 
-Propósito: definir **para quién se diseña** una sola vez por producto, en `docs/usuarios.md`, para que todos los roles tomen sus decisiones pensando en las mismas personas y sus tareas. Ejemplo: en un sistema de laboratorio, la analista captura resultados en la bitácora y el supervisor los revisa y libera.
+Propósito: definir **qué es el producto y para quién se diseña** una sola vez, en `docs/producto.md` (se crea con `/orka init`), para que todos los roles tomen sus decisiones pensando en las mismas personas y sus tareas. Ejemplo: en un sistema de laboratorio, la analista captura resultados en la bitácora y el supervisor los revisa y libera.
 
 ## Contenido
 
 1. Por qué un documento de perfiles
 2. Qué es un perfil (y qué no)
 3. De dónde salen los perfiles
-4. El documento `docs/usuarios.md`
+4. El documento `docs/producto.md`
 5. Relaciones entre perfiles
 6. Cómo lo usa cada rol
 7. Cuando dos perfiles chocan
@@ -35,7 +35,7 @@ Sin perfiles, cada rol supone por su cuenta quién usa la pantalla: Fluxa imagin
 
 Lo que no venga de Kevin queda como supuesto marcado. Los perfiles se aprueban en el punto de control 1, junto con las reglas de negocio, y valen para todos los módulos del producto: el segundo módulo los reutiliza y solo agrega lo que cambie.
 
-## 4. El documento `docs/usuarios.md`
+## 4. El documento `docs/producto.md`
 
 ```text
 ---
@@ -44,7 +44,11 @@ estado: borrador | con-preguntas | aprobado
 perfiles: [P-01, P-02]
 ---
 0. Resumen (máximo 5 líneas)
-1. Perfiles
+1. El producto
+   - Qué es: tipo de sistema y qué produce (p. ej. SaaS que emite informes de análisis de muestras industriales)
+   - A quién se dirige: el negocio que lo usa y sus clientes
+   - Dominio: vocabulario propio (muestra, corrida, bitácora, voucher) y normas que Kevin diga que aplican
+2. Perfiles
    P-01 <nombre del rol>
    - Objetivo: qué tiene que lograr en su trabajo
    - Tareas: tarea · frecuencia (veces por día o semana) · volumen · presión de tiempo
@@ -53,11 +57,17 @@ perfiles: [P-01, P-02]
    - Qué le estorba hoy: evidencia o lo que dijo Kevin
    - Éxito: cómo se ve que el sistema le ayuda (verificable)
    - Permisos: qué ve, qué crea, qué cambia, qué no puede tocar
-2. Relaciones entre perfiles (sección 5)
-3. Supuestos y preguntas
+3. Relaciones entre perfiles (sección 5)
+4. Módulos y quién los usa
+   | Módulo | Perfil principal | Perfiles secundarios | Qué hace ahí (tareas, frecuencia) |
+5. Supuestos y preguntas
 ```
 
 "Éxito" se escribe verificable: "captura los resultados de una corrida de 40 muestras sin usar el ratón" en lugar de "captura rápido".
+
+### Módulos y quién los usa
+
+Cada módulo nuevo agrega su fila en la sección 4 cuando Kevin dice quién lo usa ("el módulo de cuentas lo ocupa la recepcionista: paga muestras pendientes, adjunta vouchers, marca como pagadas o cancela"). Esa fila es la entrada de Fluxa (perfil principal de cada vista) y de Vera (qué tareas recorrer). Si Kevin no lo dice, Inqa lo infiere del código (quién entra hoy al módulo) y lo marca como supuesto.
 
 ## 5. Relaciones entre perfiles
 

@@ -23,10 +23,13 @@ Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 ## Cómo se invoca y ayuda
 - Kevin te invoca con `/orka …` (en Codex o Kiro: "usa orka para …"). La guía de frases por escenario está en `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`).
 - Si pregunta a quién invocar, qué comando usar o "ayuda", busca su caso en esa guía y respóndele con la frase exacta y qué pasará; ofrece ejecutarla tú en ese momento. No arranques la cadena sin que diga que sí.
-- No preguntes por el escenario cuando la frase ya lo dice: "corrige la composición", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
+- No preguntes por el escenario cuando la frase ya lo dice:  "corrige la composición", "corrige el diseño", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
 
-## Perfiles de usuario
-Antes del primer módulo de un producto, comprueba si existe `docs/usuarios.md`. Si no existe y Kevin no describió los roles en su petición, pregúntale una vez, en sus palabras: quién usa el sistema, qué hace cada uno y quién revisa el trabajo de quién. Pasa su respuesta a Inqa, que la formaliza; los perfiles se aprueban en el punto de control 1. Si Kevin los describe en la misma petición ("es para un laboratorio: la analista captura la bitácora y el supervisor revisa"), no preguntes: úsalos.
+## Inicio del producto y perfiles
+- **`/orka init`** (o "configuremos el producto"): se hace una vez por producto. Pide a Kevin, en sus palabras y en un solo bloque: qué es el sistema y qué produce, a quién se dirige, qué roles lo usan, qué hace cada uno y quién revisa el trabajo de quién. Pásalo a Inqa, que escribe `docs/producto.md`; Kevin lo aprueba. Si el archivo ya existe, muéstrale el resumen y pregunta qué cambió.
+- Si Kevin pide un módulo y no existe `docs/producto.md`, propón primero `/orka init`. Si Kevin no quiere, sigue con perfiles inferidos del código, marcados como supuesto.
+- **En cada módulo**, la petición dice quién lo usa y qué hace ahí ("lo ocupa la recepcionista: paga muestras pendientes, adjunta vouchers…"). Si no lo dice y `docs/producto.md` no tiene la fila del módulo, pregúntalo una vez. Esa fila guía a todos los roles.
+- Si Kevin describe roles o tareas dentro de la petición, no vuelvas a preguntar: úsalos.
 
 ## Escenarios
 Antes del primer paso, reconoce el escenario: decide en qué rol arranca la cadena, qué roles se saltan y si los documentos se escriben completos o como cambio.

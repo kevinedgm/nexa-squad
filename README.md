@@ -36,9 +36,33 @@ Necesitas Node.js 16 o superior y Claude Code (también funciona con Codex y Kir
    npx github:kevinedgm/nexa-squad install --target claude
    ```
 
-3. Abre Claude Code en ese proyecto y escribe `/orka`.
+3. Abre Claude Code en ese proyecto y describe tu producto con `/orka init` (ver [Primer paso](#primer-paso-describe-tu-producto)).
 
 Para actualizar a una versión nueva, repite el paso 2 agregando `--force`.
+
+## Primer paso: describe tu producto
+
+Antes del primer módulo, dile al squad **qué es tu sistema y quién lo usa**. Se hace una sola vez:
+
+```text
+/orka init
+Es un SaaS para un laboratorio que emite informes de análisis de muestras industriales.
+- La recepcionista recibe las muestras y cobra las que quedan pendientes.
+- La analista captura los resultados en las bitácoras de cada muestra.
+- El supervisor revisa lo que captura la analista y aprueba las bitácoras.
+```
+
+Inqa lo ordena en `docs/producto.md`: qué es el producto, cada rol con sus tareas y qué tan seguido las hace, y quién revisa el trabajo de quién. Tú lo apruebas. Si prefieres llenarlo a mano, `npx github:kevinedgm/nexa-squad init` crea el archivo vacío.
+
+Desde ese momento cada decisión se toma para un rol:
+- la captura diaria de la analista se diseña densa y para usarse con teclado;
+- la vista del supervisor se diseña para revisar y aprobar por lote;
+- el servidor impide que alguien apruebe lo que él mismo capturó;
+- Vera revisa el recorrido completo de cada rol.
+
+Además, "el supervisor revisa lo de la analista" genera requisitos por sí solo: estados (capturada, en revisión, aprobada o devuelta), una bandeja de pendientes y un registro de quién hizo qué.
+
+**En cada módulo, di quién lo usa y qué hace ahí.** Por ejemplo: "el módulo de cuentas lo usa la recepcionista para pagar muestras pendientes, adjuntar vouchers y marcarlas como pagadas o canceladas". Con eso el squad sabe qué tareas van primero. Si no lo dices, Orka te lo pregunta una vez.
 
 ## Cómo se usa
 
@@ -46,11 +70,10 @@ Regla única: **empieza con `/orka` y di lo que quieres con tus palabras.** Orka
 
 | Lo que quieres | Escribe |
 |---|---|
-| Decir para quién es el sistema (una vez por producto) | `/orka el sistema es para un laboratorio: la analista captura la bitácora y el supervisor la revisa` |
 | Construir algo nuevo | `/orka quiero una funcionalidad para registrar signos vitales en la consulta` |
 | Agregar un comportamiento a un módulo que ya existe | `/orka en pagos, cuando se rechace un pago, ahora hay que avisar al cliente` |
 | Traer una funcionalidad de otra aplicación | `/orka lee la bitácora de la app del laboratorio y tráela aquí, pero para radiología` |
-| Arreglar un módulo que se ve o se acomoda mal | `/orka corrige la composición del módulo de cuentas; no cambies lo que hace` |
+| Arreglar un módulo que se ve o se acomoda mal | `/orka corrige el diseño del módulo de cuentas; lo usa la recepcionista para pagar muestras pendientes y adjuntar vouchers` |
 | Migrar un módulo viejo | `/orka migra el módulo gestor` |
 | Seguir donde te quedaste | `/orka continúa el gestor` |
 
@@ -68,29 +91,18 @@ npx github:kevinedgm/nexa-squad quien "el formulario de cuentas se ve mal"
 
 La lista completa de frases está en la [guía de comandos](comandos/comandos.md).
 
-### Para quién se diseña
-
-Lo primero que necesita el squad es saber **quién usa el sistema y qué hace cada persona**. Dilo con tus palabras, una vez por producto. Inqa lo convierte en `docs/usuarios.md`: cada perfil con sus tareas, qué tan seguido las hace, en qué contexto trabaja y quién revisa el trabajo de quién.
-
-A partir de ahí cada decisión se toma para un perfil:
-- la captura diaria de la analista se diseña densa y para usarse con teclado;
-- la vista del supervisor se diseña para revisar y liberar por lote;
-- el servidor impide que alguien libere lo que él mismo capturó;
-- Vera revisa el recorrido de cada perfil.
-
-Si no lo dices, Orka te lo pregunta antes del primer módulo.
-
 ### Llamar a un solo agente
 
 Si ya sabes qué decisión necesitas, puedes llamar al agente directo. Por ejemplo, `/kompa compón el formulario de registro` o `/vera diagnostica el módulo de cuentas`. Así trabaja solo ese agente y te puede hacer preguntas.
 
 ## Qué pasa después de pedirlo
 
-Ejemplo: `/orka corrige la composición del módulo de cuentas`.
+Ejemplo: `/orka corrige el diseño del módulo de cuentas; lo usa la recepcionista para pagar muestras pendientes, adjuntar vouchers y marcarlas como pagadas o canceladas`.
 
 1. **Orka reconoce el caso.** Es una corrección de aspecto, no de comportamiento. Por eso se salta las etapas de requisitos y servidor.
-2. **Vera revisa el módulo** contra los estándares y anota cada problema con su fuente. Por ejemplo: "el autocomplete ocupa todo el ancho y empuja el botón a otra línea · Fuente: GOV.UK (anchos de campo)".
+2. **Vera revisa el módulo recorriendo las tareas de la recepcionista** (pagar, adjuntar el voucher, marcar como pagada o cancelar) contra los estándares, y anota cada problema con su fuente. Por ejemplo: "el autocomplete ocupa todo el ancho y empuja el botón a otra línea · Fuente: GOV.UK (anchos de campo)".
 3. **Orka reparte los problemas.** Los de orden y agrupación van a Fluxa, los de acomodo a Kompa, y si falta un componente, Kura se lo pide a Fruti Squad.
+   Si una tarea que mencionaste no se puede hacer hoy (por ejemplo, no hay dónde adjuntar el voucher), eso no es diseño sino una función nueva: Orka te lo propone como un cambio aparte.
 4. **Forja corrige el código** solo en las partes con problemas, y **Vera vuelve a revisar**.
 5. **Orka te entrega un resumen** de 5 líneas como máximo.
 
@@ -106,7 +118,7 @@ Todo lo demás lo resuelve él, y lo que tuvo que suponer queda anotado.
 Cada agente escribe su documento en la carpeta `docs/` de tu proyecto. Así puedes revisarlo, y una sesión nueva sigue donde se quedó la anterior.
 
 ```text
-docs/usuarios.md                quién usa el sistema y qué hace cada perfil (uno por producto)
+docs/producto.md                qué es el producto, sus roles y qué módulos usa cada uno (uno por producto)
 docs/orquestacion/cuentas.md    bitácora de Orka: en qué va, qué supuso, qué te pregunta
 docs/requisitos/cuentas.md      qué debe hacer (Inqa)
 docs/estructura/cuentas.md      pantallas y su contenido (Fluxa)

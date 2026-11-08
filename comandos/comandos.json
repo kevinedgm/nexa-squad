@@ -2,24 +2,26 @@
   "nota": "Fuente única de la guía de comandos. Genera comandos/comandos.md con `npm run comandos`; `npm test` falla si quedó desactualizada.",
   "comandos": [
     {
-      "id": "perfiles",
+      "id": "init",
       "grupo": "cadena",
-      "quiero": "Decir quién usa el sistema y qué hace cada uno, para que todo se diseñe para ellos",
-      "decir": "/orka el sistema es para <dónde>: <rol> hace <tareas>; <otro rol> revisa <qué>",
-      "ejemplo": "/orka el sistema es para un laboratorio: la analista captura resultados en la bitácora y el supervisor los revisa y libera",
+      "quiero": "Describir el producto y quién lo usa (una vez, al empezar)",
+      "decir": "/orka init",
+      "ejemplo": "/orka init: es un SaaS para un laboratorio que emite informes de análisis de muestras industriales; la recepcionista recibe muestras, la analista captura resultados en bitácoras y el supervisor revisa y aprueba bitácoras",
       "invoca": "orka",
       "arranca": "inqa",
-      "que_pasa": "Inqa escribe docs/usuarios.md (tareas, frecuencia, contexto, quién revisa a quién); tú lo apruebas y todos los roles diseñan para esos perfiles.",
+      "que_pasa": "Inqa escribe docs/producto.md: qué es el producto, a quién se dirige, cada rol con sus tareas y quién revisa a quién. Tú lo apruebas y todos los agentes diseñan para esos roles.",
       "claves": [
+        "init",
+        "inicio",
+        "configura el producto",
+        "configurar el producto",
         "perfiles",
-        "perfil",
         "usuarios",
         "quién usa",
         "roles de usuario",
         "el sistema es para",
-        "supervisor",
-        "analista",
-        "revisa lo que"
+        "a quién está dirigido",
+        "público"
       ]
     },
     {
@@ -91,8 +93,8 @@
       "id": "corregir",
       "grupo": "cadena",
       "quiero": "Corregir cómo se ve o se acomoda un módulo ya construido (por ejemplo, con Fruti Squad)",
-      "decir": "/orka corrige la composición de <módulo>; no cambies lo que hace",
-      "ejemplo": "/orka corrige la composición del módulo de cuentas; lo que más me molesta es el formulario de alta",
+      "decir": "/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>",
+      "ejemplo": "/orka corrige el diseño del módulo de cuentas; lo usa la recepcionista para pagar muestras pendientes, adjuntar vouchers y marcarlas como pagadas o canceladas",
       "invoca": "orka",
       "arranca": "vera",
       "que_pasa": "Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos. Si un hallazgo cambia lo que hace el módulo, va a Inqa.",
@@ -106,7 +108,9 @@
         "mal acomodado",
         "descuadrado",
         "desordenado",
-        "diseño está mal"
+        "diseño está mal",
+        "corrige el diseño",
+        "el diseño"
       ]
     },
     {

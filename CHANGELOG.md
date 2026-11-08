@@ -1,5 +1,11 @@
 # Cambios
 
+## 0.5.0 (2026-11-08)
+
+- `/orka init` y `npx … init`: se describe una vez qué es el producto, a quién se dirige, sus roles y quién revisa a quién. El documento pasa de `docs/usuarios.md` a `docs/producto.md`.
+- `docs/producto.md` tiene la tabla "Módulos y quién los usa"; cada petición de módulo dice qué rol lo usa y qué hace ahí, y Vera recorre esas tareas al diagnosticar.
+- Corregir el diseño: si una tarea mencionada no existe hoy en el módulo, se propone como cambio aparte (extender).
+
 ## 0.4.0 (2026-11-08)
 
 - Perfiles de usuario: `docs/usuarios.md` (uno por producto) define quién usa el sistema, sus tareas, frecuencia, contexto y quién revisa el trabajo de quién. Lo escribe Inqa con lo que diga Kevin y se aprueba en el punto de control 1.
