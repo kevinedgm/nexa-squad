@@ -71,7 +71,7 @@ La app de origen es **evidencia de comportamiento**, nunca fuente de reglas ni d
    | Lo que hace hoy | Igual / adaptado (cómo) / no se trae | Lo que dijo Kevin con "pero para esto" |
 
 2. **Punto de control 1**: Kevin aprueba la tabla de adaptación junto con las reglas de negocio. Sin esta aprobación no se diseña nada.
-3. **Arko** diseña para el stack del **destino** (lo lee del proyecto y, si existe, del perfil de Fruti Squad: framework, estilos, `registry_path`, `hub_root`). Lo que en origen dependía de otra tecnología se traduce, no se copia.
+3. **Arko** diseña para el stack del **destino** con un glosario de traducción (`adaptar-funcionalidad-externa.md` de Arko) (lo lee del proyecto y, si existe, del perfil de Fruti Squad: framework, estilos, `registry_path`, `hub_root`). Lo que en origen dependía de otra tecnología se traduce, no se copia.
 4. **Fluxa y Kompa** estructuran y componen con el sistema del destino. El acomodo de la app de origen puede citarse como ejemplo, pero no es fuente (nivel 5 del catálogo de estándares).
 5. **Kura** busca las piezas en el catálogo del destino; lo que solo existía en origen se reutiliza con una pieza del destino o se pide a Fruti Squad.
 
@@ -90,6 +90,7 @@ Caso típico: un módulo generado con Fruti Squad (por ejemplo, Cuentas) tiene c
    | Cambia lo que hace el módulo | Inqa | Quitar un paso que hoy es obligatorio |
    | Toca datos o permisos | Arko | — |
 
+   Orden: primero estructura (Fluxa), después composición (Kompa), después piezas (Kura). Pulir el acomodo de un flujo confuso no lo arregla, y un cambio de estructura invalida la composición de esa región.
 3. Fluxa escribe la estructura **de las regiones con hallazgos** describiendo primero cómo está y luego cómo debe quedar; Kompa compone esas mismas regiones. No se rediseña lo que no tiene hallazgo.
 4. **Forja** corrige solo esas regiones; **Vera** revisa contra el diagnóstico y los documentos nuevos.
 5. Un hallazgo que cambia comportamiento no se corrige en este escenario: va a Inqa y, si Kevin lo aprueba, se vuelve un escenario de extender.
@@ -130,3 +131,5 @@ El encabezado YAML del documento conserva su estado general; cada cambio lleva e
 | Copiar el aspecto de la app de origen | Rompe el sistema del destino | La app de origen es evidencia de comportamiento |
 | Corregir composición rediseñando todo el módulo | Cambia lo que funcionaba y no tiene hallazgo | Solo las regiones con hallazgo |
 | Arreglar un comportamiento "de paso" al corregir composición | Cambia una regla sin aprobación | Devolver a Inqa |
+
+Adaptado en parte de wondelai/skills (improve-app: arreglar la fricción antes que el pulido y ningún cambio sin hallazgo), licencia MIT.

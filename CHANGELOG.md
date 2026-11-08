@@ -6,6 +6,7 @@
 - Fluxa identifica la forma del dato y elige el patrón; declara unidades de campos y condicionales.
 - Catálogo de estándares (`estandares/estandares.md`) con orden de autoridad; toda regla cita su fuente. El instalador lo copia a `.nexa-squad/estandares.md`.
 - Escenarios de Orka: nuevo, extender, traer de otra aplicación, corregir composición, legacy y un solo rol. Vera tiene modo diagnóstico; Inqa entrega tabla de adaptación para funcionalidades traídas.
+- Kompa: mapeo entre acción y efecto. Arko: adaptar una funcionalidad de otra aplicación (glosario y capa de traducción). Estándares: tensiones entre heurísticas. Todo adaptado de wondelai/skills (MIT).
 - Kura lee el perfil, tokens, registro y Hub de Fruti Squad y escribe pedidos en `docs/componentes/pedidos/`.
 
 ## 0.1.0 (2026-11-08)

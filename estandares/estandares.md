@@ -52,7 +52,8 @@ Vera, al revisar, solo clasifica como **error** lo que contradice una fuente de 
 | FITTS | Ley de Fitts | Tamaño y distancia de objetivos | 4 |
 | HICK | Ley de Hick-Hyman | Menos opciones visibles, decisiones más rápidas; base de la divulgación progresiva | 4 |
 | ISO9241 | ISO 9241-110 (principios de interacción) e ISO 9241-11 (usabilidad) | Adecuación a la tarea, autodescripción, tolerancia a errores | 4 |
-| RUI | Wathan y Schoger, *Refactoring UI* | Jerarquía por tamaño, peso y color; escalas de espacio | 4 |
+| RUI | Wathan y Schoger, *Refactoring UI* | Cada acción junto a lo que afecta, en el orden de la tarea | El mapeo entre control y efecto se entiende sin leer | NORMAN (mapeo); GESTALT (proximidad); NN |
+| Jerarquía por tamaño, peso y color; escalas de espacio | 4 |
 | KRUG / NORMAN | *Don't Make Me Think*; *The Design of Everyday Things* | Escaneo, modelos mentales, prevención de errores | 4 |
 
 ## 4. Qué fuente respalda cada decisión frecuente
@@ -105,6 +106,15 @@ Reglas:
 1. Manda el nivel más alto (sección 1).
 2. En el mismo nivel, manda la más específica para el caso (un patrón de GOV.UK para formularios gana a una guía general de M3 para formularios).
 3. Si siguen empatadas, se elige una, se escribe el motivo y se sigue igual en todo el módulo (consistencia, NN heurística 4).
+
+Tensiones frecuentes entre heurísticas (nivel 4) y hacia dónde inclinarse. Los factores salen de Inqa (quién usa, cuánto, qué cuesta un error); si no están, son pregunta.
+
+| Tensión | Inclinarse a lo primero si… | Inclinarse a lo segundo si… | Patrón que concilia |
+|---|---|---|---|
+| Simplicidad / potencia | Uso ocasional, personas nuevas, presión de tiempo | Uso diario por personal experto (captura clínica frecuente) | Divulgación progresiva; valores por defecto |
+| Consistencia / optimizar para el contexto | Muchos tipos de usuario, acción común | Acción rara y un solo perfil de usuario | Mismo patrón, distinto énfasis |
+| Prevención de errores / eficiencia | Irreversible o costoso (datos clínicos, dinero) | Reversible y muy frecuente | Deshacer en lugar de confirmar; fricción solo en lo riesgoso |
+| Descubrir / interfaz limpia | Funciones centrales, principiantes | Casos raros, expertos, poco espacio | Lo principal visible, lo secundario en menú |
 4. Si la regla del sistema del proyecto (nivel 2) contradice una norma obligatoria (nivel 1), no se compone en contra de la norma: se reporta como hallazgo para Kura, que lo pide a Fruti Squad.
 
 ## 7. Límites
