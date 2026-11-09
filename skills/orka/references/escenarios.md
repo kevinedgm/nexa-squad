@@ -81,7 +81,7 @@ La app de origen es **evidencia de comportamiento**, nunca fuente de reglas ni d
 
 Caso típico: un módulo que ya funciona (hecho con Fruti Squad, a mano o legacy) tiene un flujo confuso o componentes mal acomodados. El stack y los datos se quedan como están.
 
-**Proporción.** Este escenario es para avanzar rápido: diagnóstico, estructura y composición solo de las regiones con hallazgo, y después código. No hay inventario del módulo, ni fase de preparación de datos, ni checklist de servidor, salvo que un hallazgo los necesite.
+**Proporción.** Este escenario es para avanzar rápido. Solo entran a la cadena los hallazgos `corregir-ahora` del diagnóstico (bloqueantes e importantes que estorban una tarea frecuente); el resto queda en la lista de pulido para Kevin. Vera solo devuelve la fase por un bloqueante o una regresión fuera del alcance. Además: diagnóstico, estructura y composición solo de las regiones con hallazgo, y después código. No hay inventario del módulo, ni fase de preparación de datos, ni checklist de servidor, salvo que un hallazgo los necesite.
 
 1. **Vera, modo diagnóstico.** Audita la pantalla funcionando y su código contra el catálogo de estándares y el sistema de diseño del proyecto (no hay documentos de Nexa contra los cuales comparar), recorriendo las tareas del perfil que usa el módulo (fila del módulo en `docs/producto.md` o lo que dijo Kevin). Cada hallazgo cita su fuente y se clasifica por dueño. Si Kevin nombra una tarea que el módulo hoy no permite (p. ej. adjuntar un voucher), no es corrección de composición: se anota para Inqa como escenario extender.
 2. **Orka agrupa los hallazgos por dueño** y lanza solo a quien le toca:

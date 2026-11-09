@@ -2,6 +2,8 @@
 
 ## Sin publicar
 
+- Vera: `no-pasa` solo por un bloqueante o una regresión fuera del alcance; importantes y menores van a una lista de pulido que Kevin decide. Desde la segunda vuelta revisa solo lo cambiado y lo que seguía abierto. En el diagnóstico marca `corregir-ahora` lo que entra a la cadena.
+- Orka: en corregir lanza a Fluxa, Kompa y Kura solo con los hallazgos `corregir-ahora`; los documentos intermedios no fijan píxeles salvo que la medida sea el hallazgo.
 - Profundidad proporcional al cambio (regla común 11): cada rol analiza solo lo que el cambio toca; lo demás queda en una línea "fuera de alcance". Orka anota el alcance en la bitácora y devuelve los documentos que se salen de él.
 - Corregir frente a migrar: corregir el diseño o el flujo de un módulo que sigue en el mismo stack y con los mismos datos es "corregir", aunque sea legacy o la frase diga "rediseña". "Migrar" queda solo para cambios de stack, framework o modelo de datos.
 - Arko: sin fase de preparación de datos (respaldo, copia anonimizada, inventario) si el cambio no modifica ni borra datos; el checklist de implementación lista solo lo que el cambio toca.

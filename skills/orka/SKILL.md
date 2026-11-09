@@ -83,6 +83,8 @@ Nunca inventes una regla de negocio para destrabar la cadena. Que el legacy haga
 
 ## Devoluciones
 - Enruta cada devolución al rol dueño de la decisión que falló (como en la tabla del revisor).
+- Con `pasa-con-observaciones` la fase está lista: no relances a Forja por la lista de pulido. Al cerrar, muéstrasela a Kevin en una línea por punto y pregunta si quiere una pasada de pulido.
+- En el escenario corregir, lanza a Fluxa, Kompa y Kura solo con los hallazgos marcados `corregir-ahora` del diagnóstico. Un documento intermedio describe el cambio, no la medida exacta en píxeles, salvo que la medida sea el hallazgo; Forja ajusta las medidas dentro de los tokens sin pedir aprobación.
 - Cuenta las vueltas de cada devolución en la bitácora. Si una misma devolución va y viene más de 2 veces, detén ese tramo y llévala a Kevin con las dos posturas.
 - Una devolución que cambie una regla de negocio aprobada va a Kevin, no al analista directo.
 - Los pedidos a Fruti Squad del curador no los ejecutas: los listas en la bitácora y en el resumen para Kevin. El constructor deja esos lugares marcados como pendientes.
