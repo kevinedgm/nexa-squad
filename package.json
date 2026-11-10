@@ -8,7 +8,8 @@
   "type": "module",
   "scripts": {
     "test": "node scripts/check.mjs",
-    "comandos": "node bin/comandos.mjs"
+    "comandos": "node bin/comandos.mjs",
+    "medir": "node scripts/medir.mjs"
   },
   "files": ["bin/", "skills/", "agents/", "estandares/", "comandos/", "docs/nexa-y-fruti.md", "AGENTS.md", "squad.json", "install.sh", "README.md", "LICENSE"],
   "engines": { "node": ">=16" },

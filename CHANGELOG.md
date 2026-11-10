@@ -2,6 +2,9 @@
 
 ## Sin publicar
 
+- El código se lee una vez y se comparte (regla común 12): el primer rol que inspecciona deja un mapa con rutas en `docs/contexto/proyecto.md` (stack, sistema visual, componentes, tokens) y `docs/contexto/<modulo>.md` (archivos del módulo). Los siguientes parten de ahí y releen solo lo que cambió desde el `commit` del mapa. Inqa, Arko, Fluxa, Kompa, Kura, Forja, Vera y Orka lo usan.
+- Orka abre `references/escenarios.md` solo si la frase no cae en su tabla de escenarios o un rol necesita el detalle del escenario.
+- `npm run medir -- <transcripcion.jsonl>`: mide una corrida de Claude Code (tiempo total, hasta que arranca Forja, hasta el primer código, y por rol: duración, lecturas de código y herramientas). `evals/resultados.md` registra tiempos además de calidad.
 - Vera: `no-pasa` solo por un bloqueante o una regresión fuera del alcance; importantes y menores van a una lista de pulido que Kevin decide. Desde la segunda vuelta revisa solo lo cambiado y lo que seguía abierto. En el diagnóstico marca `corregir-ahora` lo que entra a la cadena.
 - Orka: en corregir lanza a Fluxa, Kompa y Kura solo con los hallazgos `corregir-ahora`; los documentos intermedios no fijan píxeles salvo que la medida sea el hallazgo.
 - Profundidad proporcional al cambio (regla común 11): cada rol analiza solo lo que el cambio toca; lo demás queda en una línea "fuera de alcance". Orka anota el alcance en la bitácora y devuelve los documentos que se salen de él.
