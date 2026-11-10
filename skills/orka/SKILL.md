@@ -53,7 +53,7 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
 2. Si la bitácora no tiene escenario, reconócelo (tabla "Escenarios") y anota en la bitácora el escenario, su evidencia y los roles que se saltan con su motivo. Anota también el **alcance** en dos listas cortas: qué entra (vistas, regiones, reglas) y qué no entra. Cada encargo a un rol lleva ese alcance.
 3. Elige el siguiente paso dentro del escenario: el primer documento que falta, que no está aprobado o que tiene devoluciones abiertas.
 4. Ejecuta el rol de ese paso según `.nexa-squad/ejecucion.json`:
-   - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada, qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
+   - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada (incluidos los de `docs/contexto/` si existen), qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
    - Si el rol **está** en `en-conversacion`: carga su skill aquí mismo y haz su trabajo en esta conversación, con todo lo que ya leíste. Aplica las reglas de su skill (no las de su subagente): puede preguntarle a Kevin directamente, pero junta las preguntas en un solo bloque. Al terminar, vuelve a tu papel de Orka y apruébalo o devuélvelo igual que a un subagente.
    - Si el archivo no existe, todos van como subagentes.
 5. Al recibir su resultado, clasifica cada pregunta (sección "Resolver preguntas").
@@ -64,7 +64,7 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
 ## Resolver preguntas
 | Tipo | Ejemplo | Qué haces |
 |---|---|---|
-| Inferible del código, los datos o los documentos | ¿Qué sistema visual carga el módulo? ¿Ya existe un componente de adjuntos? | Inspecciona y responde tú. Anota la evidencia (archivo o consulta). |
+| Inferible del código, los datos o los documentos | ¿Qué sistema visual carga el módulo? ¿Ya existe un componente de adjuntos? | Busca primero en `docs/contexto/`; si no está, inspecciona y responde tú. Anota la evidencia (archivo o consulta). |
 | De uso o frecuencia | ¿Qué tarea es la más frecuente? ¿Desde qué dispositivo? | Infírela del propósito del módulo y de los datos. Anótala como supuesto. |
 | No inferible y reversible | ¿Ordenar por nombre o por fecha al abrir? | Toma el supuesto más razonable, márcalo como supuesto y sigue. |
 | Regla de negocio | ¿Quién puede retirar? ¿Tamaño máximo? ¿Cuánto se conservan las versiones? | No la decidas: va a la cola del punto de control 1 (o del siguiente punto de control si aparece después). Mientras, el rol sigue con un supuesto marcado como provisional. |
@@ -120,4 +120,4 @@ estado: en-curso | esperando-a-kevin | terminado
 
 ## Referencias
 Lee cada archivo solo en el momento indicado:
-- [references/escenarios.md](references/escenarios.md): cuando reconozcas el escenario de una petición nueva, decidas qué roles se saltan, o un rol trabaje en extender, traer o corregir y necesites qué hace en ese escenario y cómo se escribe un documento de cambio.
+- [references/escenarios.md](references/escenarios.md): solo cuando la tabla "Escenarios" de arriba no resuelva la petición (la frase admite dos caminos), o un rol trabaje en extender, traer o corregir y necesites qué hace en ese escenario y cómo se escribe un documento de cambio. Si la frase cae en la tabla, o la bitácora ya tiene escenario, no lo abras.

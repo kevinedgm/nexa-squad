@@ -15,7 +15,8 @@ Idea tomada de "Building agents: when to fold subagents into your main agent loo
 2. En ese proyecto, pega la sección **Contexto** del caso (por ejemplo, `docs/producto.md`) y escribe la **Petición** tal cual.
 3. Cuando termine, pide a un agente nuevo (contexto limpio) que califique: "Califica este resultado con `evals/casos/NN-….md`; para cada casilla di cumple / no cumple con la evidencia (archivo y línea)".
 4. **Corre cada caso dos veces.** Un mismo cambio puede pasar una vez y fallar la siguiente; solo cuenta lo que pasa en las dos.
-5. Anota el resultado en `evals/resultados.md`: fecha, versión del squad, qué cambió, caso, corrida 1, corrida 2.
+5. Mide el tiempo de cada corrida con su transcripción de Claude Code: `npm run medir -- ~/.claude/projects/<proyecto-de-prueba>/<sesion>.jsonl`. La más reciente es la de fecha más nueva en esa carpeta.
+6. Anota el resultado en `evals/resultados.md`: fecha, versión del squad, qué cambió, caso, calidad y tiempo de cada corrida.
 
 ## Juntar un agente con Orka, uno a la vez
 
@@ -44,3 +45,4 @@ Con la lista vacía, Orka lanza a todos como subagentes (forma actual). Cada rol
 | Ruta | Orka eligió el escenario correcto y lanzó solo los roles necesarios |
 | Debe | Las decisiones que el caso exige, con su fuente |
 | No debe | Las reglas que el squad nunca rompe: inventar reglas de negocio, cambiar comportamiento al corregir diseño, copiar aspecto de otra app, valores fuera de tokens |
+| Tiempo (`npm run medir`) | Tiempo total, hasta que arranca Forja y hasta el primer código; por rol, duración y lecturas de código. Un cambio para acelerar solo se queda si baja el tiempo sin que ningún caso pase de pasa a falla |

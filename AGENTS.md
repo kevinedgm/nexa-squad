@@ -49,6 +49,11 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
 9. **Se diseña para perfiles concretos.** `docs/producto.md` (se crea con `/orka init`) define qué es el producto, quién lo usa, sus tareas, frecuencia y contexto, y quién revisa el trabajo de quién. Cada requisito nombra a su perfil, cada vista tiene un perfil principal y cada hallazgo dice a qué perfil afecta.
 10. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia.
 11. **Profundidad proporcional al cambio.** Cada rol analiza solo lo que el cambio toca. Lo que no toca no se inspecciona, no se pregunta y no entra al checklist de implementación. Una corrección no lleva fase de preparación de datos (respaldo, copia anonimizada, inventario) si no modifica ni borra datos. Si un rol cree que algo fuera del alcance importa, lo anota en una línea como "fuera de alcance" para Kevin; no lo desarrolla.
+12. **El código se lee una vez y se comparte.** El primer rol que inspecciona algo deja lo que vio en `docs/contexto/`, y los siguientes parten de ahí en lugar de volver a recorrer el repositorio:
+    - `docs/contexto/proyecto.md`, uno por producto: stack con versiones, sistema visual (librería y dónde se carga), componentes disponibles y dónde viven los tokens (y, si hay Fruti Squad, el registro, el Hub y `.fruti/tokens.json`). Cita rutas; no copia valores de tokens.
+    - `docs/contexto/<modulo>.md`: los archivos del módulo (rutas, vistas, controladores, consultas, tablas) con la función y la línea de lo relevante.
+    - Solo hechos con ruta: ni decisiones ni supuestos. El encabezado YAML lleva `commit:` (el `git rev-parse --short HEAD` al escribir; sin git, la fecha) y `actualizado-por:`.
+    - Antes de usarlo, `git diff --name-only <commit> HEAD -- <rutas del mapa>` (y `git status --short` de esas rutas): si nada cambió, el mapa vale; si cambió algo, se relee solo eso y se actualiza el mapa. Lo que le falte a un rol lo inspecciona él y lo agrega.
 
 ## Skill o subagente
 
