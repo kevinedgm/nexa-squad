@@ -129,7 +129,11 @@ docs/estructura/cuentas.md      pantallas y su contenido (Fluxa)
 docs/composicion/cuentas.md     cómo se acomoda cada parte, con su fuente (Kompa)
 docs/componentes/cuentas.md     qué componentes se usan y qué se pidió a Fruti (Kura)
 docs/revision/cuentas-…md       hallazgos y veredicto (Vera)
+docs/contexto/proyecto.md       mapa del stack, sistema visual, componentes y tokens (uno por producto)
+docs/contexto/cuentas.md        mapa de los archivos del módulo, con ruta y línea
 ```
+
+Los dos mapas de `docs/contexto/` los escribe el primer agente que lee el código, y los demás parten de ahí en lugar de recorrer otra vez el repositorio. Cada mapa guarda el `commit` en que se hizo; si los archivos cambiaron desde entonces, se relee solo lo que cambió.
 
 ## El equipo
 
@@ -200,9 +204,10 @@ evals/                 tareas de prueba con rúbrica para medir cambios al squad
 ```bash
 npm test           # valida nombres, referencias, guía de comandos y cadena
 npm run comandos   # regenera comandos/comandos.md después de editar comandos.json
+npm run medir -- <transcripcion.jsonl>   # tiempos de una corrida: total, hasta Forja, hasta el primer código y por agente
 ```
 
-Antes de cambiar cómo trabaja un agente, corre las tareas de prueba de [evals/](evals/README.md) antes y después del cambio, y conserva el cambio solo si ningún caso empeora.
+Antes de cambiar cómo trabaja un agente, corre las tareas de prueba de [evals/](evals/README.md) antes y después del cambio, y conserva el cambio solo si ningún caso empeora. Si el cambio es para acelerar, mide además cada corrida con `npm run medir`: se queda solo si baja el tiempo sin que ningún caso pase de pasa a falla.
 
 Para cambiar o agregar un agente, sigue [docs/contribuir.md](docs/contribuir.md). La identidad visual (símbolos, color, tipografía y reglas de uso) está en [docs/marca.md](docs/marca.md); los archivos, en `assets/marca/`.
 

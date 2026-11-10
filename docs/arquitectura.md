@@ -43,6 +43,8 @@ Cada rol entrega un documento en `docs/` con encabezado YAML (`estado`, o `vered
 
 Ningún rol carga sus `references/` por adelantado. Cada SKILL.md dice qué referencia abrir y en qué momento. Es el mismo principio que Fruti Squad aplica con sus contratos `.fruti/runtime/*.yaml`: **primero enrutar, después leer**.
 
+Lo mismo vale para el código del proyecto (regla común 12): el primer rol que lo inspecciona deja un mapa con rutas en `docs/contexto/proyecto.md` (stack, sistema visual, componentes, tokens) y `docs/contexto/<modulo>.md` (archivos del módulo). Los subagentes no comparten contexto entre sí, así que sin ese mapa cada uno volvía a recorrer el repositorio. El mapa guarda el `commit` en que se escribió; con `git diff` se sabe qué archivos cambiaron y solo esos se releen.
+
 ## 6. Comparación con Fruti Squad
 
 | Fruti Squad | Nexa Squad |
@@ -55,6 +57,7 @@ Ningún rol carga sus `references/` por adelantado. Cada SKILL.md dice qué refe
 
 ## 7. Pendientes conocidos
 
+- La línea base de `evals/` (calidad y tiempo con `npm run medir`) todavía no se ha corrido. Sin ella no se decide ninguno de los cambios pendientes de la sección 9.
 - Forja y Vera todavía no tienen una prueba real; la primera evidencia útil es correr la fase 1 del gestor.
 - Para verificar el campo `skills:` de los subagentes: corre `/agents` y pídele a `inqa-agent` que diga qué skill tiene cargada.
 
@@ -71,3 +74,19 @@ Fuente: Anthropic, *Building agents: when to fold subagents into your main agent
 | Medir antes de cambiar: ~10 tareas doradas, correr dos veces, cambiar una cosa a la vez | No había evaluaciones | Se agregó `evals/` con 6 casos |
 
 Plan (aprobado por Kevin): correr `evals/` con la forma actual; después agregar uno a uno `fluxa`, `kompa`, `kura` e `inqa` a `.nexa-squad/ejecucion.json` (`en-conversacion`) y conservar cada cambio solo si ningún caso empeora.
+
+## 9. Rendimiento: auditoría del 2026-11-10
+
+Una auditoría externa propuso acelerar el squad. Cada punto se comprobó contra el repositorio antes de decidir.
+
+| Propuesta | Qué se encontró | Decisión |
+|---|---|---|
+| Caché compartido del código | Cierto: Inqa, Arko, Kompa, Kura y Vera recorrían el repositorio por separado; Kompa y Kura repetían el mismo inventario | Aplicado: regla común 12 y `docs/contexto/` |
+| Orka razona el escenario en cada petición | En parte: no hay llamada extra al modelo (Orka corre en la conversación principal), pero abría `escenarios.md` (142 líneas) siempre | Aplicado: lo abre solo si su tabla no resuelve la frase |
+| Script de detección de escenario | Agregaría un paso; la tabla de Orka ya enruta por palabras de la frase | No se aplica |
+| Activar prompt caching | Claude Code ya lo hace | No se aplica |
+| Medir antes y después | No había medida de tiempo | Aplicado: `npm run medir` y columnas de tiempo en `evals/resultados.md` |
+| Modelo ligero para algunos subagentes | Kura y Fluxa toman decisiones, no solo cuentan; puede bajar la calidad | Pendiente: decidir con `evals/` |
+| Recortar los SKILL.md | Ganancia probable pequeña: el tiempo se va sobre todo en llamadas a herramientas y en lo que el modelo escribe (inferencia, sin medir) | Pendiente: decidir con `evals/` |
+| Paralelizar Arko y Fluxa, o Forja y Vera | Fluxa usa los permisos de Arko; Vera puede devolver la fase que Forja ya está extendiendo | Pendiente: decisión de Kevin |
+| Fusionar roles | Es el plan de la sección 8, medido uno a uno con `en-conversacion` | Sigue el plan de la sección 8 |
