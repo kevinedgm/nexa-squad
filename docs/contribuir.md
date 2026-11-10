@@ -14,6 +14,10 @@
 3. Agrega el rol a `squad.json`, a la tabla de la cadena en `AGENTS.md` y a la tabla de Orka en `skills/orka/SKILL.md`.
 4. Corre `npm test`. El validador falla si algo no coincide.
 
+## Si el cambio es para acelerar
+
+Mide antes y después con las tareas de [evals/](../evals/README.md) y `npm run medir -- <transcripcion.jsonl>`. Anota calidad y tiempo en `evals/resultados.md`; el cambio se queda solo si baja el tiempo y ningún caso pasa de pasa a falla.
+
 ## Antes de publicar
 
 ```bash
