@@ -78,8 +78,9 @@ if (!existsSync(MD_PATH) || readFileSync(MD_PATH, 'utf8') !== renderMd()) errors
     '  methods: {', '    go() {', "      this.$emit('cambio')", '    },', '  },', '}', '</script>', '<style>', '.demo {', '  margin: 0;', '}', '</style>'].join('\n');
   const md = radiografia('src/Demo.vue', vue);
   const linea = (t) => vue.split('\n').findIndex((l) => l.includes(t)) + 1;
-  for (const esperado of ['`v-card.demo` → 2-', `\`MiBoton\` (v-if="ok") → 3`, `**methods** → ${linea('methods')}-`, `\`go\` → ${linea('go()')}-`, `emite \`cambio\` → ${linea('$emit')}`, `\`.demo\` → ${linea('.demo {')}-`])
+  for (const esperado of [' v-card.demo 2-', `  MiBoton v-if=ok 3\n`, ` methods ${linea('methods')}-`, `  go() ${linea('go()')}-`, `   emit cambio ${linea('$emit')}\n`, ` .demo ${linea('.demo {')}-`])
     if (!md.includes(esperado)) errors.push(`radiografía: falta "${esperado}"`);
+  if (!md.startsWith('radiografia src/Demo.vue lineas=') || /[`*→]/.test(md)) errors.push('radiografía: debe ser el formato compacto para agentes');
   if (destino('src/Demo.vue') !== join('docs', 'contexto', 'archivos', 'src__Demo.vue.md')) errors.push('radiografía: destino inesperado');
   const { validarCasos } = await import('../bin/verificar.mjs');
   const bueno = { anchos: [390], casos: [{ id: 'T1', url: '/', pasos: [{ clic: '#a' }, { escribe: ['#b', 'x'] }], espera: [{ selector: '#c', texto: 'ok' }] }] };

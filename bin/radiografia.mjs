@@ -44,6 +44,7 @@ function finSangria(lines, i, hasta) {
 }
 
 const r = (a, b) => (a === b ? `${a + 1}` : `${a + 1}-${b + 1}`);
+// Formato para agentes, no para personas: una línea por pieza, `nombre inicio-fin`, la sangría indica anidamiento.
 
 function plantilla(lines, ini, fin, out) {
   const base = indent(lines[ini + 1] || '');
@@ -59,7 +60,7 @@ function plantilla(lines, ini, fin, out) {
     const cond = (t.match(/\b(v-if|v-else-if|v-else|v-show|v-for)\b(?:="([^"]*)")?/) || []);
     if (nivel > 4 || (!componente && !clase && !ref && !cond[1])) continue;
     const nombre = [tag, clase && '.' + clase.split(/\s+/)[0], ref && '#' + ref].filter(Boolean).join('');
-    out.push(`${'  '.repeat(Math.max(0, nivel))}- \`${nombre}\`${cond[1] ? ` (${cond[1]}${cond[2] ? `="${cond[2].slice(0, 40)}"` : ''})` : ''} → ${r(i, finSangria(lines, i, fin - 1))}`);
+    out.push(`${' '.repeat(Math.max(0, nivel) + 1)}${nombre}${cond[1] ? ` ${cond[1]}${cond[2] ? `=${cond[2].slice(0, 40)}` : ''}` : ''} ${r(i, finSangria(lines, i, fin - 1))}`);
   }
 }
 
@@ -68,16 +69,16 @@ function codigo(lines, ini, fin, out) {
     const l = lines[i];
     let m;
     if ((m = l.match(/^\s{0,4}(props|data|computed|methods|watch|emits|components|setup|mounted|created|beforeDestroy|beforeUnmount|unmounted)\s*(?:\(\)\s*)?[:({]/))) {
-      out.push(`- **${m[1]}** → ${r(i, finLlaves(lines, i))}`);
+      out.push(` ${m[1]} ${r(i, finLlaves(lines, i))}`);
     } else if ((m = l.match(/^\s{4,6}(?:async\s+)?([A-Za-z_$][\w$]*)\s*(?:\([^)]*\)\s*\{|:\s*(?:async\s+)?(?:function\b|\([^)]*\)\s*=>|\{))/)) && !/^(if|for|while|switch|catch|return)$/.test(m[1])) {
-      out.push(`  - \`${m[1]}\` → ${r(i, finLlaves(lines, i))}`);
+      out.push(`  ${m[1]}() ${r(i, finLlaves(lines, i))}`);
     } else if ((m = l.match(/^\s*(?:export\s+)?(?:default\s+)?(?:async\s+)?(?:function\s+([\w$]+)|class\s+([\w$]+)|(?:const|let)\s+([\w$]+)\s*=\s*(?:async\s*)?(?:\([^)]*\)|[\w$]+)\s*=>)/))) {
-      out.push(`- \`${m[1] || m[2] || m[3]}\` → ${r(i, finLlaves(lines, i))}`);
+      out.push(` ${m[1] || m[2] || m[3]} ${r(i, finLlaves(lines, i))}`);
     } else if ((m = l.match(/^\s*(?:public|private|protected|static|\s)*function\s+([\w]+)\s*\(/))) {
-      out.push(`- \`${m[1]}()\` → ${r(i, finLlaves(lines, i))}`);
+      out.push(` ${m[1]}() ${r(i, finLlaves(lines, i))}`);
     }
     const emit = [...l.matchAll(/\$?emit\(\s*['"]([\w:-]+)['"]/g)].map((x) => x[1]);
-    for (const e of emit) out.push(`  - emite \`${e}\` → ${i + 1}`);
+    for (const e of emit) out.push(`   emit ${e} ${i + 1}`);
   }
 }
 
@@ -85,7 +86,7 @@ function estilos(lines, ini, fin, out) {
   for (let i = ini; i < fin; i++) {
     const t = lines[i].trim();
     if (!t.endsWith('{') || t.startsWith('@') || indent(lines[i]) > indent(lines[ini + 1] || '') + 2) continue;
-    out.push(`- \`${t.slice(0, -1).trim().slice(0, 80)}\` → ${r(i, finLlaves(lines, i))}`);
+    out.push(` ${t.slice(0, -1).trim().slice(0, 80)} ${r(i, finLlaves(lines, i))}`);
   }
 }
 
@@ -100,15 +101,15 @@ export function radiografia(rel, texto) {
     bloques.push({ tipo: /\.s?css$/.test(rel) ? 'style' : 'script', ini: -1, fin: lines.length });
   }
   for (const b of bloques) {
-    if (extname(rel) === '.vue') out.push('', `## <${b.tipo}> → ${r(b.ini, b.fin)}`, '');
+    if (extname(rel) === '.vue') out.push(`${b.tipo} ${r(b.ini, b.fin)}`);
     if (b.tipo === 'template') plantilla(lines, b.ini, b.fin, out);
     else if (b.tipo === 'script') codigo(lines, b.ini + 1, b.fin, out);
     else estilos(lines, b.ini, b.fin, out);
   }
   const hash = createHash('sha1').update(texto).digest('hex').slice(0, 12);
-  return ['---', `archivo: ${rel}`, `lineas: ${lines.length - (lines.at(-1) === '' ? 1 : 0)}`, `sha1: ${hash}`, 'generado-por: radiografia', '---', '',
-    `# Radiografía de \`${rel}\``, '',
-    'Índice generado sin IA. Lee aquí la línea de lo que buscas y abre solo ese rango; no leas el archivo completo. Si el `sha1` no coincide con el archivo, vuelve a correr `node .nexa-squad/radiografia.mjs <archivo>`.',
+  const n = lines.length - (lines.at(-1) === '' ? 1 : 0);
+  return [`radiografia ${rel} lineas=${n} sha1=${hash}`,
+    'formato: pieza inicio-fin; sangria=anidado. Lee solo el rango que necesitas. sha1 distinto: node .nexa-squad/radiografia.mjs <archivo>',
     ...out, ''].join('\n');
 }
 
@@ -123,8 +124,8 @@ function procesar(archivo, { stdout, base }) {
   const md = radiografia(rel, texto);
   if (stdout) { process.stdout.write(md); return rel; }
   const out = join(base, destino(rel));
-  const hash = (md.match(/^sha1: (\w+)/m) || [])[1];
-  if (existsSync(out) && readFileSync(out, 'utf8').includes(`sha1: ${hash}`)) return rel;
+  const hash = (md.match(/ sha1=(\w+)/) || [])[1];
+  if (existsSync(out) && readFileSync(out, 'utf8').includes(`sha1=${hash}`)) return rel;
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, md);
   return rel;
