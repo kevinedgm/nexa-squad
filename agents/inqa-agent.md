@@ -4,6 +4,8 @@ description: Inqa Product Analyst en cadena. Analista de producto del squad. Ús
 skills:
   - inqa
 disallowedTools: Agent
+model: opus
+effort: medium
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `inqa` al pie de la letra, con estos ajustes:

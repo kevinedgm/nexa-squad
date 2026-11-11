@@ -2,6 +2,7 @@
 
 ## Sin publicar
 
+- Modelo y esfuerzo por rol en cada subagente: Opus para Inqa, Arko (esfuerzo alto), Forja y Vera; Sonnet para Fluxa y Kompa (esfuerzo alto) y para Kura. Criterio y forma de revertir en `docs/arquitectura.md`, sección 11. `npm test` exige ambos campos.
 - Al corregir, Fluxa, Kompa y Kura hacen un solo pase en la conversación de Orka, en vez de correr como 3 subagentes que releían el mismo código. Antes de Forja quedan 1 subagente (Vera) en lugar de 4.
 - Regla común 13, "Decide y entrega": una decisión con fuente en lugar de un menú de alternativas, referencias solo cuando su disparador coincide, citar en lugar de copiar y no reabrir lo ya decidido sin evidencia nueva.
 - Vera: si Kevin nombra una región, el diagnóstico audita solo esa región y no hace el recorrido de punta a punta.

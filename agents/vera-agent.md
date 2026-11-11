@@ -4,6 +4,8 @@ description: Vera QA Auditor en cadena. Revisor del squad. Úsalo cuando el orqu
 skills:
   - vera
 disallowedTools: Agent
+model: opus
+effort: medium
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `vera` al pie de la letra, con estos ajustes:

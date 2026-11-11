@@ -27,6 +27,9 @@ for (const r of SQUAD.roles) {
     const af = fm(readFileSync(ap, 'utf8'));
     if (field(af, 'name') !== r.agent) errors.push(`${r.agent}: name no coincide con el archivo`);
     if (!af.includes(`- ${r.skill}`)) errors.push(`${r.agent}: no carga la skill ${r.skill} en skills:`);
+    // Cada subagente fija su modelo y esfuerzo (docs/arquitectura.md, sección 11).
+    if (!['haiku', 'sonnet', 'opus', 'inherit'].includes(field(af, 'model'))) errors.push(`${r.agent}: model debe ser haiku, sonnet, opus o inherit`);
+    if (!['low', 'medium', 'high', 'xhigh', 'max'].includes(field(af, 'effort'))) errors.push(`${r.agent}: falta effort (low a max)`);
   }
 }
 // El orquestador debe nombrar a cada subagente de la cadena.

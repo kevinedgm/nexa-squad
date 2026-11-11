@@ -4,6 +4,8 @@ description: Kura Component Curator en cadena. Curador de componentes del squad.
 skills:
   - kura
 disallowedTools: Agent
+model: sonnet
+effort: medium
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `kura` al pie de la letra, con estos ajustes:

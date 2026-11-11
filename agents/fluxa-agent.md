@@ -4,6 +4,8 @@ description: Fluxa Flow Designer en cadena. Responsable de estructura del squad.
 skills:
   - fluxa
 disallowedTools: Agent
+model: sonnet
+effort: high
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `fluxa` al pie de la letra, con estos ajustes:

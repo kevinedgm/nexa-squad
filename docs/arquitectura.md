@@ -107,3 +107,22 @@ Síntoma: corregir el diseño de un formulario o de una sección tardaba de 1 a 
 Cómo comprobarlo: corre `npm run medir` sobre la transcripción de una corrección hecha antes de este cambio y sobre una hecha después, con el mismo módulo. La cifra que importa es el tiempo hasta el primer código. Si la calidad de la composición baja (caso 04 de `evals/`), se revierte quitando el párrafo "Al corregir" del paso 4 de Orka.
 
 Se revisaron también los prototipos (`kiwi-art-director`, `lima-governance`, `coco-visual`, `fruti-squad-kiro`) y `taller-agentes`. Se adoptó la idea de limitar las herramientas en el frontmatter en vez de pedirlo en texto. No se adoptó lo que suma análisis, como la regla del prototipo de Kiwi de presentar siempre tres alternativas A, B y C. De `taller-agentes`, el método (un ejercicio fijo con clave y un solo cambio a la vez) ya está en `evals/`.
+
+## 11. Modelo y esfuerzo por rol (2026-11-11)
+
+Fuente: la guía de Anthropic para elegir modelo (*Choosing a model*) y la documentación de subagentes de Claude Code (campos `model` y `effort`). Según la guía, Opus es para el código complejo con agentes, Sonnet para el trabajo de todos los días y Haiku para la latencia más baja. También dice que "ajustar el esfuerzo suele ser mejor palanca que cambiar de modelo" y que el criterio final es una evaluación propia.
+
+Criterio: va Opus donde un error es caro y viaja por la cadena, o donde hay que leer mucho código. Va Sonnet donde el rol aplica criterios que ya están escritos en sus referencias y en el catálogo. Ningún rol usa Haiku, porque todos deciden algo y no solo cuentan o buscan.
+
+| Rol | Modelo | Esfuerzo | Por qué |
+|---|---|---|---|
+| Orka | el de la sesión | — | Corre en la conversación principal; al corregir también hace el pase de Fluxa, Kompa y Kura. Conviene que la sesión use Opus |
+| Inqa | opus | medium | Separa reglas de negocio de supuestos; un error aquí lo heredan todos |
+| Arko | opus | high | Datos, permisos y lo irreversible |
+| Fluxa | sonnet | high | Aplica patrones y heurísticas escritos en sus referencias |
+| Kompa | sonnet | high | Igual que Fluxa: cada regla sale del catálogo y de las referencias. El esfuerzo alto compensa que es el núcleo del squad |
+| Kura | sonnet | medium | Busca y clasifica contra la regla de 3 usos |
+| Forja | opus | medium | Escribe código en módulos legacy de varios archivos |
+| Vera | opus | medium | Un revisor más débil que el constructor deja pasar lo que el constructor no vio |
+
+Cómo se revierte: cambia `model` o `effort` en `agents/<rol>-agent.md`. Si con `evals/` la composición empeora, el primer cambio es subir Kompa a `opus`. Si Inqa, Forja o Vera no muestran diferencia con Sonnet, se bajan uno a la vez. `npm test` exige que cada subagente declare los dos campos.

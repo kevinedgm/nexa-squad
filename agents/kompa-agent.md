@@ -4,6 +4,8 @@ description: Kompa Layout Composer en cadena. Compositor del squad. Úsalo cuand
 skills:
   - kompa
 disallowedTools: Agent
+model: sonnet
+effort: high
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `kompa` al pie de la letra, con estos ajustes:
