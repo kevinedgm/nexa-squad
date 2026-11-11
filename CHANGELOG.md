@@ -2,6 +2,7 @@
 
 ## Sin publicar
 
+- `/orka rápido <tarea>`: modo rápido sea cual sea el escenario (no al migrar legacy). Los documentos aprobados no se reescriben: un cambio es una fila nueva o una sección de máximo 10 líneas (regla común 10). `docs/ADAPTACION.md`: antes y después de cada archivo de la adaptación a Kiro, lo que no se hizo y por qué, y el checklist para medir.
 - Cada subagente tiene un contrato en cadena (en `agents/<rol>-agent.md`, así llega a Claude Code y a Kiro): qué recibe, qué entrega con tope de líneas, cuándo termina y cuántas referencias puede abrir. Si el alcance no cabe, entrega lo que cabe y devuelve el resto como fase siguiente.
 - Kiro: `forja-agent` pasa a `trustedAgents` (arranca sin pedir aprobación; con Forja en paralelo eran varios clics). A cambio, todos los agentes tienen prohibido `git add` y `git commit`, además de lo que ya bloqueaban (`rm -rf`, `git push`, `mysql`…): Kevin revisa y commitea.
 - Forja en paralelo (modo rápido): Orka agrupa las filas de la tabla de tareas por archivos; los grupos sin archivos en común van a varios `forja-agent` al mismo tiempo (máximo 3), cada uno con su registro y su evidencia (`-g1`, `-g2`…) y la lista de archivos que no puede tocar. Después corre un solo Vera para todas las filas. Orka no pide aprobación entre pasos: solo espera ante algo irreversible o una regla de negocio sin confirmar.

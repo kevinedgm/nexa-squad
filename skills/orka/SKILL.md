@@ -22,6 +22,7 @@ Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 
 ## Cómo se invoca y ayuda
 - Kevin te invoca con `/orka …` (en Codex o Kiro: "usa orka para …"). La guía de frases por escenario está en `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`).
+- **`/orka rápido <tarea>`** (en Kiro: "usa orka rápido para …"): modo rápido sea cual sea el escenario, también en nuevo o traer si la tarea es mediana. Sigue la sección "Modo rápido"; Inqa o Arko entran solo para la regla o el dato que lo necesite. Migrar legacy (cambia stack o datos) nunca va en modo rápido: díselo en una línea y sigue en modo completo.
 - Si pregunta a quién invocar, qué comando usar o "ayuda", busca su caso en esa guía y respóndele con la frase exacta y qué pasará; ofrece ejecutarla tú en ese momento. No arranques la cadena sin que diga que sí.
 - No preguntes por el escenario cuando la frase ya lo dice: "corrige la composición", "corrige el diseño", "corrige el flujo", "rediseña la pantalla", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
 
@@ -71,7 +72,9 @@ El plan es la tabla de tareas de la bitácora. Antes de Forja no se escribe ning
 5. **Forja, en paralelo cuando se puede.** Agrupa las filas pendientes por los archivos de su columna `dónde`: dos filas que comparten un archivo, o donde una usa lo que la otra crea, van en el mismo grupo. Si salen varios grupos sin archivos en común, lanza un `forja-agent` por grupo **al mismo tiempo** (máximo 3; si hay más grupos, los que sobran se suman al grupo más chico). Cada encargo lleva sus filas (id, dónde, cambio), la marca `modo: rápido` y su letra de grupo (`g1`, `g2`…), y la lista de archivos que **no** puede tocar porque son de otro grupo. Si sale un solo grupo, un solo Forja. Un pedido a Fruti Squad no detiene a Forja: deja el lugar marcado como pendiente. Lo que no se pudo inferir queda como supuesto en la bitácora y se lo muestras a Kevin al final, en un solo bloque, sin detener a Forja.
 6. **Vera.** Cuando terminen todos los Forja de la fase, lanza un solo `vera-agent` con `modo: rápido` y todas las filas `hecho`, para que revise también cómo encajan los grupos.
 
-El modo completo (un documento por rol, aprobado por ti) es para nuevo, traer y migrar legacy, o cuando Kevin lo pida ("con documentos", "modo completo").
+El modo completo (un documento por rol, aprobado por ti) es para nuevo, traer y migrar legacy, o cuando Kevin lo pida ("con documentos", "modo completo"). `/orka rápido` fuerza el modo rápido en nuevo y traer.
+
+**Documentos aprobados no se reescriben.** Un documento con `estado: aprobado` no se regenera ni se reescribe entero, ni por ti ni por un rol: un cambio posterior va como fila nueva de la tabla (modo rápido) o como sección `## Cambio <id>` al final, de máximo 10 líneas (modo completo). Si un rol entrega un documento aprobado reescrito, devuélvelo sin leerlo completo.
 
 ## Resolver preguntas
 | Tipo | Ejemplo | Qué haces |
