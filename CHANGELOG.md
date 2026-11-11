@@ -2,6 +2,7 @@
 
 ## Sin publicar
 
+- Regla común 12, archivos largos: más de 300 líneas se buscan con `grep -n` y se lee solo el rango; no se relee en la misma corrida salvo que una edición falle; las líneas viejas del mapa se corrigen al encontrarlas. Motivo: en Kiro, `EmbarazoSwitch.vue` (921 líneas) apareció ~10 veces como "Read File" en una sesión de 10 min.
 - `/orka rápido <tarea>`: modo rápido sea cual sea el escenario (no al migrar legacy). Los documentos aprobados no se reescriben: un cambio es una fila nueva o una sección de máximo 10 líneas (regla común 10). `docs/ADAPTACION.md`: antes y después de cada archivo de la adaptación a Kiro, lo que no se hizo y por qué, y el checklist para medir.
 - Cada subagente tiene un contrato en cadena (en `agents/<rol>-agent.md`, así llega a Claude Code y a Kiro): qué recibe, qué entrega con tope de líneas, cuándo termina y cuántas referencias puede abrir. Si el alcance no cabe, entrega lo que cabe y devuelve el resto como fase siguiente.
 - Kiro: `forja-agent` pasa a `trustedAgents` (arranca sin pedir aprobación; con Forja en paralelo eran varios clics). A cambio, todos los agentes tienen prohibido `git add` y `git commit`, además de lo que ya bloqueaban (`rm -rf`, `git push`, `mysql`…): Kevin revisa y commitea.
