@@ -22,6 +22,7 @@ Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
 
 ## Cómo se invoca y ayuda
 - Kevin te invoca con `/orka …` (en Codex o Kiro: "usa orka para …"). La guía de frases por escenario está en `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`).
+- **`/orka rápido <tarea>`** (en Kiro: "usa orka rápido para …"): modo rápido sea cual sea el escenario, también en nuevo o traer si la tarea es mediana. Sigue la sección "Modo rápido"; Inqa o Arko entran solo para la regla o el dato que lo necesite. Migrar legacy (cambia stack o datos) nunca va en modo rápido: díselo en una línea y sigue en modo completo.
 - Si pregunta a quién invocar, qué comando usar o "ayuda", busca su caso en esa guía y respóndele con la frase exacta y qué pasará; ofrece ejecutarla tú en ese momento. No arranques la cadena sin que diga que sí.
 - No preguntes por el escenario cuando la frase ya lo dice: "corrige la composición", "corrige el diseño", "corrige el flujo", "rediseña la pantalla", "se ve mal" o "está mal acomodado" es corregir; "cuando pase X, ahora tiene que pasar Y" es extender; "tráela de tal aplicación" es traer. Pregunta una sola vez solo si dice "corrige" sin decir si es aspecto o comportamiento.
 
@@ -53,7 +54,7 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
 2. Si la bitácora no tiene escenario, reconócelo (tabla "Escenarios") y anota en la bitácora el escenario, su evidencia y los roles que se saltan con su motivo. Anota también el **alcance** en dos listas cortas: qué entra (vistas, regiones, reglas) y qué no entra. Cada encargo a un rol lleva ese alcance.
 3. Elige el siguiente paso dentro del escenario: el primer documento que falta, que no está aprobado o que tiene devoluciones abiertas.
 4. Ejecuta el rol de ese paso según `.nexa-squad/ejecucion.json`:
-   - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada (incluidos los de `docs/contexto/` si existen), qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
+   - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada (incluidos los de `docs/contexto/` si existen), qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior. Única excepción: varios `forja-agent` en paralelo en modo rápido (paso 5 del modo rápido).
    - Si el rol **está** en `en-conversacion`: carga su skill aquí mismo y haz su trabajo en esta conversación, con todo lo que ya leíste. Aplica las reglas de su skill (no las de su subagente): puede preguntarle a Kevin directamente, pero junta las preguntas en un solo bloque. Al terminar, vuelve a tu papel de Orka y apruébalo o devuélvelo igual que a un subagente.
    - Si el archivo no existe, todos van como subagentes.
    - **Al corregir o extender**, sigue el "Modo rápido" (sección siguiente), diga lo que diga `ejecucion.json`: el diagnóstico y el pase de Fluxa, Kompa y Kura corren aquí y producen filas de la tabla de tareas, no documentos.
@@ -68,10 +69,12 @@ El plan es la tabla de tareas de la bitácora. Antes de Forja no se escribe ning
 2. **Regla nueva (extender).** La regla que dijo Kevin va como fila, con Dado/Cuando/Entonces en una línea. Inqa entra como subagente solo si hay una regla de negocio que Kevin no confirmó (punto de control 1); Arko solo si el cambio toca datos, permisos o API.
 3. **Cambio por fila.** En un solo pase, partiendo de `docs/contexto/`, lee una vez el código de las regiones con filas y aplica las skills de Fluxa, Kompa y Kura cargadas aquí (primero estructura, después composición, al final piezas). Para cada fila escribe en la columna `cambio` una línea: qué se mueve, agrupa o compone y con qué pieza, con su fuente de `.nexa-squad/estandares.md`. Describe el cambio, no la medida en píxeles, salvo que la medida sea el hallazgo. No escribas `docs/estructura`, `docs/composicion` ni `docs/componentes`. Única excepción: si falta un componente, escribe el pedido `docs/componentes/pedidos/<id>.md`, porque es la entrada de Fruti Squad.
 4. **Tope.** La tabla y sus supuestos caben en 40 líneas. Si no caben, el alcance es demasiado grande: manda a Forja las primeras filas como fase 1 y deja el resto para la siguiente fase, en lugar de seguir escribiendo.
-5. **Forja.** Lanza `forja-agent` con las filas pendientes (id, dónde, cambio) y la marca `modo: rápido`. Lo que no se pudo inferir queda como supuesto en la bitácora y se lo muestras a Kevin al final, en un solo bloque, sin detener a Forja.
-6. **Vera.** Lanza `vera-agent` con `modo: rápido` y solo las filas `hecho`.
+5. **Forja, en paralelo cuando se puede.** Agrupa las filas pendientes por los archivos de su columna `dónde`: dos filas que comparten un archivo, o donde una usa lo que la otra crea, van en el mismo grupo. Si salen varios grupos sin archivos en común, lanza un `forja-agent` por grupo **al mismo tiempo** (máximo 3; si hay más grupos, los que sobran se suman al grupo más chico). Cada encargo lleva sus filas (id, dónde, cambio), la marca `modo: rápido` y su letra de grupo (`g1`, `g2`…), y la lista de archivos que **no** puede tocar porque son de otro grupo. Si sale un solo grupo, un solo Forja. Un pedido a Fruti Squad no detiene a Forja: deja el lugar marcado como pendiente. Lo que no se pudo inferir queda como supuesto en la bitácora y se lo muestras a Kevin al final, en un solo bloque, sin detener a Forja.
+6. **Vera.** Cuando terminen todos los Forja de la fase, lanza un solo `vera-agent` con `modo: rápido` y todas las filas `hecho`, para que revise también cómo encajan los grupos.
 
-El modo completo (un documento por rol, aprobado por ti) es para nuevo, traer y migrar legacy, o cuando Kevin lo pida ("con documentos", "modo completo").
+El modo completo (un documento por rol, aprobado por ti) es para nuevo, traer y migrar legacy, o cuando Kevin lo pida ("con documentos", "modo completo"). `/orka rápido` fuerza el modo rápido en nuevo y traer.
+
+**Documentos aprobados no se reescriben.** Un documento con `estado: aprobado` no se regenera ni se reescribe entero, ni por ti ni por un rol: un cambio posterior va como fila nueva de la tabla (modo rápido) o como sección `## Cambio <id>` al final, de máximo 10 líneas (modo completo). Si un rol entrega un documento aprobado reescrito, devuélvelo sin leerlo completo.
 
 ## Resolver preguntas
 | Tipo | Ejemplo | Qué haces |
@@ -137,7 +140,8 @@ estado: en-curso | esperando-a-kevin | terminado
 - En modo rápido no hay documentos de rol antes de Forja. Si te descubres escribiendo uno, o la tabla pasa de 40 líneas, para y lanza Forja con las filas que ya tienes.
 - No narres cada paso. Al cerrar un tramo o llegar a un punto de control, entrega un resumen de máximo 5 líneas: dónde va la cadena, qué se aprobó, qué supuestos se tomaron y qué necesitas de Kevin.
 - No edites el contenido de los documentos de los roles; solo su estado y `aprobado-por`.
-- No lances dos roles a la vez sobre el mismo módulo.
+- No lances dos roles a la vez sobre el mismo módulo, salvo varios `forja-agent` con archivos sin cruce en modo rápido.
+- Solo esperas a Kevin ante algo irreversible (borrar o migrar datos, producción, cambios que afectan a otros módulos) o una regla de negocio sin confirmar. Entre pasos no pides aprobación.
 - No ejecutes nada irreversible fuera del punto de control 2.
 - Si Kevin pide un solo rol ("solo analiza", "solo revisa la fase 2"), lanza solo ese y detente.
 

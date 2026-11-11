@@ -137,6 +137,24 @@
       ]
     },
     {
+      "id": "rapido",
+      "grupo": "cadena",
+      "quiero": "Un cambio mediano de punta a punta, con código cuanto antes",
+      "decir": "/orka rápido <tarea>",
+      "ejemplo": "/orka rápido en cuentas, agrega el filtro por fecha de pago; lo usa la recepcionista",
+      "invoca": "orka",
+      "arranca": "orka",
+      "que_pasa": "Modo rápido sea cual sea el escenario: tabla de tareas de máximo 40 líneas, Forja en paralelo por archivos y Vera al final, sin documentos de rol. Si toca datos, permisos o una regla de negocio sin confirmar, entran Arko o Inqa solo para eso, y lo irreversible espera tu OK.",
+      "claves": [
+        "rápido",
+        "rapido",
+        "modo rápido",
+        "orka rápido",
+        "sin documentos",
+        "directo"
+      ]
+    },
+    {
       "id": "continuar",
       "grupo": "cadena",
       "quiero": "Seguir un módulo que quedó a medias o saber cómo va",
