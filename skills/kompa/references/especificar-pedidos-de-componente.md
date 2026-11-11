@@ -25,9 +25,10 @@ Llena cada sección. Si algo no se sabe, escríbelo como pregunta; no lo invente
 | Sección | Qué contiene | Pregunta guía |
 |---|---|---|
 | **Nombre de trabajo** | Nombre por propósito, provisional | ¿Qué hace, en dos o tres palabras? |
-| **Tipo de pedido** | Componente nuevo o variante de uno existente (cuál) | ¿Cambia el propósito del existente? |
+| **Tipo de pedido** | `nuevo`, `variante` (de cuál), `correccion` (de qué pieza de Fruti) o `desde-codigo` (convertir una sección hecha a mano) | ¿Cambia el propósito del existente? ¿La pieza incumple su contrato? |
+| **Código actual** | Solo en `correccion` y `desde-codigo`: rutas con línea, ancho de pantalla donde falla y qué pasa contra lo que dice el contrato. Es evidencia de cómo funciona hoy, no de cómo debe verse | ¿Dónde se ve el problema o el comportamiento que hay que conservar? |
 | **Propósito** | Una frase: qué logra la persona usuaria con él | ¿Qué tarea resuelve? |
-| **Dónde se usa** | Módulos y pantallas, cada uno marcado hecho o supuesto; frecuencia inferida del propósito del módulo | ¿Cumple la regla de 3 usos o es pieza básica? |
+| **Dónde se usa** | Módulos y pantallas, cada uno marcado hecho o supuesto; frecuencia inferida del propósito del módulo | ¿Dónde más se usaría? |
 | **Partes (anatomía)** | Lista de partes con obligatoria/opcional y para qué sirve cada una | ¿Qué información y qué acciones contiene? |
 | **Variantes** | Dimensiones que cambian sin cambiar el propósito (densidad, tono, con/sin una parte) | ¿Qué cambia entre usos? |
 | **Estados** | Tabla de estados con disparador, reglas y retroalimentación (ver sección 3) | ¿En qué condiciones puede estar? |

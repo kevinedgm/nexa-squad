@@ -55,22 +55,27 @@ Para Nexa, nombra la skill que es dueña de lo que pides: kompa (cómo se ve y q
 El caso más común.
 
 1. Nexa arma una pantalla. **Kompa** busca cada pieza en `.fruti/catalog.md`, un catálogo que mantiene Mora: qué piezas existen, para qué sirven, cómo se importan, sus variantes, tamaños y estados, y en qué estado están (el estado lo toman del registro). Abren la página del Design Hub solo de la pieza elegida y solo si al catálogo le falta un dato.
-2. Si no existe, o le falta una variante, y se usará en 3 o más lugares, Kompa escribe un pedido en `docs/componentes/pedidos/<id>.md`. El pedido describe la necesidad, no el aspecto: propósito, dónde se usa, partes, estados con su disparador, regla y feedback, accesibilidad y criterios de aceptación.
+2. Si no existe, le falta una variante o el sistema del proyecto (por ejemplo, Vuetify) no la resuelve, Kompa escribe un pedido en `docs/componentes/pedidos/<id>.md`. El pedido describe la necesidad, no el aspecto: propósito, dónde se usa, partes, estados con su disparador, regla y feedback, accesibilidad y criterios de aceptación.
 3. Kompa resuelve la pantalla con lo que hay y deja ese lugar marcado `PENDIENTE`. El resto avanza.
 4. Le das el pedido a Fruti: "Diseña el componente de `docs/componentes/pedidos/<id>.md`".
 5. Fruti lo recorre completo: Kiwi → Lima → Coco → Bruno → Coco (auditoría) → Lima → Mora. La tabla de estados del pedido alimenta la tabla de transiciones del contrato de Lima.
 6. Cuando el componente queda en el registro, le dices a Nexa "usa kompa: reemplaza el pendiente de <pantalla> con <componente>".
 
-Solo Kompa pide cosas a Fruti.
+Solo Kompa pide cosas a Fruti. Los tipos de pedido son `nuevo`, `variante`, `correccion` y `desde-codigo`.
 
-### B. Un módulo hecho con piezas de Fruti se ve mal
+### B. Una pieza de Fruti no se integra con lo que ya había
 
-Ejemplo: Cuentas tiene buenos componentes, pero el autocomplete ocupa todo el ancho y empuja el botón a otra línea.
+Ejemplo: el autocomplete de Fruti está bien hecho, pero en Cuentas convive con una barra de búsqueda y un botón de Vuetify, ocupa todo el ancho y empuja el botón a otra línea.
 
-1. "Usa kompa: corrige el diseño de cuentas".
-2. **Kompa** califica la pantalla y separa los problemas por dueño:
-   - de acomodo, textos o integración (anchos, filas, jerarquía, ayudas) → los corrige Kompa en el código;
-   - de la pieza misma (no tiene la variante que hace falta, o su comportamiento está mal) → Kompa escribe un pedido y vuelve al caso A.
+1. "Usa kompa: corrige la barra de búsqueda de cuentas".
+2. **Kompa** lee el contrato del autocomplete en `.fruti/catalog.md` y separa el problema por dueño:
+   - la pieza cumple su contrato pero no encaja con sus vecinos (anchos, alineación, unión con el botón, textos) → lo corrige Kompa en la pantalla, con las props y variantes del contrato, sin CSS que sobrescriba la pieza;
+   - la pieza no cumple su contrato (no se adapta como dice, falla un estado) → pedido de `correccion` con archivo, ancho y qué pasa contra lo que dice el contrato;
+   - le falta una variante → pedido de `variante`. Los dos vuelven al caso A.
+
+### B2. Una sección hecha a mano debería ser componente
+
+Ejemplo: un filtro hecho con HTML y CSS propios que Vuetify no cubre. Kompa escribe un pedido `desde-codigo` con las rutas de ese código. Fruti lo lee como evidencia de cómo funciona hoy (qué hace, qué estados tiene), no como el aspecto que debe copiar, y sigue el caso A.
 
 ### C. Rediseñar una aplicación existente
 

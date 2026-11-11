@@ -22,6 +22,7 @@ La petición manda el alcance:
 2. Sus imports directos, solo si vas a cambiar cómo se usa ese componente.
 3. Para integrar un componente que el archivo todavía no usa: un `grep` de dónde ya se usa en el proyecto, y abre **un** uso como referencia de props, eventos y clases.
 4. Los tokens o el sistema visual del proyecto (`.fruti/tokens.json`, variables CSS, clases del framework) solo para el valor que vas a poner.
+5. Si una pieza de la sección es de Fruti Squad (existe `.fruti/`): su entrada en `.fruti/catalog.md` (API, variantes, ancho, tamaños, estados y comportamiento adaptativo). Su contrato o su página del Design Hub solo si al catálogo le falta el dato. Lo que dice el contrato manda sobre lo que crees ver en el código.
 
 No recorres módulos vecinos ni "componentes relacionados" por si acaso. No relees un archivo después de editarlo.
 
@@ -79,8 +80,21 @@ Cada fila es comprobable mirando el código o la pantalla. La fuente es el está
 
 - Primero el contenido (C1–C8), después la apariencia. Un buen acomodo no arregla un texto que no dice la consecuencia.
 - Junta todos los cambios de un archivo y aplícalos en una pasada.
-- Si falta un componente que el proyecto no tiene y que se necesitará en 3 o más lugares, no lo inventes con CSS: resuélvelo con lo que hay, márcalo `<!-- PENDIENTE: … -->` y, si Fruti Squad está instalado, escribe el pedido en `docs/componentes/pedidos/<id>.md` (ver referencia).
 - Si la app está corriendo, toma captura antes y después. Si no, dilo y no declares verificado lo que no viste.
+
+## Con Fruti Squad
+
+Antes de tocar una pieza de Fruti, decide de quién es el problema:
+
+| Lo que ves | Dueño | Qué haces |
+|---|---|---|
+| La pieza cumple su contrato, pero no encaja con lo que la rodea (la barra de búsqueda, un botón de Vuetify, un bloque hecho a mano) | Kompa | Corriges la sección: anchos, alineación, unión con sus vecinos, textos. Usas las props y variantes del contrato; nunca CSS que sobrescriba la pieza por dentro |
+| La pieza no cumple su contrato (no se adapta como dice, falla un estado, el teclado no funciona) | Fruti | Pedido de **corrección** con la evidencia: archivo:línea, ancho de pantalla, qué pasa y qué dice el contrato. No la parchas en la pantalla: marca `<!-- PENDIENTE: pedido <id> -->` |
+| A la pieza le falta una variante que esta sección necesita | Fruti | Pedido de **variante** |
+| Ni el sistema del proyecto (p. ej. Vuetify) ni Fruti tienen la pieza | Fruti | Pedido de **componente nuevo**. Mientras, resuelves con lo que hay y marcas `PENDIENTE` |
+| Una sección hecha a mano (HTML y CSS propios) que debería ser componente | Fruti | Pedido **desde código existente**: las rutas de ese código van como evidencia de cómo funciona hoy, no de cómo debe verse |
+
+El pedido va en `docs/componentes/pedidos/<id>.md` (ver referencia) y en el chat das la frase para Fruti: "Diseña el componente de `docs/componentes/pedidos/<id>.md`". Cuando Fruti lo entrega, reemplazas el `PENDIENTE`. Si Fruti no está instalado, resuelve con lo que hay y anota la necesidad en una línea.
 
 ## Entrega (en el chat, máximo 12 líneas)
 
@@ -104,4 +118,4 @@ Cada fila es comprobable mirando el código o la pantalla. La fuente es el está
 - [references/componer-patrones.md](references/componer-patrones.md): colecciones editables, maestro-detalle, cuadrículas de medidas y bitácoras.
 - [references/mapeo-accion-y-efecto.md](references/mapeo-accion-y-efecto.md): dónde va una acción respecto de lo que afecta.
 - [references/criterios-de-reuso.md](references/criterios-de-reuso.md): I3 y si algo se vuelve componente compartido.
-- [references/especificar-pedidos-de-componente.md](references/especificar-pedidos-de-componente.md): cuando escribas un pedido a Fruti Squad.
+- [references/especificar-pedidos-de-componente.md](references/especificar-pedidos-de-componente.md): cuando escribas un pedido a Fruti Squad (nuevo, variante, corrección o desde código existente).
