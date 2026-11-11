@@ -30,9 +30,9 @@ No toda petición recorre la cadena completa. Orka reconoce el escenario y decid
 | Traer una funcionalidad de otra aplicación | Inqa, con tabla de adaptación | Nada; se adapta al stack de destino |
 | Corregir el diseño o el flujo de un módulo que ya funciona (hecho con Fruti, a mano o legacy) | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
 | Migrar legacy: cambia el stack, el framework o el modelo de datos | Inqa | Nada |
+| Un solo rol | El rol nombrado | Todos los demás |
 
 Si el módulo sigue en el mismo stack y con los mismos datos, es corregir aunque Kevin diga "rediseña" o "migra el diseño".
-| Un solo rol | El rol nombrado | Todos los demás |
 
 Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`, generado desde `comandos/comandos.json`).
 
@@ -65,7 +65,8 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
 - Usado **solo** ("analiza el módulo de pagos"), cada rol corre como skill en la conversación principal y puede preguntarle a Kevin.
 - Usado **en cadena** (`/orka …`), Orka lanza cada rol como subagente: contexto limpio, sin preguntas, y solo devuelve su resumen, preguntas y devoluciones.
 - **Al corregir**, Fluxa, Kompa y Kura no se lanzan como subagentes. Orka hace sus tres partes en su propia conversación, en un solo pase, porque trabajan sobre la misma región y el mismo código. Como subagentes, cada uno arrancaba de cero y volvía a leer todo.
-- **Entornos sin subagentes** (Codex, Kiro): Orka ejecuta cada rol cargando su skill en la conversación, uno a la vez, y aplica como ajustes las reglas de `.nexa-squad/agents/<rol>-agent.md` (el instalador las deja ahí).
+- **Kiro**: cada rol es un agente personalizado en `.kiro/agents/<rol>-agent.md`, con su skill, la política y solo los permisos que su rol necesita. Orka es el agente `orka` y lanza a los demás con la herramienta de subagentes.
+- **Entornos sin subagentes** (Codex): Orka ejecuta cada rol cargando su skill en la conversación, uno a la vez, y aplica como ajustes las reglas de `.nexa-squad/agents/<rol>-agent.md` (el instalador las deja ahí).
 
 ## Frontera con Fruti Squad
 
