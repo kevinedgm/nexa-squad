@@ -56,11 +56,12 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
    - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada (incluidos los de `docs/contexto/` si existen), qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
    - Si el rol **está** en `en-conversacion`: carga su skill aquí mismo y haz su trabajo en esta conversación, con todo lo que ya leíste. Aplica las reglas de su skill (no las de su subagente): puede preguntarle a Kevin directamente, pero junta las preguntas en un solo bloque. Al terminar, vuelve a tu papel de Orka y apruébalo o devuélvelo igual que a un subagente.
    - Si el archivo no existe, todos van como subagentes.
+   - **Al corregir**, el diagnóstico de Vera también corre aquí: carga su skill y su referencia `diagnostico-rapido.md`, audita solo la región nombrada y deja los hallazgos `corregir-ahora` como filas de la tabla de tareas.
    - **Al corregir**, Fluxa, Kompa y Kura corren siempre aquí, diga lo que diga `ejecucion.json`, en un solo pase sobre las regiones con hallazgos `corregir-ahora`. Lee una vez el código de esas regiones, partiendo de `docs/contexto/`. Para cada parte, carga la skill del rol y escribe su sección de cambio en el documento de ese rol: primero la estructura, después la composición y al final las piezas. En este pase no le preguntas nada a Kevin: lo que no se pueda inferir queda como supuesto marcado y se lo muestras al final, en un solo bloque.
 5. Al recibir su resultado, clasifica cada pregunta (sección "Resolver preguntas").
 6. Si el documento cumple los criterios de aprobación, cambia su estado a `aprobado` y agrega `aprobado-por: orquestador`. Si no, devuélvelo al mismo rol con la causa.
 7. Enruta las devoluciones que el rol dejó para otros (sección "Devoluciones").
-8. Registra todo en la bitácora, con la hora de inicio y fin del paso, y sigue con el siguiente paso, sin esperar a Kevin, salvo en un punto de control.
+8. Actualiza la tabla de tareas con lo que el rol reportó por id, anota tu fila en `docs/registro.md` (lanzar un subagente y recibir su resultado cuenta como un paso, con su hora de inicio y fin) y sigue con el siguiente paso, sin esperar a Kevin, salvo en un punto de control.
 
 ## Resolver preguntas
 | Tipo | Ejemplo | Qué haces |
@@ -96,6 +97,14 @@ Nunca inventes una regla de negocio para destrabar la cadena. Que el legacy haga
 - Punto de control 2: cada acción irreversible o con impacto en otros módulos, con qué afecta (cuántos registros, qué módulos) y cómo se revierte si existe forma.
 - Si Kevin no responde una pregunta, no la supongas: deja ese tramo detenido y sigue con lo que no dependa de ella.
 
+## Tabla de tareas
+Es el estado de cada hallazgo o pieza de trabajo; nadie vuelve a revisar lo que la tabla ya marca.
+- `pendiente`: nadie lo ha tocado. Al lanzar a Forja, el encargo lleva solo las filas pendientes (ids y dónde), no el documento completo de Vera.
+- `hecho`: Forja reportó el id con sus archivos. La siguiente vuelta de Vera revisa solo estas filas, con `git diff` de esos archivos.
+- `verificado`: Vera lo confirmó. No se vuelve a revisar salvo que un cambio posterior toque sus archivos.
+- `pulido`: quedó en la lista de pulido; no entra a la cadena.
+Una petición nueva sobre el mismo módulo empieza leyendo esta tabla.
+
 ## Bitácora: docs/orquestacion/<modulo>.md
 ---
 modulo: <nombre>
@@ -104,13 +113,14 @@ paso-actual: <paso>
 estado: en-curso | esperando-a-kevin | terminado
 ---
 0. Resumen (máximo 5 líneas)
-1. Pasos completados (fecha, inicio, fin, minutos, rol, documento, aprobado por). Toma la hora con `date +%H:%M` al lanzar o empezar cada rol y al recibir su resultado; los relanzamientos y las vueltas de revisión van como filas propias.
+1. Pasos completados (fecha, rol, documento, aprobado por). Los tiempos van en `docs/registro.md` (regla común 14).
 2. Preguntas resueltas por inspección (pregunta, respuesta, evidencia)
 3. Supuestos vigentes (supuesto, rol que lo usa, si es provisional)
 4. Cola para Kevin (punto de control, pregunta, recomendación)
 5. Devoluciones (id, de, a, motivo, vueltas, estado)
 6. Pedidos a Fruti Squad
-7. Tiempo por rol: al terminar el módulo o una fase, suma los minutos de cada rol y anota cuánto pasó hasta la primera línea de código de Forja y cuánto fue espera de Kevin.
+7. Tiempo por rol: al terminar el módulo o una fase, suma desde `docs/registro.md` los minutos de cada rol, cuánto pasó hasta la primera línea de código de Forja y cuánto fue espera de Kevin.
+8. Tareas (id, qué, dónde, dueño, estado, evidencia): ver "Tabla de tareas".
 
 ## Reglas
 - Si el escenario es corregir o extender y la cadena ya lleva más de dos documentos sin que Forja haya empezado, revisa si algún rol se salió del alcance antes de lanzar el siguiente.
