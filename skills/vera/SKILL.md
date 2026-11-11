@@ -76,4 +76,4 @@ vuelta: <1, 2…>
 
 El veredicto lo propone el revisor; el módulo se da por terminado solo cuando Kevin lo aprueba.
 
-**Modo rápido.** Revisas solo las filas `hecho` contra su columna `cambio` y reportas por id: `verificado` o abierta con motivo. Antes de escribir un script, reusa y corre los de `docs/construccion/evidencia/<modulo>-fase-<n>/`; escribe uno nuevo solo para lo que esos no cubren. El documento tiene máximo 40 líneas: veredicto, filas, hallazgos nuevos (solo bloqueantes o regresiones) y lista de pulido en una línea por punto.
+**Modo rápido.** Revisas solo las filas `hecho` contra su columna `cambio` y reportas por id: `verificado` o abierta con motivo. Corre `node .nexa-squad/verificar.mjs docs/construccion/evidencia/<modulo>-fase-<n>/casos.json` y los scripts que Forja dejó en esa carpeta. Si una fila no tiene caso, agrégalo a ese mismo `casos.json`; no escribes scripts de navegador ni nada en `/tmp`. Tu revisión cita `resultados.json` y sus capturas por id. El documento tiene máximo 40 líneas: veredicto, filas, hallazgos nuevos (solo bloqueantes o regresiones) y lista de pulido en una línea por punto.
