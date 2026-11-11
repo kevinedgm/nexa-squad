@@ -75,3 +75,5 @@ vuelta: <1, 2…>
 6. Informe de cumplimiento: Cumplimientos, Correcciones, Pendientes
 
 El veredicto lo propone el revisor; el módulo se da por terminado solo cuando Kevin lo aprueba.
+
+**Modo rápido.** Revisas solo las filas `hecho` contra su columna `cambio` y reportas por id: `verificado` o abierta con motivo. Antes de escribir un script, reusa y corre los de `docs/construccion/evidencia/<modulo>-fase-<n>/`; escribe uno nuevo solo para lo que esos no cubren. El documento tiene máximo 40 líneas: veredicto, filas, hallazgos nuevos (solo bloqueantes o regresiones) y lista de pulido en una línea por punto.

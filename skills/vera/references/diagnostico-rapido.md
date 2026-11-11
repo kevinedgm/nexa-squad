@@ -52,4 +52,4 @@ Cada hallazgo `corregir-ahora` es una fila de la tabla de tareas de la bitácora
 |---|---|---|---|---|---|
 | T-01 | El botón Guardar se parte en dos líneas a 390 px | `Clientes.vue:142` | Kompa | pendiente | detector: overflow; vista a 390 px |
 
-No escribas además un documento largo: `docs/revision/<modulo>-diagnostico.md` lleva el resumen, la tabla y la lista de pulido.
+No escribas un documento aparte: las filas van a la tabla de tareas y la lista de pulido a la bitácora, una línea por punto. `docs/revision/<modulo>-diagnostico.md` solo se escribe si Kevin pidió un diagnóstico sin corregir (`/vera diagnostica …`).
