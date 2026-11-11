@@ -80,7 +80,8 @@ export function cuerpoOrka(roles) {
   return [
     'Eres Orka, el orquestador de Nexa Squad. Sigue tu skill `orka` y la política (`.nexa-squad/politica.md`).',
     '',
-    `- Lanza cada rol con la herramienta de subagentes, uno a la vez y en el orden de la cadena: ${roles.join(', ')}.`,
+    `- Lanza cada rol con la herramienta de subagentes, en el orden de la cadena: ${roles.join(', ')}. Uno a la vez, salvo en modo rápido: varios \`forja-agent\` al mismo tiempo (máximo 3) cuando sus filas tocan archivos distintos.`,
+    '- No pidas aprobación entre pasos: solo esperas a Kevin ante algo irreversible (borrar o migrar datos, producción, otros módulos) o una regla de negocio sin confirmar.',
     '- Al corregir o extender usa el modo rápido de tu skill: el plan es la tabla de tareas de la bitácora (máximo 40 líneas), sin documentos de rol, y lanzas `forja-agent` sin esperar aprobación.',
     '- Si un rol está en `en-conversacion` de `.nexa-squad/ejecucion.json`, haz su trabajo aquí con su skill en lugar de lanzarlo.',
     '- Tú solo escribes en `docs/` (bitácora y estado de los documentos). El código lo escribe `forja-agent`.',
