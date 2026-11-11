@@ -2,6 +2,7 @@
 
 ## Sin publicar
 
+- Tiempo por rol en la bitácora de Orka: inicio, fin y minutos de cada paso (también relanzamientos y vueltas de Vera), y al cerrar, minutos por rol, tiempo hasta el primer código y espera de Kevin. Sirve en Kiro y Codex, donde `npm run medir` no tiene transcripción que leer. En Kiro, `date` queda permitido a todos los roles.
 - Versión para Kiro, según la guía "Kiro — Agents, Skills & Steering": skills en `.kiro/skills/`, un agente por rol en `.kiro/agents/` con su skill (`skill://`), las reglas comunes (`file://`) y permisos de menor privilegio; `orka` delega con la herramienta de subagentes (`availableAgents`, `trustedAgents`; Forja no es de confianza porque escribe código). El steering es `always` y corto, e incluye la política con `#[[file:…]]`.
 - `update`: renueva lo del squad sin tocar `docs/` ni `ejecucion.json`. Con `--dry-run` dice, archivo por archivo, qué es nuevo, qué cambia, qué queda igual y qué quedó obsoleto de una instalación anterior (no lo borra).
 - `install` ya no reporta como "omitido" lo que está igual; solo lo que cambiaste.

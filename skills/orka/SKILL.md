@@ -60,7 +60,7 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
 5. Al recibir su resultado, clasifica cada pregunta (sección "Resolver preguntas").
 6. Si el documento cumple los criterios de aprobación, cambia su estado a `aprobado` y agrega `aprobado-por: orquestador`. Si no, devuélvelo al mismo rol con la causa.
 7. Enruta las devoluciones que el rol dejó para otros (sección "Devoluciones").
-8. Registra todo en la bitácora y sigue con el siguiente paso, sin esperar a Kevin, salvo en un punto de control.
+8. Registra todo en la bitácora, con la hora de inicio y fin del paso, y sigue con el siguiente paso, sin esperar a Kevin, salvo en un punto de control.
 
 ## Resolver preguntas
 | Tipo | Ejemplo | Qué haces |
@@ -104,12 +104,13 @@ paso-actual: <paso>
 estado: en-curso | esperando-a-kevin | terminado
 ---
 0. Resumen (máximo 5 líneas)
-1. Pasos completados (fecha, rol, documento, aprobado por)
+1. Pasos completados (fecha, inicio, fin, minutos, rol, documento, aprobado por). Toma la hora con `date +%H:%M` al lanzar o empezar cada rol y al recibir su resultado; los relanzamientos y las vueltas de revisión van como filas propias.
 2. Preguntas resueltas por inspección (pregunta, respuesta, evidencia)
 3. Supuestos vigentes (supuesto, rol que lo usa, si es provisional)
 4. Cola para Kevin (punto de control, pregunta, recomendación)
 5. Devoluciones (id, de, a, motivo, vueltas, estado)
 6. Pedidos a Fruti Squad
+7. Tiempo por rol: al terminar el módulo o una fase, suma los minutos de cada rol y anota cuánto pasó hasta la primera línea de código de Forja y cuánto fue espera de Kevin.
 
 ## Reglas
 - Si el escenario es corregir o extender y la cadena ya lleva más de dos documentos sin que Forja haya empezado, revisa si algún rol se salió del alcance antes de lanzar el siguiente.

@@ -7,7 +7,7 @@
 
 // Herramientas y permisos por rol. Escritura: libre en la carpeta del documento del rol y en docs/contexto/
 // (mapa compartido del código, regla 12); el resto pide permiso.
-const LEER = ['ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*'];
+const LEER = ['date*', 'ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*'];
 const PRUEBAS = ['npm test*', 'npm run *', 'node *', 'npx *', 'php *', 'composer *', 'vendor/bin/*', 'python3 *', 'pytest*', 'curl *'];
 const PROHIBIDO = ['rm -rf *', 'sudo *', 'git push*', 'git reset --hard*', 'git clean*', 'git checkout -- *', 'mysql *', 'psql *', 'mongo*', 'redis-cli *'];
 
