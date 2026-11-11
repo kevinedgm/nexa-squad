@@ -199,6 +199,7 @@ Qué agrega con `--target kiro`:
 | `.kiro/agents/<agente>-agent.md` | Un agente de Kiro por rol, con su skill, las reglas comunes y solo los permisos de su rol (por ejemplo, Fluxa solo escribe en `docs/estructura/`) |
 | `.kiro/agents/orka.md` | El agente con el que empiezas: lanza a los demás con la herramienta de subagentes |
 | `.kiro/steering/nexa-squad.md` | Steering `always` de pocas líneas que incluye las reglas comunes |
+| `.kiro/steering/nexa-squad-contexto.md` | Steering `always` que carga `docs/producto.md` y `docs/contexto/proyecto.md`, para que ningún rol los vuelva a buscar. Cada agente recibe todo `.kiro/steering/`, también tu `product.md`, `tech.md` y `structure.md` |
 | `.nexa-squad/` | Igual que en Claude Code |
 
 En Kiro eliges el agente `orka` y le pides el trabajo con tus palabras. Si instalaste una versión anterior, `update --dry-run` te marca como `obsoleto` lo que quedó en `.agents/skills/` y `.nexa-squad/agents/`.
