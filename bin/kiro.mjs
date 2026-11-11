@@ -23,7 +23,7 @@ export const KIRO_ROLES = {
   'kompa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/composicion/**', 'docs/contexto/**'], shell: LEER },
   'kura-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/componentes/**', 'docs/contexto/**'], shell: LEER },
   'forja-agent': { tools: ['read', 'write', 'shell'], escribe: ['**'], shell: [...LEER, ...PRUEBAS] },
-  'vera-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/revision/**', 'docs/contexto/**'], shell: [...LEER, ...PRUEBAS] },
+  'vera-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/revision/**', 'docs/contexto/**', 'docs/construccion/evidencia/**'], shell: [...LEER, ...PRUEBAS] },
 };
 // Roles cuya skill usa docs/producto.md (perfiles, tareas y frecuencia). Kura y Forja no lo usan.
 export const USAN_PRODUCTO = ['orka', 'inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'vera-agent'];

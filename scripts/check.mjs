@@ -81,6 +81,11 @@ if (!existsSync(MD_PATH) || readFileSync(MD_PATH, 'utf8') !== renderMd()) errors
   for (const esperado of ['`v-card.demo` → 2-', `\`MiBoton\` (v-if="ok") → 3`, `**methods** → ${linea('methods')}-`, `\`go\` → ${linea('go()')}-`, `emite \`cambio\` → ${linea('$emit')}`, `\`.demo\` → ${linea('.demo {')}-`])
     if (!md.includes(esperado)) errors.push(`radiografía: falta "${esperado}"`);
   if (destino('src/Demo.vue') !== join('docs', 'contexto', 'archivos', 'src__Demo.vue.md')) errors.push('radiografía: destino inesperado');
+  const { validarCasos } = await import('../bin/verificar.mjs');
+  const bueno = { anchos: [390], casos: [{ id: 'T1', url: '/', pasos: [{ clic: '#a' }, { escribe: ['#b', 'x'] }], espera: [{ selector: '#c', texto: 'ok' }] }] };
+  if (validarCasos(bueno).length) errors.push('verificar: rechaza un casos.json válido: ' + validarCasos(bueno).join('; '));
+  const malo = { casos: [{ id: 'T1', url: '/', pasos: [{ toca: '#a' }], espera: [{ selector: '#c' }] }, { id: 'T1' }] };
+  if (validarCasos(malo).length < 4) errors.push('verificar: acepta un casos.json inválido');
   const { hooksKiro } = await import('../bin/kiro.mjs');
   const h = JSON.parse(hooksKiro(SQUAD.slug));
   if (h.version !== 'v1' || !h.hooks.every((x) => x.action?.command?.startsWith(`node .${SQUAD.slug}/radiografia.mjs`))) errors.push('kiro: hooks de radiografía mal formados');

@@ -139,6 +139,7 @@ docs/revision/cuentas-…md       hallazgos y veredicto (Vera)
 docs/contexto/proyecto.md       mapa del stack, sistema visual, componentes y tokens (uno por producto)
 docs/contexto/cuentas.md        mapa de los archivos del módulo, con ruta y línea
 docs/contexto/archivos/…md      radiografía de cada archivo de más de 300 líneas (índice con líneas, sin IA)
+docs/construccion/evidencia/…/casos.json   qué comprobar por fila; lo corre .nexa-squad/verificar.mjs (Forja y Vera)
 ```
 
 Los dos mapas de `docs/contexto/` los escribe el primer agente que lee el código, y los demás parten de ahí en lugar de recorrer otra vez el repositorio. Cada mapa guarda el `commit` en que se hizo; si los archivos cambiaron desde entonces, se relee solo lo que cambió. Para un archivo largo, el índice lo genera `node .nexa-squad/radiografia.mjs <archivo>` (o `--cambiados` para todos los que tienen cambios en git), y el rol abre solo el rango que necesita.

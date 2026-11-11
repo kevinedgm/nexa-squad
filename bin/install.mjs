@@ -180,8 +180,10 @@ function writePolicy(args) {
     [join('comandos', 'comandos.md'), 'comandos.md'], [join('docs', 'nexa-y-fruti.md'), 'nexa-y-fruti.md']];
   // La política, los estándares y la guía son del squad: siempre se renuevan.
   for (const [src, name] of files) copy(join(PKG_ROOT, src), join(dir, name), { ...args, ...own }, name);
-  // Índice de archivos largos (regla 12): el script es del squad y también se renueva siempre.
+  // Índice de archivos largos (regla 12): los scripts son del squad y también se renuevan siempre.
   copy(join(PKG_ROOT, 'bin', 'radiografia.mjs'), join(dir, 'radiografia.mjs'), { ...args, ...own }, 'radiografia.mjs');
+  // Verificador único de Forja y Vera: casos.json → navegador → resultados.json, siempre igual.
+  copy(join(PKG_ROOT, 'bin', 'verificar.mjs'), join(dir, 'verificar.mjs'), { ...args, ...own }, 'verificar.mjs');
   return join(dir, 'politica.md');
 }
 

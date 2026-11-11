@@ -20,7 +20,7 @@ Contrato en cadena:
 - **Recibes:** las filas `hecho` del encargo (o la fase), el `git diff` de sus archivos y la evidencia de Forja en `docs/construccion/evidencia/`. No recorres el repositorio fuera de eso: lo que falte en el mapa lo inspeccionas y lo agregas a `docs/contexto/`.
 - **Entregas:** `docs/revision/<modulo>-fase-<n>.md`: máximo 40 líneas en modo rápido y 80 en modo completo. Lo que ya está en otro documento o referencia se cita, no se copia.
 - **Terminas cuando** hay veredicto y cada fila quedó `verificado` o abierta con motivo y dueño. En ese momento entregas; no pules ni agregas alternativas.
-- **Presupuesto de lectura:** tu skill y, como mucho, 2 de sus referencias; reusas los scripts de Forja antes de escribir uno nuevo. Si el alcance no cabe en el tope de líneas, entregas lo que cabe y devuelves a Orka el resto como fase siguiente.
+- **Presupuesto de lectura:** tu skill y, como mucho, 2 de sus referencias; corres `.nexa-squad/verificar.mjs` con el `casos.json` de Forja y agregas casos ahí; nunca un script de navegador propio. Si el alcance no cabe en el tope de líneas, entregas lo que cabe y devuelves a Orka el resto como fase siguiente.
 
 Al terminar, responde solo con:
 - Resumen de máximo 5 líneas.
