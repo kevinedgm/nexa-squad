@@ -9,8 +9,7 @@
 //           + bloque en CLAUDE.md que importa .<slug>/politica.md
 //   codex   skills -> .codex/skills/<skill>/    + ajustes de rol en .<slug>/agents/ + bloque en AGENTS.md
 //   kiro    skills -> .kiro/skills/<skill>/     agentes -> .kiro/agents/<rol>.md (con permisos)
-//           + .kiro/steering/<slug>.md (inclusión always, incluye la política)
-//           + .kiro/steering/<slug>-contexto.md (always, incluye docs/producto.md y docs/contexto/proyecto.md)
+//           + .kiro/steering/<slug>.md (inclusión always, ~1 KB; la política llega a cada agente por resources)
 //
 // Opciones:
 //   --target <env>  claude | codex | kiro   (por defecto: autodetecta, si no claude)
@@ -29,7 +28,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, wri
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve, relative } from 'node:path';
 import { homedir } from 'node:os';
-import { agenteKiro, cuerpoOrka, partirAgente, steeringContexto, steeringKiro } from './kiro.mjs';
+import { agenteKiro, cuerpoOrka, partirAgente, recursos, steeringKiro } from './kiro.mjs';
 
 const PKG_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SQUAD = JSON.parse(readFileSync(join(PKG_ROOT, 'squad.json'), 'utf8'));
@@ -187,6 +186,8 @@ function writePolicy(args) {
 // Restos de una instalación anterior que el squad ya no usa. No se borran: se avisan.
 function reportObsolete(args, target, roles) {
   if (target !== 'kiro') return;
+  const ctx = join(args.base, '.kiro', 'steering', `${SQUAD.slug}-contexto.md`);
+  if (existsSync(ctx)) report('obsoleto', 'steering de contexto (producto y mapa ahora van en resources de cada agente; bórralo a mano)', relative(args.base, ctx), args.dryRun);
   for (const r of roles) {
     const old = join(args.base, '.agents', 'skills', r.skill);
     if (existsSync(join(old, 'SKILL.md')) && readFileSync(join(old, 'SKILL.md'), 'utf8').includes(`name: ${r.skill}`))
@@ -212,7 +213,19 @@ function writeKiro(args, roles) {
     }
   }
   writeGenerated(join(args.base, '.kiro', 'steering', `${SQUAD.slug}.md`), steeringKiro(SQUAD, roles.map((r) => r.skill)), args, 'steering');
-  writeGenerated(join(args.base, '.kiro', 'steering', `${SQUAD.slug}-contexto.md`), steeringContexto(SQUAD), args, 'steering de contexto');
+  contextoFijo(args, roles, skillsRel);
+}
+
+// Cuánto contexto fijo carga cada agente al arrancar (resources que existen en el proyecto), para medir el cambio.
+function contextoFijo(args, roles, skillsRel) {
+  const kb = (rel) => { const f = join(args.base, rel); return existsSync(f) ? statSync(f).size / 1024 : 0; };
+  const filas = roles.filter((r) => r.agent || r.order === 0).map((r) => {
+    const name = r.agent || 'orka';
+    const total = recursos({ name, skill: r.skill, slug: SQUAD.slug, skillsRel })
+      .map((x) => x.replace(/^(file|skill):\/\//, '')).reduce((t, rel) => t + kb(rel), 0);
+    return `${name} ${total.toFixed(1)} KB`;
+  });
+  log(`\n  ${C.dim}Contexto fijo por agente (resources que ya existen): ${filas.join(' · ')}${C.reset}`);
 }
 
 function instructionLines(roles, target) {

@@ -3,9 +3,11 @@
 //   - un agente por responsabilidad, con solo las herramientas que su rol necesita (menor privilegio);
 //   - un agente personalizado no recibe steering solo: se le declara en resources (file://) y su skill con skill://;
 //   - el orquestador delega con la herramienta subagent, limitada por availableAgents / trustedAgents;
-//   - el steering always queda corto y apunta a la política, que se incluye con #[[file:...]];
-//   - cada agente recibe todo .kiro/steering/ (también el product/tech/structure del proyecto), y
-//     <slug>-contexto.md mete docs/producto.md y docs/contexto/proyecto.md para que ningún rol los vuelva a buscar.
+//   - el steering always es corto (~1 KB) y NO incluye la política: lo always se paga en cada turno de Kiro,
+//     también cuando no se trabaja con el squad;
+//   - cada agente carga en resources, una sola vez: el steering del squad, la política, el mapa del proyecto
+//     (docs/contexto/proyecto.md) y, solo los roles que lo usan, docs/producto.md. No carga todo .kiro/steering/
+//     (ahí vive también el steering de otros squads, como Fruti).
 
 // Herramientas y permisos por rol. Escritura: libre en la carpeta del documento del rol y en docs/contexto/
 // (mapa compartido del código, regla 12); el resto pide permiso.
@@ -23,6 +25,9 @@ export const KIRO_ROLES = {
   'forja-agent': { tools: ['read', 'write', 'shell'], escribe: ['**'], shell: [...LEER, ...PRUEBAS] },
   'vera-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/revision/**', 'docs/contexto/**'], shell: [...LEER, ...PRUEBAS] },
 };
+// Roles cuya skill usa docs/producto.md (perfiles, tareas y frecuencia). Kura y Forja no lo usan.
+export const USAN_PRODUCTO = ['orka', 'inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'vera-agent'];
+
 // Pueden correr sin pedir aprobación: los que solo escriben su documento. Forja no, porque escribe código.
 const CONFIABLES = ['inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'kura-agent', 'vera-agent'];
 
@@ -49,16 +54,21 @@ function permisos(spec) {
   return out;
 }
 
+// Contexto fijo de cada agente: lo que carga al arrancar, sin repetir nada.
+export function recursos({ name, skill, slug, skillsRel }) {
+  const r = [`file://.kiro/steering/${slug}.md`, `file://.${slug}/politica.md`, 'file://docs/contexto/proyecto.md'];
+  if (USAN_PRODUCTO.includes(name)) r.push('file://docs/producto.md');
+  if (name === 'orka') r.push(`file://.${slug}/comandos.md`);
+  r.push(`skill://${skillsRel}/${skill}/SKILL.md`);
+  return r;
+}
+
 // Definición de un agente de Kiro. `skillsRel` es la carpeta de skills relativa al proyecto.
 export function agenteKiro({ name, skill, description, body, slug, skillsRel, agentes }) {
   const spec = KIRO_ROLES[name];
   const fm = ['---', `name: ${name}`, `description: ${q(description)}`, `tools: ${lista(spec.tools)}`,
-    'resources:',
-    '  - file://.kiro/steering/**/*.md',
-    `  - file://.${slug}/politica.md`,
-    `  - skill://${skillsRel}/${skill}/SKILL.md`];
+    'resources:', ...recursos({ name, skill, slug, skillsRel }).map((r) => `  - ${r}`)];
   if (name === 'orka') {
-    fm.push(`  - file://.${slug}/comandos.md`);
     fm.push('toolsSettings:', '  subagent:', `    availableAgents: ${lista(agentes)}`, `    trustedAgents: ${lista(CONFIABLES.filter((a) => agentes.includes(a)))}`);
   }
   fm.push(...permisos(spec), '---', '');
@@ -79,7 +89,7 @@ export function cuerpoOrka(roles) {
   ].join('\n');
 }
 
-// Steering always y corto: el detalle está en la política, que se incluye por referencia.
+// Steering always y corto: solo cómo invocar el squad. La política llega a cada agente por resources.
 export function steeringKiro(squad, roles) {
   return [
     '---',
@@ -89,29 +99,7 @@ export function steeringKiro(squad, roles) {
     `# ${squad.name}`,
     '',
     `Roles instalados: ${roles.map((r) => '`' + r + '`').join(', ')}. Para un módulo, usa el agente \`orka\`; para un solo rol, su skill.`,
-    `Qué decir en cada caso: \`.${squad.slug}/comandos.md\`.`,
-    '',
-    `#[[file:.${squad.slug}/politica.md]]`,
-    '',
-  ].join('\n');
-}
-
-// Contexto del producto como steering always: lo que los roles leían al empezar (regla común 12) ya llega cargado.
-export function steeringContexto(squad) {
-  return [
-    '---',
-    'inclusion: always',
-    '---',
-    '',
-    `# Contexto del producto (${squad.name})`,
-    '',
-    'Ya está cargado: no vuelvas a recorrer el repositorio para saber qué es el producto, quién lo usa, el stack o dónde viven los componentes y tokens.',
-    'Si un archivo de abajo todavía no existe, se crea con `/orka init` (producto) o lo escribe el primer rol que inspecciona el código (proyecto).',
-    'El mapa de cada módulo está en `docs/contexto/<modulo>.md`, y el estado de cada tarea en la tabla de tareas de `docs/orquestacion/<modulo>.md`.',
-    '',
-    '#[[file:docs/producto.md]]',
-    '',
-    '#[[file:docs/contexto/proyecto.md]]',
+    `Qué decir en cada caso: \`.${squad.slug}/comandos.md\`. Las reglas comunes están en \`.${squad.slug}/politica.md\`: cada agente del squad ya las carga; en otra conversación, léelas solo si vas a trabajar con el squad.`,
     '',
   ].join('\n');
 }

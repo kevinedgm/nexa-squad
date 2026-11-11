@@ -55,6 +55,18 @@ if (!existsSync(MD_PATH) || readFileSync(MD_PATH, 'utf8') !== renderMd()) errors
     if (!out.startsWith(`---\nname: ${r.agent}\n`) || !out.includes(`skill://.kiro/skills/${r.skill}/SKILL.md`) || !out.includes('permissions:')) errors.push(`kiro: agente ${r.agent} mal formado`);
     if (/^model:|^skills:|disallowedTools/m.test(out)) errors.push(`kiro: ${r.agent} arrastra campos de Claude Code`);
   }
+  // Contexto fijo: la política una sola vez, sin cargar todo .kiro/steering/ ni steering always con la política dentro.
+  const { steeringKiro, USAN_PRODUCTO } = await import('../bin/kiro.mjs');
+  const st = steeringKiro(SQUAD, SQUAD.roles.map((r) => r.skill));
+  if (st.includes('#[[file:')) errors.push('kiro: el steering always no debe incluir archivos');
+  if (st.length > 1200) errors.push(`kiro: el steering always pasa de 1,2 KB (${st.length} B)`);
+  for (const name of ['orka', ...agentes]) {
+    const r = SQUAD.roles.find((x) => x.agent === name) || SQUAD.roles.find((x) => x.order === 0);
+    const out = agenteKiro({ name, skill: r.skill, description: 'x', body: '', slug: SQUAD.slug, skillsRel: '.kiro/skills', agentes });
+    if (out.includes('steering/**')) errors.push(`kiro: ${name} carga todo .kiro/steering/`);
+    if ((out.match(/politica\.md/g) || []).length !== 1) errors.push(`kiro: ${name} debe cargar la política una sola vez`);
+    if (out.includes('docs/producto.md') !== USAN_PRODUCTO.includes(name)) errors.push(`kiro: ${name} carga producto.md sin usarlo, o lo usa sin cargarlo`);
+  }
   const orka = agenteKiro({ name: 'orka', skill: 'orka', description: 'x', body: '', slug: SQUAD.slug, skillsRel: '.kiro/skills', agentes });
   if (!agentes.every((a) => orka.includes(`"${a}"`)) || !orka.includes('subagent')) errors.push('kiro: orka no puede lanzar a todos los subagentes');
 }
