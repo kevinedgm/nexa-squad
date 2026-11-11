@@ -11,7 +11,7 @@
 
 // Herramientas y permisos por rol. Escritura: libre en la carpeta del documento del rol y en docs/contexto/
 // (mapa compartido del código, regla 12); el resto pide permiso.
-const LEER = ['date*', 'ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*'];
+const LEER = ['date*', 'ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*', 'node .nexa-squad/radiografia.mjs*'];
 const PRUEBAS = ['npm test*', 'npm run *', 'node *', 'npx *', 'php *', 'composer *', 'vendor/bin/*', 'python3 *', 'pytest*', 'curl *'];
 const PROHIBIDO = ['rm -rf *', 'sudo *', 'git add*', 'git commit*', 'git push*', 'git reset --hard*', 'git clean*', 'git checkout -- *', 'mysql *', 'psql *', 'mongo*', 'redis-cli *'];
 
@@ -104,4 +104,19 @@ export function steeringKiro(squad, roles) {
     `Qué decir en cada caso: \`.${squad.slug}/comandos.md\`. Las reglas comunes están en \`.${squad.slug}/politica.md\`: cada agente del squad ya las carga; en otra conversación, léelas solo si vas a trabajar con el squad.`,
     '',
   ].join('\n');
+}
+
+// Hooks de Kiro que mantienen al día la radiografía de los archivos largos (regla 12) sin que nadie la pida:
+// al guardar un archivo de código y al terminar cada turno de un agente. Fallan abiertos: el script siempre sale con 0.
+export function hooksKiro(slug) {
+  const cmd = `node .${slug}/radiografia.mjs`;
+  return JSON.stringify({
+    version: 'v1',
+    hooks: [
+      { name: `${slug}-radiografia-al-guardar`, description: 'Actualiza docs/contexto/archivos/ del archivo largo que se acaba de guardar.',
+        trigger: 'PostFileSave', matcher: '\\.(vue|js|mjs|cjs|ts|jsx|tsx|php|css|scss)$', action: { type: 'command', command: `${cmd} --hook` }, timeout: 15, enabled: true },
+      { name: `${slug}-radiografia-al-terminar`, description: 'Al terminar el turno, actualiza la radiografía de los archivos largos con cambios según git.',
+        trigger: 'Stop', action: { type: 'command', command: `${cmd} --cambiados` }, timeout: 30, enabled: true },
+    ],
+  }, null, 2) + '\n';
 }

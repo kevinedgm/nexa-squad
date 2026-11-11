@@ -138,9 +138,10 @@ docs/componentes/cuentas.md     qué componentes se usan y qué se pidió a Frut
 docs/revision/cuentas-…md       hallazgos y veredicto (Vera)
 docs/contexto/proyecto.md       mapa del stack, sistema visual, componentes y tokens (uno por producto)
 docs/contexto/cuentas.md        mapa de los archivos del módulo, con ruta y línea
+docs/contexto/archivos/…md      radiografía de cada archivo de más de 300 líneas (índice con líneas, sin IA)
 ```
 
-Los dos mapas de `docs/contexto/` los escribe el primer agente que lee el código, y los demás parten de ahí en lugar de recorrer otra vez el repositorio. Cada mapa guarda el `commit` en que se hizo; si los archivos cambiaron desde entonces, se relee solo lo que cambió.
+Los dos mapas de `docs/contexto/` los escribe el primer agente que lee el código, y los demás parten de ahí en lugar de recorrer otra vez el repositorio. Cada mapa guarda el `commit` en que se hizo; si los archivos cambiaron desde entonces, se relee solo lo que cambió. Para un archivo largo, el índice lo genera `node .nexa-squad/radiografia.mjs <archivo>` (o `--cambiados` para todos los que tienen cambios en git), y el rol abre solo el rango que necesita.
 
 ## El equipo
 
@@ -200,6 +201,7 @@ Qué agrega con `--target kiro`:
 | `.kiro/agents/orka.md` | El agente con el que empiezas: lanza a los demás con la herramienta de subagentes |
 | `.kiro/steering/nexa-squad.md` | Steering `always` de ~1 KB: qué roles hay y cómo invocarlos. No incluye las reglas comunes, para no cargarlas en cada turno de Kiro |
 | `resources` de cada agente | Lo que carga al arrancar, una sola vez: este steering, las reglas comunes, `docs/contexto/proyecto.md`, su skill y, solo Orka, Inqa, Arko, Fluxa, Kompa y Vera, `docs/producto.md`. Al instalar se muestra cuántos KB fijos carga cada agente |
+| `.kiro/hooks/nexa-squad-radiografia.json` | Regenera la radiografía de los archivos largos al guardarlos y al terminar cada turno |
 | `.nexa-squad/` | Igual que en Claude Code |
 
 En Kiro eliges el agente `orka` y le pides el trabajo con tus palabras. Si instalaste una versión anterior, `update --dry-run` te marca como `obsoleto` lo que quedó en `.agents/skills/`, `.nexa-squad/agents/` y `.kiro/steering/nexa-squad-contexto.md`.

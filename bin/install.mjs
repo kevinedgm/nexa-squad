@@ -28,7 +28,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, wri
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve, relative } from 'node:path';
 import { homedir } from 'node:os';
-import { agenteKiro, cuerpoOrka, partirAgente, recursos, steeringKiro } from './kiro.mjs';
+import { agenteKiro, cuerpoOrka, hooksKiro, partirAgente, recursos, steeringKiro } from './kiro.mjs';
 
 const PKG_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SQUAD = JSON.parse(readFileSync(join(PKG_ROOT, 'squad.json'), 'utf8'));
@@ -180,6 +180,8 @@ function writePolicy(args) {
     [join('comandos', 'comandos.md'), 'comandos.md'], [join('docs', 'nexa-y-fruti.md'), 'nexa-y-fruti.md']];
   // La política, los estándares y la guía son del squad: siempre se renuevan.
   for (const [src, name] of files) copy(join(PKG_ROOT, src), join(dir, name), { ...args, ...own }, name);
+  // Índice de archivos largos (regla 12): el script es del squad y también se renueva siempre.
+  copy(join(PKG_ROOT, 'bin', 'radiografia.mjs'), join(dir, 'radiografia.mjs'), { ...args, ...own }, 'radiografia.mjs');
   return join(dir, 'politica.md');
 }
 
@@ -213,6 +215,7 @@ function writeKiro(args, roles) {
     }
   }
   writeGenerated(join(args.base, '.kiro', 'steering', `${SQUAD.slug}.md`), steeringKiro(SQUAD, roles.map((r) => r.skill)), args, 'steering');
+  writeGenerated(join(args.base, '.kiro', 'hooks', `${SQUAD.slug}-radiografia.json`), hooksKiro(SQUAD.slug), args, 'hooks radiografía');
   contextoFijo(args, roles, skillsRel);
 }
 

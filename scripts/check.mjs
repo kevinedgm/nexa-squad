@@ -70,5 +70,20 @@ if (!existsSync(MD_PATH) || readFileSync(MD_PATH, 'utf8') !== renderMd()) errors
   const orka = agenteKiro({ name: 'orka', skill: 'orka', description: 'x', body: '', slug: SQUAD.slug, skillsRel: '.kiro/skills', agentes });
   if (!agentes.every((a) => orka.includes(`"${a}"`)) || !orka.includes('subagent')) errors.push('kiro: orka no puede lanzar a todos los subagentes');
 }
+// Radiografía: índice de un .vue largo con bloques, métodos, emits y estilos en sus líneas; hooks de Kiro válidos.
+{
+  const { radiografia, destino, MIN } = await import('../bin/radiografia.mjs');
+  const relleno = Array.from({ length: MIN }, (_, i) => `        <i>${i}</i>`);
+  const vue = ['<template>', '  <v-card class="demo">', '    <MiBoton v-if="ok" />', ...relleno, '  </v-card>', '</template>', '<script>', 'export default {',
+    '  methods: {', '    go() {', "      this.$emit('cambio')", '    },', '  },', '}', '</script>', '<style>', '.demo {', '  margin: 0;', '}', '</style>'].join('\n');
+  const md = radiografia('src/Demo.vue', vue);
+  const linea = (t) => vue.split('\n').findIndex((l) => l.includes(t)) + 1;
+  for (const esperado of ['`v-card.demo` → 2-', `\`MiBoton\` (v-if="ok") → 3`, `**methods** → ${linea('methods')}-`, `\`go\` → ${linea('go()')}-`, `emite \`cambio\` → ${linea('$emit')}`, `\`.demo\` → ${linea('.demo {')}-`])
+    if (!md.includes(esperado)) errors.push(`radiografía: falta "${esperado}"`);
+  if (destino('src/Demo.vue') !== join('docs', 'contexto', 'archivos', 'src__Demo.vue.md')) errors.push('radiografía: destino inesperado');
+  const { hooksKiro } = await import('../bin/kiro.mjs');
+  const h = JSON.parse(hooksKiro(SQUAD.slug));
+  if (h.version !== 'v1' || !h.hooks.every((x) => x.action?.command?.startsWith(`node .${SQUAD.slug}/radiografia.mjs`))) errors.push('kiro: hooks de radiografía mal formados');
+}
 if (errors.length) { console.error(errors.map((e) => '✗ ' + e).join('\n')); process.exit(1); }
 console.log(`✓ ${SQUAD.roles.length} roles, ${SQUAD.roles.filter((r) => r.agent).length} subagentes: todo coherente`);
