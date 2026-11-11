@@ -90,3 +90,20 @@ Una auditoría externa propuso acelerar el squad. Cada punto se comprobó contra
 | Recortar los SKILL.md | Ganancia probable pequeña: el tiempo se va sobre todo en llamadas a herramientas y en lo que el modelo escribe (inferencia, sin medir) | Pendiente: decidir con `evals/` |
 | Paralelizar Arko y Fluxa, o Forja y Vera | Fluxa usa los permisos de Arko; Vera puede devolver la fase que Forja ya está extendiendo | Pendiente: decisión de Kevin |
 | Fusionar roles | Es el plan de la sección 8, medido uno a uno con `en-conversacion` | Sigue el plan de la sección 8 |
+
+## 10. Corregir sin sobreanalizar (2026-11-11)
+
+Síntoma: corregir el diseño de un formulario o de una sección tardaba de 1 a 1.5 horas solo en armar el plan. Revisión contra la documentación de Claude Code (skills, subagentes, buenas prácticas de skills) y el *Manual de Construcción y Auditoría de Skills* de Notion. Kevin delegó la decisión.
+
+| Hallazgo | Evidencia | Decisión |
+|---|---|---|
+| El formato está bien | Frontmatter válido, SKILL.md de menos de 500 líneas, una sola capa de referencias, cada referencia con índice y `skills:` en los subagentes | Sin cambios |
+| El costo fijo por rol domina en una corrección | Antes de Forja corrían 4 subagentes: Vera, Fluxa, Kompa y Kura. Cada uno empezaba de cero, leía su skill, el catálogo, de 2 a 5 referencias y el mismo código, y escribía un documento. La documentación de Claude Code recomienda la conversación principal cuando "varias fases comparten mucho contexto" o "importa la latencia" | Aplicado: al corregir, Fluxa, Kompa y Kura hacen un solo pase en la conversación de Orka (regla en la política, en Orka y en `escenarios.md`). Es el plan de la sección 8, adelantado solo para corregir |
+| Las reglas de proporción no bastaron | Las reglas 11 y "solo `corregir-ahora`" acotan qué se analiza, pero no reducen el número de arranques | Por eso se quitan arranques en lugar de agregar reglas |
+| Los roles podían abrir referencias "por si acaso" y presentar alternativas | Buenas prácticas de Anthropic: "Claude is already very smart", "Don't present multiple approaches unless necessary" | Aplicado: regla común 13 (decide y entrega) |
+| El diagnóstico de Vera recorría todo el módulo | El modo diagnóstico no distinguía entre revisar una región y revisar un módulo | Aplicado: si Kevin nombra una región, Vera audita solo esa región, sin recorrido de punta a punta |
+| Los subagentes podían lanzar otros | La regla estaba solo en texto. El manual pide quitar la herramienta | Aplicado: `disallowedTools: Agent` en los 7 subagentes |
+
+Cómo comprobarlo: corre `npm run medir` sobre la transcripción de una corrección hecha antes de este cambio y sobre una hecha después, con el mismo módulo. La cifra que importa es el tiempo hasta el primer código. Si la calidad de la composición baja (caso 04 de `evals/`), se revierte quitando el párrafo "Al corregir" del paso 4 de Orka.
+
+Se revisaron también los prototipos (`kiwi-art-director`, `lima-governance`, `coco-visual`, `fruti-squad-kiro`) y `taller-agentes`. Se adoptó la idea de limitar las herramientas en el frontmatter en vez de pedirlo en texto. No se adoptó lo que suma análisis, como la regla del prototipo de Kiwi de presentar siempre tres alternativas A, B y C. De `taller-agentes`, el método (un ejercicio fijo con clave y un solo cambio a la vez) ya está en `evals/`.
