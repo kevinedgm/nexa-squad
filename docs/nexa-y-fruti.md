@@ -55,7 +55,7 @@ Para Nexa, empieza siempre con `/orka`. Si una frase como "rediseña el formular
 
 El caso más común.
 
-1. Nexa arma un módulo. **Kura** busca cada pieza en el registro de Fruti.
+1. Nexa arma un módulo. **Kura** y **Kompa** buscan cada pieza en `.fruti/catalog.md`, un catálogo que mantiene Mora: qué piezas existen, para qué sirven, cómo se importan, sus variantes, tamaños y estados, y en qué estado están (el estado lo toman del registro). Abren la página del Design Hub solo de la pieza elegida y solo si al catálogo le falta un dato.
 2. Si no existe, o le falta una variante, Kura escribe un pedido en `docs/componentes/pedidos/<id>.md`. El pedido describe la necesidad, no el aspecto: propósito, dónde se usa, partes, estados con su disparador, regla y feedback, accesibilidad y criterios de aceptación.
 3. **Forja** construye el módulo y deja ese lugar marcado como pendiente. El resto del módulo avanza.
 4. Le das el pedido a Fruti: "Diseña el componente de `docs/componentes/pedidos/<id>.md`".
