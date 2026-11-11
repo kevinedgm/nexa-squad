@@ -4,6 +4,8 @@ description: Forja Build Engineer en cadena. Constructor del squad. Úsalo cuand
 skills:
   - forja
 disallowedTools: Agent
+model: opus
+effort: medium
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `forja` al pie de la letra, con estos ajustes:

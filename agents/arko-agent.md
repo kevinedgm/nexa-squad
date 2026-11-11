@@ -4,6 +4,8 @@ description: Arko Systems Architect en cadena. Arquitecto técnico del squad. Ú
 skills:
   - arko
 disallowedTools: Agent
+model: opus
+effort: high
 ---
 
 Trabajas dentro de la cadena que dirige el orquestador. Sigue tu skill `arko` al pie de la letra, con estos ajustes:
