@@ -8,7 +8,8 @@
 //   claude  skills -> .claude/skills/<skill>/   subagentes -> .claude/agents/<rol>.md
 //           + bloque en CLAUDE.md que importa .<slug>/politica.md
 //   codex   skills -> .codex/skills/<skill>/    + ajustes de rol en .<slug>/agents/ + bloque en AGENTS.md
-//   kiro    skills -> .agents/skills/<skill>/   + ajustes de rol en .<slug>/agents/ + .kiro/steering/<slug>.md
+//   kiro    skills -> .kiro/skills/<skill>/     agentes -> .kiro/agents/<rol>.md (con permisos)
+//           + .kiro/steering/<slug>.md (inclusión always, incluye la política)
 //
 // Opciones:
 //   --target <env>  claude | codex | kiro   (por defecto: autodetecta, si no claude)
@@ -18,11 +19,16 @@
 //                   se instala siempre que haya más de un rol
 //   --force         sobrescribe lo que ya exista
 //   --dry-run       muestra lo que haría sin cambiar nada
+//
+//   update          como install, pero renueva lo que es del squad (skills, agentes, política) y
+//                   respeta lo tuyo (ejecucion.json, docs/). Con --dry-run dice qué es nuevo, qué
+//                   cambia, qué queda igual y qué quedó obsoleto de una instalación anterior.
 
-import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve, relative } from 'node:path';
 import { homedir } from 'node:os';
+import { agenteKiro, cuerpoOrka, partirAgente, steeringKiro } from './kiro.mjs';
 
 const PKG_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SQUAD = JSON.parse(readFileSync(join(PKG_ROOT, 'squad.json'), 'utf8'));
@@ -35,7 +41,7 @@ const warn = (s) => `${C.yellow}${s}${C.reset}`;
 const err = (s) => `${C.red}${s}${C.reset}`;
 
 function parseArgs(argv) {
-  const args = { _: [], target: null, global: false, force: false, dryRun: false, dest: null, only: null };
+  const args = { _: [], target: null, global: false, force: false, dryRun: false, update: false, dest: null, only: null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--global') args.global = true;
@@ -56,6 +62,7 @@ ${C.bold}${SQUAD.name}${C.reset} — ${SQUAD.roles.map((r) => r.skill).join(' �
 
 ${C.bold}Comandos${C.reset}
   install        Copia el squad en un proyecto (o --global)
+  update         Renueva lo del squad sin tocar lo tuyo; con --dry-run muestra qué cambiaría
   list           Muestra los roles y dónde se instala cada uno
   init           Crea docs/producto.md para describir el producto y sus roles
   comandos       Guía: qué decir y a quién invocar según lo que quieras
@@ -73,6 +80,7 @@ ${C.bold}Opciones${C.reset}
 ${C.bold}Ejemplos${C.reset}
   npx github:${SQUAD.repo} install --target claude
   npx github:${SQUAD.repo} install --target claude --only inqa
+  npx github:${SQUAD.repo} update --target kiro --dry-run
   npx github:${SQUAD.repo} list
   npx github:${SQUAD.repo} quien "el formulario de cuentas se ve mal"
 `;
@@ -89,7 +97,29 @@ function autodetectTarget(base) {
 function skillsRoot(target, base) {
   if (target === 'claude') return join(base, '.claude', 'skills');
   if (target === 'codex') return join(base, '.codex', 'skills');
-  return join(base, '.agents', 'skills');
+  return join(base, '.kiro', 'skills');
+}
+
+// ---- Comparación para update: nuevo, cambia o igual ----
+function listFiles(p) {
+  if (!existsSync(p)) return [];
+  if (!statSync(p).isDirectory()) return [''];
+  const out = [];
+  for (const e of readdirSync(p)) for (const f of listFiles(join(p, e))) out.push(f ? join(e, f) : e);
+  return out;
+}
+function sameTree(src, dest) {
+  const a = listFiles(src).sort(), b = listFiles(dest).sort();
+  if (a.length !== b.length || a.some((f, i) => f !== b[i])) return false;
+  return a.every((f) => readFileSync(join(src, f)).equals(readFileSync(join(dest, f))));
+}
+function estado(existe, igual) { return !existe ? 'nuevo' : igual ? 'igual' : 'cambia'; }
+const tally = { nuevo: 0, cambia: 0, igual: 0, omitido: 0, obsoleto: 0 };
+function report(kind, label, rel, dryRun) {
+  tally[kind]++;
+  const verb = { nuevo: dryRun ? 'nuevo' : 'ok', cambia: dryRun ? 'cambia' : 'renovado', igual: 'igual', omitido: 'omitido', obsoleto: 'obsoleto' }[kind];
+  const color = kind === 'igual' ? C.dim : kind === 'omitido' || kind === 'obsoleto' ? C.yellow : kind === 'cambia' ? C.cyan : C.green;
+  log(`  ${color}${verb.padEnd(8)}${C.reset} ${label} ${C.dim}${rel}${C.reset}`);
 }
 
 function selectedRoles(args) {
@@ -109,12 +139,23 @@ function selectedRoles(args) {
 
 function copy(src, dest, args, label) {
   const rel = relative(args.base, dest) || dest;
-  if (existsSync(dest) && !args.force) { log(`  ${warn('omitido')} ${label} — ya existe (usa --force) ${C.dim}${rel}${C.reset}`); return false; }
-  if (args.dryRun) { log(`  ${C.cyan}copiaría${C.reset} ${label} → ${C.dim}${rel}${C.reset}`); return true; }
-  mkdirSync(dirname(dest), { recursive: true });
-  cpSync(src, dest, { recursive: true, force: true });
-  log(`  ${ok('ok')}       ${label} → ${C.dim}${rel}${C.reset}`);
-  return true;
+  const existe = existsSync(dest);
+  const kind = estado(existe, existe && sameTree(src, dest));
+  if (kind === 'igual') { report('igual', label, rel, args.dryRun); return; }
+  if (kind === 'cambia' && !args.force && !args.update) { report('omitido', `${label} — ya existe (usa update o --force)`, rel, args.dryRun); return; }
+  if (!args.dryRun) { mkdirSync(dirname(dest), { recursive: true }); cpSync(src, dest, { recursive: true, force: true }); }
+  report(kind, label, rel, args.dryRun);
+}
+
+// Igual que copy, pero con contenido generado (agentes y steering de Kiro).
+function writeGenerated(dest, content, args, label) {
+  const rel = relative(args.base, dest);
+  const existe = existsSync(dest);
+  const kind = estado(existe, existe && readFileSync(dest, 'utf8') === content);
+  if (kind === 'igual') { report('igual', label, rel, args.dryRun); return; }
+  if (kind === 'cambia' && !args.force && !args.update) { report('omitido', `${label} — ya existe (usa update o --force)`, rel, args.dryRun); return; }
+  if (!args.dryRun) { mkdirSync(dirname(dest), { recursive: true }); writeFileSync(dest, content); }
+  report(kind, label, rel, args.dryRun);
 }
 
 // Escribe o renueva un bloque delimitado en un archivo de instrucciones, sin tocar lo demás.
@@ -133,15 +174,43 @@ function writeBlock(file, lines, args) {
 }
 
 function writePolicy(args) {
-  const dest = join(args.base, `.${SQUAD.slug}`, 'politica.md');
-  if (args.dryRun) { log(`  ${C.cyan}copiaría${C.reset} política, estándares y comandos → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`); return dest; }
-  mkdirSync(dirname(dest), { recursive: true });
-  cpSync(join(PKG_ROOT, 'AGENTS.md'), dest, { force: true });
-  cpSync(join(PKG_ROOT, 'estandares', 'estandares.md'), join(dirname(dest), 'estandares.md'), { force: true });
-  cpSync(join(PKG_ROOT, 'comandos', 'comandos.md'), join(dirname(dest), 'comandos.md'), { force: true });
-  cpSync(join(PKG_ROOT, 'docs', 'nexa-y-fruti.md'), join(dirname(dest), 'nexa-y-fruti.md'), { force: true });
-  log(`  ${ok('ok')}       política, estándares y comandos → ${C.dim}${relative(args.base, dirname(dest))}/${C.reset}`);
-  return dest;
+  const dir = join(args.base, `.${SQUAD.slug}`);
+  const own = { force: true };
+  const files = [['AGENTS.md', 'politica.md'], [join('estandares', 'estandares.md'), 'estandares.md'],
+    [join('comandos', 'comandos.md'), 'comandos.md'], [join('docs', 'nexa-y-fruti.md'), 'nexa-y-fruti.md']];
+  // La política, los estándares y la guía son del squad: siempre se renuevan.
+  for (const [src, name] of files) copy(join(PKG_ROOT, src), join(dir, name), { ...args, ...own }, name);
+  return join(dir, 'politica.md');
+}
+
+// Restos de una instalación anterior que el squad ya no usa. No se borran: se avisan.
+function reportObsolete(args, target, roles) {
+  if (target !== 'kiro') return;
+  for (const r of roles) {
+    const old = join(args.base, '.agents', 'skills', r.skill);
+    if (existsSync(join(old, 'SKILL.md')) && readFileSync(join(old, 'SKILL.md'), 'utf8').includes(`name: ${r.skill}`))
+      report('obsoleto', `skill ${r.skill} (ahora vive en .kiro/skills; bórralo a mano)`, relative(args.base, old), args.dryRun);
+    if (r.agent) {
+      const adj = join(args.base, `.${SQUAD.slug}`, 'agents', `${r.agent}.md`);
+      if (existsSync(adj)) report('obsoleto', `ajustes ${r.agent} (ahora es un agente de Kiro; bórralo a mano)`, relative(args.base, adj), args.dryRun);
+    }
+  }
+}
+
+function writeKiro(args, roles) {
+  const skillsRel = '.kiro/skills';
+  const agentes = roles.filter((r) => r.agent).map((r) => r.agent);
+  for (const r of roles) {
+    if (r.agent) {
+      const { description, body } = partirAgente(readFileSync(join(PKG_ROOT, 'agents', `${r.agent}.md`), 'utf8'));
+      writeGenerated(join(args.base, '.kiro', 'agents', `${r.agent}.md`),
+        agenteKiro({ name: r.agent, skill: r.skill, description, body, slug: SQUAD.slug, skillsRel, agentes }), args, `agente ${r.agent}`);
+    } else if (r.order === 0 && agentes.length) {
+      writeGenerated(join(args.base, '.kiro', 'agents', 'orka.md'),
+        agenteKiro({ name: 'orka', skill: r.skill, description: r.title + ': dirige la cadena de Nexa Squad para un módulo y lanza a cada rol como subagente.', body: cuerpoOrka(agentes), slug: SQUAD.slug, skillsRel, agentes }), args, 'agente orka');
+    }
+  }
+  writeGenerated(join(args.base, '.kiro', 'steering', `${SQUAD.slug}.md`), steeringKiro(SQUAD, roles.map((r) => r.skill)), args, 'steering');
 }
 
 function instructionLines(roles, target) {
@@ -163,15 +232,17 @@ function doInstall(args) {
   const target = args.target || autodetectTarget(args.base);
   if (!TARGETS.includes(target)) { log(err(`Destino desconocido: ${target}`)); process.exit(2); }
   const roles = selectedRoles(args);
-  log(`\n${C.bold}${SQUAD.name}${C.reset} → ${target}${args.global ? ' (global)' : ''}  ${C.dim}${args.base}${C.reset}${args.dryRun ? warn('   (dry-run)') : ''}\n`);
+  if (target === 'kiro' && args.global) { log(err('Kiro: instala por proyecto (los agentes leen .nexa-squad/ del proyecto).')); process.exit(2); }
+  const modo = args.update ? 'update' : 'install';
+  log(`\n${C.bold}${SQUAD.name}${C.reset} ${modo} → ${target}${args.global ? ' (global)' : ''}  ${C.dim}${args.base}${C.reset}${args.dryRun ? warn('   (dry-run: no se cambia nada)') : ''}\n`);
 
   const sroot = skillsRoot(target, args.base);
   for (const r of roles) {
     copy(join(PKG_ROOT, 'skills', r.skill), join(sroot, r.skill), args, `skill ${r.skill}`);
-    if (r.agent) {
-      // Claude Code los usa como subagentes; en Codex y Kiro quedan como ajustes que Orka aplica en la conversación.
+    if (r.agent && target !== 'kiro') {
+      // Claude Code los usa como subagentes; en Codex quedan como ajustes que Orka aplica en la conversación. Kiro: writeKiro.
       const agentDir = target === 'claude' ? join(args.base, '.claude', 'agents') : join(args.base, `.${SQUAD.slug}`, 'agents');
-      copy(join(PKG_ROOT, 'agents', `${r.agent}.md`), join(agentDir, `${r.agent}.md`), args, target === 'claude' ? `subagente ${r.agent}` : `ajustes ${r.agent}`);
+      copy(join(PKG_ROOT, 'agents', `${r.agent}.md`), join(agentDir, `${r.agent}.md`), { ...args, force: args.force || args.update }, target === 'claude' ? `subagente ${r.agent}` : `ajustes ${r.agent}`);
     }
   }
 
@@ -185,9 +256,16 @@ function doInstall(args) {
   const lines = instructionLines(roles, target);
   if (target === 'claude') writeBlock(join(args.base, args.global ? join('.claude', 'CLAUDE.md') : 'CLAUDE.md'), lines, args);
   else if (target === 'codex') writeBlock(join(args.base, 'AGENTS.md'), lines, args);
-  else writeBlock(join(args.base, '.kiro', 'steering', `${SQUAD.slug}.md`), lines, args);
+  else writeKiro(args, roles);
+  reportObsolete(args, target, roles);
 
-  log(`\n${ok('Listo.')} ${target === 'claude' ? 'Empieza con: /orka init  (describe el producto y sus roles)  ·  o un rol suelto: "usa inqa para analizar…"' : 'Pide: "usa orka para migrar el módulo <nombre>".'}\n`);
+  log(`\n  ${tally.nuevo} nuevo · ${tally.cambia} ${args.dryRun ? 'cambiaría' : 'renovado'} · ${tally.igual} igual · ${tally.omitido} omitido · ${tally.obsoleto} obsoleto`);
+  if (args.dryRun) { log(`\n${warn('Dry-run:')} no se cambió nada. Quita --dry-run para aplicarlo.\n`); return; }
+  if (tally.omitido) log(`  ${C.dim}Lo omitido ya existía con otro contenido: usa ${C.bold}update${C.reset}${C.dim} para renovarlo.${C.reset}`);
+  const inicio = { claude: 'Empieza con: /orka init  (describe el producto y sus roles)  ·  o un rol suelto: "usa inqa para analizar…"',
+    kiro: 'En Kiro, elige el agente orka y pide: "corrige el diseño de <módulo>; lo usa <rol> para <tareas>".',
+    codex: 'Pide: "usa orka para corregir el diseño del módulo <nombre>".' }[target];
+  log(`\n${ok('Listo.')} ${inicio}\n`);
 }
 
 function doList() {
@@ -197,7 +275,7 @@ function doList() {
   }
   log(`\n  claude  skills → .claude/skills/<skill>/   subagentes → .claude/agents/<rol>.md`);
   log(`  codex   skills → .codex/skills/<skill>/    (sin subagentes)`);
-  log(`  kiro    skills → .agents/skills/<skill>/   (sin subagentes)\n`);
+  log(`  kiro    skills → .kiro/skills/<skill>/     agentes → .kiro/agents/<rol>.md (orka delega con subagentes)\n`);
 }
 
 async function doQuien(frase) {
@@ -261,6 +339,7 @@ async function doComandos() {
 const args = parseArgs(process.argv.slice(2));
 const cmd = args._[0] || 'help';
 if (cmd === 'install') doInstall(args);
+else if (cmd === 'update') { args.update = true; doInstall(args); }
 else if (cmd === 'list') doList();
 else if (cmd === 'init') doInit(args);
 else if (cmd === 'comandos') await doComandos();

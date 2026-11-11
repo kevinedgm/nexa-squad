@@ -44,5 +44,19 @@ if (!existsSync(join(ROOT, 'estandares', 'estandares.md'))) errors.push('falta e
 const { DATA, renderMd, MD_PATH } = await import('../bin/comandos.mjs');
 for (const c of DATA.comandos) if (!skills.includes(c.invoca)) errors.push(`comando ${c.id}: invoca "${c.invoca}", que no es un rol`);
 if (!existsSync(MD_PATH) || readFileSync(MD_PATH, 'utf8') !== renderMd()) errors.push('comandos/comandos.md desactualizado: corre npm run comandos');
+// Kiro: cada subagente genera un agente con encabezado, su skill y permisos; Orka puede lanzarlos a todos.
+{
+  const { agenteKiro, partirAgente, KIRO_ROLES } = await import('../bin/kiro.mjs');
+  const agentes = SQUAD.roles.filter((r) => r.agent).map((r) => r.agent);
+  for (const r of SQUAD.roles.filter((x) => x.agent)) {
+    if (!KIRO_ROLES[r.agent]) { errors.push(`kiro: falta ${r.agent} en KIRO_ROLES`); continue; }
+    const { description, body } = partirAgente(readFileSync(join(ROOT, 'agents', `${r.agent}.md`), 'utf8'));
+    const out = agenteKiro({ name: r.agent, skill: r.skill, description, body, slug: SQUAD.slug, skillsRel: '.kiro/skills', agentes });
+    if (!out.startsWith(`---\nname: ${r.agent}\n`) || !out.includes(`skill://.kiro/skills/${r.skill}/SKILL.md`) || !out.includes('permissions:')) errors.push(`kiro: agente ${r.agent} mal formado`);
+    if (/^model:|^skills:|disallowedTools/m.test(out)) errors.push(`kiro: ${r.agent} arrastra campos de Claude Code`);
+  }
+  const orka = agenteKiro({ name: 'orka', skill: 'orka', description: 'x', body: '', slug: SQUAD.slug, skillsRel: '.kiro/skills', agentes });
+  if (!agentes.every((a) => orka.includes(`"${a}"`)) || !orka.includes('subagent')) errors.push('kiro: orka no puede lanzar a todos los subagentes');
+}
 if (errors.length) { console.error(errors.map((e) => '✗ ' + e).join('\n')); process.exit(1); }
 console.log(`✓ ${SQUAD.roles.length} roles, ${SQUAD.roles.filter((r) => r.agent).length} subagentes: todo coherente`);

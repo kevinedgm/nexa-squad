@@ -42,7 +42,14 @@ Necesitas Node.js 16 o superior y Claude Code (también funciona con Codex y Kir
 
 3. Abre Claude Code en ese proyecto y describe tu producto con `/orka init` (ver [Primer paso](#primer-paso-describe-tu-producto)).
 
-Para actualizar a una versión nueva, repite el paso 2 agregando `--force`.
+Para actualizar a una versión nueva, primero mira qué cambiaría y después aplícalo:
+
+```bash
+npx github:kevinedgm/nexa-squad update --target claude --dry-run   # nuevo, cambia, igual u obsoleto, archivo por archivo
+npx github:kevinedgm/nexa-squad update --target claude             # renueva skills, agentes y política
+```
+
+`update` renueva lo que es del squad y no toca lo tuyo: `docs/` y `.nexa-squad/ejecucion.json` se quedan como están. Lo que quedó de una instalación anterior y ya no se usa aparece como `obsoleto`; no se borra solo.
 
 ## Primer paso: describe tu producto
 
@@ -171,6 +178,7 @@ npx github:kevinedgm/nexa-squad install --target kiro               # Kiro
 npx github:kevinedgm/nexa-squad install --target claude --global    # para todos tus proyectos
 npx github:kevinedgm/nexa-squad install --only kompa,vera           # solo algunos agentes
 npx github:kevinedgm/nexa-squad install --dry-run                   # ver qué haría, sin cambiar nada
+npx github:kevinedgm/nexa-squad update --target kiro --dry-run      # ver qué cambiaría al actualizar
 npx github:kevinedgm/nexa-squad list                                # lista de agentes
 ```
 
@@ -183,7 +191,19 @@ Qué agrega a tu proyecto con `--target claude`:
 | `.nexa-squad/` | Reglas comunes, catálogo de estándares, guía de comandos y guía de trabajo con Fruti Squad |
 | Un bloque en `CLAUDE.md` | Para que Claude Code cargue las reglas comunes |
 
-El instalador no sobrescribe nada sin `--force`, y al reinstalar solo cambia su propio bloque en `CLAUDE.md`. En Codex y Kiro las rutas son otras; las muestra `list`.
+Qué agrega con `--target kiro`:
+
+| Ruta | Para qué |
+|---|---|
+| `.kiro/skills/<agente>/` | Las instrucciones de cada agente |
+| `.kiro/agents/<agente>-agent.md` | Un agente de Kiro por rol, con su skill, las reglas comunes y solo los permisos de su rol (por ejemplo, Fluxa solo escribe en `docs/estructura/`) |
+| `.kiro/agents/orka.md` | El agente con el que empiezas: lanza a los demás con la herramienta de subagentes |
+| `.kiro/steering/nexa-squad.md` | Steering `always` de pocas líneas que incluye las reglas comunes |
+| `.nexa-squad/` | Igual que en Claude Code |
+
+En Kiro eliges el agente `orka` y le pides el trabajo con tus palabras. Si instalaste una versión anterior, `update --dry-run` te marca como `obsoleto` lo que quedó en `.agents/skills/` y `.nexa-squad/agents/`.
+
+`install` no sobrescribe nada que hayas cambiado (lo marca `omitido`); `update` o `--force` lo renuevan. En Codex las rutas son otras; las muestra `list`.
 
 ## Para quien mantiene este repositorio
 

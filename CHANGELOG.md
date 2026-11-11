@@ -2,6 +2,9 @@
 
 ## Sin publicar
 
+- Versión para Kiro, según la guía "Kiro — Agents, Skills & Steering": skills en `.kiro/skills/`, un agente por rol en `.kiro/agents/` con su skill (`skill://`), las reglas comunes (`file://`) y permisos de menor privilegio; `orka` delega con la herramienta de subagentes (`availableAgents`, `trustedAgents`; Forja no es de confianza porque escribe código). El steering es `always` y corto, e incluye la política con `#[[file:…]]`.
+- `update`: renueva lo del squad sin tocar `docs/` ni `ejecucion.json`. Con `--dry-run` dice, archivo por archivo, qué es nuevo, qué cambia, qué queda igual y qué quedó obsoleto de una instalación anterior (no lo borra).
+- `install` ya no reporta como "omitido" lo que está igual; solo lo que cambiaste.
 - Kura y Kompa leen primero `.fruti/catalog.md` (catálogo corto que mantiene Mora en Fruti Squad) y abren el Design Hub solo para la pieza elegida cuando al catálogo le falta un dato. Si el catálogo no existe, el primer pedido de Kura a Fruti es generarlo.
 - Modelo y esfuerzo por rol en cada subagente: Opus para Inqa, Arko (esfuerzo alto), Forja y Vera; Sonnet para Fluxa y Kompa (esfuerzo alto) y para Kura. Criterio y forma de revertir en `docs/arquitectura.md`, sección 11. `npm test` exige ambos campos.
 - Al corregir, Fluxa, Kompa y Kura hacen un solo pase en la conversación de Orka, en vez de correr como 3 subagentes que releían el mismo código. Antes de Forja quedan 1 subagente (Vera) en lugar de 4.
