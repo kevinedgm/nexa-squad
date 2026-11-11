@@ -4,7 +4,7 @@ Propósito: decidir qué contiene un formulario y en qué orden: qué secciones 
 
 ## Contenido
 
-1. Qué decide Fluxa y qué decide Kompa
+1. Qué decide Kompa y qué no
 2. Del requisito a la lista de campos
 3. Secciones: agrupar por lo que la persona piensa
 4. Orden dentro de cada sección
@@ -17,20 +17,20 @@ Propósito: decidir qué contiene un formulario y en qué orden: qué secciones 
 11. Errores comunes
 12. Límites
 
-## 1. Qué decide Fluxa y qué decide Kompa
+## 1. Qué decide Kompa y qué no
 
 | Pregunta | Dueño |
 |---|---|
-| ¿Qué campos existen y para qué? | Fluxa (a partir de los REQ de Inqa) |
-| ¿En qué secciones se agrupan y en qué orden? | Fluxa |
-| ¿Qué campos forman una unidad (nombre + apellido)? | Fluxa |
-| ¿Cuáles son opcionales y cuáles aparecen solo si se activa algo? | Fluxa |
-| ¿Página única o pasos? | Fluxa |
-| ¿Qué dicen los indicadores, ayudas y errores? | Fluxa (contenido) |
+| ¿Qué campos existen y para qué? | Kompa (a partir de los REQ de Inqa) |
+| ¿En qué secciones se agrupan y en qué orden? | Kompa |
+| ¿Qué campos forman una unidad (nombre + apellido)? | Kompa |
+| ¿Cuáles son opcionales y cuáles aparecen solo si se activa algo? | Kompa |
+| ¿Página única o pasos? | Kompa |
+| ¿Qué dicen los indicadores, ayudas y errores? | Kompa (contenido) |
 | ¿Van en una fila o en dos, cuánto espacio, qué peso, qué superficie? | Kompa |
-| ¿Qué componente se usa para cada campo? | Kura |
+| ¿Qué componente se usa para cada campo? | Kompa |
 
-Mecanismo: si Fluxa no declara qué campos forman una unidad, Kompa tiene que adivinar qué poner lado a lado, y el resultado depende del ancho de pantalla en lugar de la lógica del dato.
+Mecanismo: si no se declara qué campos forman una unidad, hay que adivinar qué poner lado a lado, y el resultado depende del ancho de pantalla en lugar de la lógica del dato.
 
 ## 2. Del requisito a la lista de campos
 
@@ -68,7 +68,7 @@ No es unidad: dos campos que solo "caben juntos" (correo y fecha de nacimiento).
 
 ## 6. Obligatorios, opcionales y condicionales
 
-| Tipo | Qué declara Fluxa | Ejemplo |
+| Tipo | Qué declara Kompa | Ejemplo |
 |---|---|---|
 | Obligatorio | Que bloquea el envío y qué mensaje recibe si falta | Correo |
 | Opcional | Qué gana la persona si lo llena | Teléfono: "para avisos urgentes" |
@@ -95,7 +95,7 @@ Si hay pasos: cada paso tiene un nombre, se puede regresar sin perder lo captura
 
 ## 8. Indicadores y estados del formulario
 
-Fluxa define qué dicen; Kompa define cómo se ven.
+Primero se decide qué dicen; después, cómo se ven.
 
 - **Obligatorio/opcional**: se marca el caso minoritario, de forma consistente en el módulo.
 - **Progreso** (solo con pasos): "Paso 2 de 3: Acceso a la cuenta".
@@ -144,6 +144,6 @@ Lo que pasa a Kompa: secciones y su orden, unidades fuertes y débiles, el activ
 
 ## 12. Límites
 
-Fluxa decide contenido, orden, unidades, condiciones y el texto de indicadores. No decide columnas, distancias, pesos ni superficies (Kompa), ni qué componente se usa (Kura), ni cómo se valida en el servidor (Arko).
+Kompa decide contenido, orden, unidades, condiciones y el texto de indicadores; ni qué componente se usa (Kompa), ni cómo se valida en el servidor (Forja).
 
-Adaptado de las demás referencias de Fluxa (Krug, Nielsen, Norman) y de "Web Form Design" de Luke Wroblewski.
+Adaptado de las demás referencias de Kompa (Krug, Nielsen, Norman) y de "Web Form Design" de Luke Wroblewski.

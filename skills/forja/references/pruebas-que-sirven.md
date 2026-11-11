@@ -67,9 +67,9 @@ Ocultar un botón no es un permiso. El permiso existe solo si el servidor rechaz
 
 - Para cada acción con restricción de nivel (subir, actualizar, descargar, retirar), probar la **petición directa al servidor** con un usuario sin permiso, sin pasar por la interfaz.
 - Comprobar las tres cosas: la respuesta es de rechazo, el dato no cambió y el rechazo no revela información (por ejemplo, que un archivo retirado existe).
-- Probar ambos lados de cada frontera de nivel que defina el arquitecto: el último nivel que sí tiene permiso y el primero que ya no. En el gestor, nivel 1 es el más alto: retirar → nivel 1 permitido, nivel 2 rechazado; descargar → nivel 3 permitido, nivel 4 rechazado.
+- Probar ambos lados de cada frontera de nivel que defina Forja: el último nivel que sí tiene permiso y el primero que ya no. En el gestor, nivel 1 es el más alto: retirar → nivel 1 permitido, nivel 2 rechazado; descargar → nivel 3 permitido, nivel 4 rechazado.
 - Probar sin sesión y con sesión vencida.
-- La matriz de quién puede qué la define el arquitecto; si la matriz no cubre una acción, se devuelve, no se supone.
+- La matriz de quién puede qué la define Forja; si la matriz no cubre una acción, se devuelve, no se supone.
 
 ## 5. Pruebas tautológicas: cómo reconocerlas
 

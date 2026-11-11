@@ -1,6 +1,16 @@
 # Cambios
 
-## Sin publicar
+## 1.0.0
+
+Nexa pasa de ocho agentes en cadena a tres skills que trabajan en la conversación y editan el código directamente.
+
+- Quedan **kompa** (composición, contenido e integración), **forja** (código, datos, permisos y migraciones) e **inqa** (reglas de un módulo nuevo).
+- Se quitan Orka (orquestador), Arko, Fluxa, Kura y Vera, todos los subagentes (`agents/`), los agentes y hooks de Kiro, la radiografía de archivos, el verificador, la guía de comandos, `ejecucion.json` y `evals/`. Sus referencias útiles pasan a su nuevo dueño: estructura de formularios, prevención de errores, reuso y pedidos a Fruti van a Kompa; integridad de datos, migración y decisiones van a Forja; adaptar funcionalidad externa va a Inqa.
+- Kompa califica cada pantalla con 22 filas comprobables (contenido, apariencia, semántica e integración), cada una con su fuente. Una petición concreta se hace sin diagnóstico ni preguntas.
+- La política baja de 14 reglas a 8 y ya no hay documentos intermedios: cada entrega es el código y un resumen de 12 líneas.
+- `update` marca como obsoleto lo que quedó de la 0.x, sin borrarlo.
+
+## 0.5.x (historial)
 
 - `docs/contexto/` en formato para agentes, no para personas: la radiografía pasa a una línea por pieza (`go() 220-322`, sangría = anidado), sin markdown (~40 % menos bytes en el ejemplo de prueba), y la regla 12 pide lo mismo a los mapas: `ruta:línea qué`, sin prosa ni tablas. Requisitos y bitácora siguen en prosa, porque Kevin los lee y aprueba.
 - Verificador único (`bin/verificar.mjs`, instalado en `.nexa-squad/verificar.mjs`): Forja escribe los casos de cada fila en `docs/construccion/evidencia/<modulo>-fase-<n>/casos.json` (url, anchos, pasos, qué esperar y qué debe verse) y el verificador los corre en Chromium con Playwright. Siempre comprueba desborde horizontal, recortes, elementos tapados y errores de consola, y escribe `resultados.json` con capturas. Vera corre el mismo archivo y agrega casos en vez de escribir scripts; prohibido escribir pruebas en `/tmp`. Si el proyecto no tiene Playwright, no lo instala: lo reporta. Basado en el recolector de navegador de `fruti-squad-experimient`, sin las etapas, hashes ni revisión por rol de Fruti. En Kiro, `vera-agent` puede escribir en `docs/construccion/evidencia/`.

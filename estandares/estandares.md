@@ -1,8 +1,8 @@
 # Estándares de diseño de interfaces
 
-Propósito: que ninguna decisión de estructura, composición o revisión salga del gusto. Cada regla que usen Fluxa, Kompa, Kura y Vera se apoya en una fuente de este catálogo. Lo que no tiene fuente es **preferencia**, se marca como supuesto y nunca bloquea.
+Propósito: que ninguna decisión de estructura, composición o revisión salga del gusto. Cada regla que usen Kompa e Inqa se apoya en una fuente de este catálogo. Lo que no tiene fuente es **preferencia**, se marca como supuesto y nunca bloquea.
 
-Lo usan: Fluxa (estructura), Kompa (composición), Kura (componentes y tokens) y Vera (revisión). Lo instala el instalador en `.nexa-squad/estandares.md`.
+Lo usan: Kompa (composición, contenido e integración) e Inqa (reglas de negocio y dominio). Lo instala el instalador en `.nexa-squad/estandares.md`.
 
 ## Contenido
 
@@ -21,7 +21,7 @@ De mayor a menor. La primera que defina la decisión manda.
 | Nivel | Fuente | Ejemplo | ¿Se puede contradecir? |
 |---|---|---|---|
 | 1 | Norma obligatoria o regla aprobada del producto | WCAG 2.2 AA si el proyecto la adoptó, NOM aplicable, regla BR de Inqa | No |
-| 2 | Sistema de diseño del proyecto | Contratos de componentes, tokens y guías de Fruti Squad (`.fruti/`, Design Hub) | Solo pidiendo el cambio a su dueño (Kura → Fruti) |
+| 2 | Sistema de diseño del proyecto | Contratos de componentes, tokens y guías de Fruti Squad (`.fruti/`, Design Hub) | Solo pidiendo el cambio a su dueño (Kompa → pedido a Fruti) |
 | 3 | Sistema de diseño de referencia | GOV.UK Design System, Material Design 3, Apple HIG | Sí, si el nivel 2 decide otra cosa |
 | 4 | Investigación y heurísticas | Nielsen, Baymard, Gestalt, Fitts, Hick | Sí, con motivo escrito |
 | 5 | Preferencia | "Se ve mejor así" | Siempre; es supuesto, no regla |
@@ -34,7 +34,7 @@ En los documentos del squad, cada decisión de estructura o composición lleva u
 - Bien: "Ancho máximo del formulario: token `form-max` · Fuente: Fruti (tokens)".
 - Mal: "Etiqueta arriba porque es más limpio". Eso es preferencia.
 
-Vera, al revisar, solo clasifica como **error** lo que contradice una fuente de nivel 1 a 3 o un documento aprobado; lo de nivel 4 es error si el documento lo adoptó y sugerencia si no; lo de nivel 5 nunca es error.
+Kompa, al calificar, solo clasifica como **error** lo que contradice una fuente de nivel 1 a 3 o un documento aprobado; lo de nivel 4 es error si el documento lo adoptó y sugerencia si no; lo de nivel 5 nunca es error.
 
 ## 3. Catálogo de fuentes
 
@@ -52,9 +52,9 @@ Vera, al revisar, solo clasifica como **error** lo que contradice una fuente de 
 | FITTS | Ley de Fitts | Tamaño y distancia de objetivos | 4 |
 | HICK | Ley de Hick-Hyman | Menos opciones visibles, decisiones más rápidas; base de la divulgación progresiva | 4 |
 | ISO9241 | ISO 9241-110 (principios de interacción) e ISO 9241-11 (usabilidad) | Adecuación a la tarea, autodescripción, tolerancia a errores | 4 |
-| RUI | Wathan y Schoger, *Refactoring UI* | Cada acción junto a lo que afecta, en el orden de la tarea | El mapeo entre control y efecto se entiende sin leer | NORMAN (mapeo); GESTALT (proximidad); NN |
-| Jerarquía por tamaño, peso y color; escalas de espacio | 4 |
-| KRUG / NORMAN | *Don't Make Me Think*; *The Design of Everyday Things* | Escaneo, modelos mentales, prevención de errores | 4 |
+| RUI | Wathan y Schoger, *Refactoring UI* | Jerarquía por tamaño, peso y color; escalas de espacio; alineación a un borde | 4 |
+| KRUG | Steve Krug, *Don't Make Me Think* | Escaneo, textos que dicen la consecuencia antes de hacer clic, verbo + objeto | 4 |
+| NORMAN | Don Norman, *The Design of Everyday Things* | Mapeo entre control y efecto, modelos mentales, prevención de errores | 4 |
 
 ## 4. Qué fuente respalda cada decisión frecuente
 
@@ -91,10 +91,10 @@ Cuando el módulo maneja datos clínicos, la estructura sigue también los está
 
 | Id | Fuente | Para qué | Quién lo aplica |
 |---|---|---|---|
-| CIE-10 | Clasificación Internacional de Enfermedades, 10.ª revisión (OMS) | Catálogo de diagnósticos: código y nombre | Inqa (regla), Fluxa (el diagnóstico se elige del catálogo, no se escribe libre) |
-| UCUM | Unified Code for Units of Measure | Unidades de medida (mmHg, /min, Cel, %, kg, cm) | Inqa y Arko (dato), Kompa (la unidad visible junto al campo) |
-| LOINC | Códigos de observaciones y estudios de laboratorio | Identificar cada signo vital o estudio | Arko (dato) |
-| FHIR | HL7 FHIR, perfil de signos vitales | Qué observaciones forman los signos vitales y con qué unidad | Inqa y Arko |
+| CIE-10 | Clasificación Internacional de Enfermedades, 10.ª revisión (OMS) | Catálogo de diagnósticos: código y nombre | Inqa (regla), Kompa (el diagnóstico se elige del catálogo, no se escribe libre) |
+| UCUM | Unified Code for Units of Measure | Unidades de medida (mmHg, /min, Cel, %, kg, cm) | Inqa y Forja (dato), Kompa (la unidad visible junto al campo) |
+| LOINC | Códigos de observaciones y estudios de laboratorio | Identificar cada signo vital o estudio | Forja (dato) |
+| FHIR | HL7 FHIR, perfil de signos vitales | Qué observaciones forman los signos vitales y con qué unidad | Inqa y Forja |
 | NOM | Normas Oficiales Mexicanas aplicables al expediente clínico y a los sistemas de registro electrónico para la salud (p. ej. NOM-004-SSA3 y NOM-024-SSA3) | Obligaciones del expediente y del registro electrónico | Inqa (son nivel 1 si aplican al proyecto) |
 
 Reglas:
@@ -116,8 +116,9 @@ Tensiones frecuentes entre heurísticas (nivel 4) y hacia dónde inclinarse. Los
 | Consistencia / optimizar para el contexto | Muchos tipos de usuario, acción común | Acción rara y un solo perfil de usuario | Mismo patrón, distinto énfasis |
 | Prevención de errores / eficiencia | Irreversible o costoso (datos clínicos, dinero) | Reversible y muy frecuente | Deshacer en lugar de confirmar; fricción solo en lo riesgoso |
 | Descubrir / interfaz limpia | Funciones centrales, principiantes | Casos raros, expertos, poco espacio | Lo principal visible, lo secundario en menú |
-4. Si la regla del sistema del proyecto (nivel 2) contradice una norma obligatoria (nivel 1), no se compone en contra de la norma: se reporta como hallazgo para Kura, que lo pide a Fruti Squad.
+
+4. Si la regla del sistema del proyecto (nivel 2) contradice una norma obligatoria (nivel 1), no se compone en contra de la norma: Kompa lo reporta y escribe el pedido a Fruti Squad.
 
 ## 7. Límites
 
-Este catálogo dice **qué fuente respalda una decisión**. No sustituye a las referencias de cada rol, que explican cómo aplicarla, y no autoriza a reconstruir de memoria el texto de una norma: si se necesita el criterio exacto y no está aquí, se cita la fuente y se marca "por verificar".
+Este catálogo dice **qué fuente respalda una decisión**. No sustituye a las referencias de Kompa, que explican cómo aplicarla, y no autoriza a reconstruir de memoria el texto de una norma: si se necesita el criterio exacto y no está aquí, se cita la fuente y se marca "por verificar".

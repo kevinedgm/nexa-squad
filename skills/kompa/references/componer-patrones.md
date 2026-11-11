@@ -1,6 +1,6 @@
 # Componer patrones
 
-Propósito: dar aspecto y acomodo a cada patrón que eligió Fluxa (colección editable, maestro-detalle, cuadrícula de medidas, línea de tiempo), en cualquier módulo. El formulario tiene su propia referencia (`composicion-de-formularios.md`) y la consulta con filtros se compone con `formularios-y-barras-de-acciones.md` (barra) y `jerarquia-y-espaciado.md` (resultados).
+Propósito: dar aspecto y acomodo a cada patrón que eligió Kompa (colección editable, maestro-detalle, cuadrícula de medidas, línea de tiempo), en cualquier módulo. El formulario tiene su propia referencia (`composicion-de-formularios.md`) y la consulta con filtros se compone con `formularios-y-barras-de-acciones.md` (barra) y `jerarquia-y-espaciado.md` (resultados).
 
 ## Contenido
 
@@ -26,9 +26,9 @@ Todo valor (espaciados, pesos, superficies, iconos) sale de los tokens; cada pie
 | Decisión | Regla |
 |---|---|
 | Forma de cada elemento | Fila (tabla o lista) si los elementos se comparan entre sí por columnas; tarjeta si cada uno tiene contenido variable o largo |
-| Resumen de la fila | Solo los campos que Fluxa marcó como resumen; el dato principal con más peso, los demás secundarios |
+| Resumen de la fila | Solo los campos que Kompa marcó como resumen; el dato principal con más peso, los demás secundarios |
 | Agregar | Al final de la colección, como acción secundaria con texto ("Agregar alergia"); si la colección está vacía, la acción vive en el estado vacío |
-| Editar | En su lugar si son pocos campos; en diálogo o panel si son muchos (lo que diga Fluxa) |
+| Editar | En su lugar si son pocos campos; en diálogo o panel si son muchos (lo que diga Kompa) |
 | Quitar | Acción terciaria al final de la fila, con tratamiento de peligro discreto |
 | Muchos elementos | Altura de fila compacta si el sistema la tiene; el encabezado de columnas queda visible al desplazarse |
 | Teléfono | Las filas pasan a bloques apilados: dato principal arriba, secundarios debajo, acciones en menú de la fila |
@@ -56,7 +56,7 @@ Reglas:
 |---|---|
 | Cada medida | Etiqueta, campo y **unidad visible unida al campo** (adorno de unidad del componente); la unidad no se escribe |
 | Ancho | Por contenido: las medidas son cortas; nunca a ancho completo en escritorio |
-| Disposición | Cuadrícula de 2 a 4 columnas en escritorio, en el orden fijo de Fluxa, de izquierda a derecha y luego abajo; el orden de tabulación sigue al visual |
+| Disposición | Cuadrícula de 2 a 4 columnas en escritorio, en el orden fijo de Kompa, de izquierda a derecha y luego abajo; el orden de tabulación sigue al visual |
 | Medidas compuestas | Una unidad (sistólica / diastólica) va en una sola celda con dos campos unidos y una sola etiqueta |
 | Referencia | Rango o última toma en nivel terciario bajo el campo, alineado con él |
 | Fuera de rango | Estado de advertencia del componente (texto o icono además del color) en el mismo lugar del texto de ayuda; no mueve la cuadrícula |
@@ -68,22 +68,22 @@ Reglas:
 | Decisión | Regla |
 |---|---|
 | Entrada | Cabecera de la entrada (tipo, autor, fecha y hora) en nivel secundario; el contenido en nivel principal |
-| Orden | El que definió Fluxa; la captura nueva va en el extremo donde aparecerán las entradas nuevas |
+| Orden | El que definió Kompa; la captura nueva va en el extremo donde aparecerán las entradas nuevas |
 | Agrupar por día | Si hay muchas entradas por día, un encabezado de fecha pegado a sus entradas |
 | Tipo de entrada | Etiqueta de texto (y, si el sistema lo tiene, un icono del mismo tamaño en todas); nunca solo color |
 | Corrección | La entrada corregida se ve como tal (texto "corregida" y enlace a la nueva), no desaparece |
-| Densidad | Normal; lo largo se recorta con "ver más" si Fluxa lo permite |
+| Densidad | Normal; lo largo se recorta con "ver más" si Kompa lo permite |
 | Teléfono | Una sola columna; la cabecera de la entrada puede pasar a dos líneas |
 
 ## 6. Varios patrones en una vista
 
 - Cada región conserva su patrón y su ritmo de espacios; entre regiones, espacio "entre grupos" y títulos de región.
-- Si dos regiones se capturan en la misma visita (signos vitales y diagnósticos), van en el orden de Fluxa, con el mismo ancho de contenedor, para que la vista se lea como un recorrido.
+- Si dos regiones se capturan en la misma visita (signos vitales y diagnósticos), van en el orden de Kompa, con el mismo ancho de contenedor, para que la vista se lea como un recorrido.
 - Una sola acción principal para la vista (Guardar consulta); los "Agregar" de cada colección son secundarios.
 
 ## 7. Ejemplos
 
-Ejemplos hipotéticos; la estructura viene de `forma-del-dato-y-patrones.md` de Fluxa.
+Ejemplos hipotéticos; la estructura viene de `forma-del-dato-y-patrones.md` de Kompa.
 
 **CIE-10 con medicamentos (grupos anidados).** Cada diagnóstico es un grupo: encabezado con código en nivel secundario y nombre en principal, quitar diagnóstico al final del encabezado. Debajo, sus medicamentos como filas compactas (medicamento en principal; dosis, vía y frecuencia en secundario), quitar al final de cada fila. "Agregar medicamento" después del último medicamento del grupo; "Agregar diagnóstico" con autocomplete de CIE-10 al final de todos los grupos. Teléfono: cada medicamento como bloque apilado dentro de su grupo.
 
@@ -112,6 +112,6 @@ Ejemplos hipotéticos; la estructura viene de `forma-del-dato-y-patrones.md` de 
 
 ## 10. Límites
 
-Kompa compone el patrón que eligió Fluxa. No cambia el patrón ni las relaciones (Fluxa), no define rangos ni reglas clínicas (Inqa), no decide qué componente resuelve cada parte ni pide variantes (Kura) y no decide cómo se guarda (Arko).
+Kompa elige y compone el patrón. No define rangos ni reglas clínicas (Inqa), no decide qué componente resuelve cada parte ni pide variantes (Kompa) y no decide cómo se guarda (Forja).
 
 Elaborada para Nexa Squad; se apoya en las demás referencias de Kompa ("Refactoring UI" de Adam Wathan y Steve Schoger).

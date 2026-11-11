@@ -22,11 +22,11 @@ Propósito: decidir cómo se comporta cada sección por ancho de pantalla y comp
 - Los anchos de quiebre salen de los tokens o del sistema de rejilla del proyecto. Los valores que circulan (640, 768, 1024, 1280 px) son de Tailwind y solo son ejemplo.
 - Mecanismo: un punto de quiebre sirve cuando coincide con el ancho donde **el contenido** deja de caber, no con un modelo de dispositivo. Por eso, además de los puntos del proyecto, se revisa el recorrido completo de anchos (punto 3).
 - Diseñar desde el ancho chico hacia el grande: empezar apilado y agregar columnas cuando hay espacio obliga a decidir qué es esencial.
-- Si una región cambia según su contenedor y no según la pantalla (un panel lateral que se abre), preferir el comportamiento por contenedor si el proyecto lo soporta; si no, anotarlo como necesidad para el curador.
+- Si una región cambia según su contenedor y no según la pantalla (un panel lateral que se abre), preferir el comportamiento por contenedor si el proyecto lo soporta; si no, anotarlo como necesidad como pedido de componente.
 
 ## 2. Comportamiento por ancho
 
-Para cada sección, el compositor deja escrito qué pasa en cada rango. Plantilla:
+Para cada sección, Kompa deja escrito qué pasa en cada rango. Plantilla:
 
 | Rango | Patrón general |
 |---|---|
@@ -144,7 +144,7 @@ Hechos: la lista muestra carpetas y archivos; el dato principal es el nombre; ab
 ## 12. Límites del rol
 
 - No decide qué columnas o datos son prioritarios: usa la prioridad de estructura.
-- No crea puntos de quiebre ni tokens nuevos; los faltantes se anotan para el curador.
+- No crea puntos de quiebre ni tokens nuevos; los faltantes se anotan como pedido de componente.
 - No define la navegación entre vistas (lista → detalle); solo compone cada vista en cada ancho.
 - No escribe el código responsivo; deja la regla verificable para el constructor.
 

@@ -21,7 +21,7 @@ Propósito: decidir qué se ve primero en cada sección y cómo el espacio agrup
 - Los números que da Refactoring UI (espaciado 4, 8, 16, 24, 32, 48, 64 px; texto de 12 a 36 px) vienen de la escala de Tailwind. Aquí solo ilustran el principio: **una escala cerrada donde cada paso se distingue a simple vista del anterior**.
 - Los valores reales salen de los tokens del proyecto (espaciado, tipografía, color de texto, bordes, radios, sombras). Si la escala del proyecto se llama distinto, se usa tal cual.
 - Mecanismo: con una escala cerrada, cada decisión es "¿paso chico o paso grande?", no "¿13 o 14 px?". Eso da consistencia sin depender del ojo de quien compone.
-- Si falta un token para un caso, no se inventa un valor: se anota como **token faltante** para el curador de componentes.
+- Si falta un token para un caso, no se inventa un valor: se anota como **token faltante** para el pedido de componente.
 - Comprobación: la propuesta no contiene valores literales (`13px`, `#777`, `margin: 22px`); cada medida y color nombra un token.
 
 ## 2. Jerarquía con tres palancas
@@ -135,7 +135,7 @@ Hecho: el gestor permite buscar, abrir, subir, crear carpetas y retirar archivos
 
 - No cambia qué contenido hay ni su orden; eso lo entregó estructura.
 - No decide cuál es la acción principal de la vista; solo le da el tratamiento visual que le corresponde.
-- No crea tokens ni componentes compartidos: los huecos se anotan para el curador.
+- No crea tokens ni componentes compartidos: los huecos se anotan como pedido de componente.
 - No define paleta ni identidad visual.
 
 Adaptado de wondelai/skills (refactoring-ui, basado en "Refactoring UI" de Adam Wathan y Steve Schoger; web-typography, basado en "On Web Typography" de Jason Santa Maria), licencia MIT.

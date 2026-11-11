@@ -1,14 +1,14 @@
 # Composición de formularios completos
 
-Propósito: componer un formulario entero, no solo campo por campo: ancho del formulario, encabezado (título y subtítulo), secciones y cómo se separan, cuándo usar una superficie de contraste, filas a partir de las unidades de Fluxa, cómo aparece una sección condicional y cómo se ven los indicadores. Complementa a `formularios-y-barras-de-acciones.md` (etiquetas, ancho por campo, botones) y a `componer-piezas-en-su-contexto.md` (cada pieza junto a sus vecinas).
+Propósito: componer un formulario entero, no solo campo por campo: ancho del formulario, encabezado (título y subtítulo), secciones y cómo se separan, cuándo usar una superficie de contraste, filas a partir de las unidades de Kompa, cómo aparece una sección condicional y cómo se ven los indicadores. Complementa a `formularios-y-barras-de-acciones.md` (etiquetas, ancho por campo, botones) y a `componer-piezas-en-su-contexto.md` (cada pieza junto a sus vecinas).
 
 ## Contenido
 
-1. Lo que recibes de Fluxa
+1. Lo que recibes de Kompa
 2. Ancho del formulario
 3. Encabezado: título y subtítulo
 4. Secciones: título, separación y superficie
-5. Filas: de las unidades de Fluxa a columnas
+5. Filas: de las unidades de Kompa a columnas
 6. Secciones condicionales
 7. Indicadores
 8. Acciones y cierre
@@ -17,14 +17,14 @@ Propósito: componer un formulario entero, no solo campo por campo: ancho del fo
 11. Errores comunes
 12. Límites
 
-## 1. Lo que recibes de Fluxa
+## 1. Lo que recibes de Kompa
 
-Antes de componer, confirma que el documento de estructura trae: secciones en orden, campos por sección, **unidades** (fuertes o débiles), campos condicionales con su activador, página o pasos, acción principal y el contenido de ayudas, errores e indicadores (ver `estructura-de-formularios.md` de Fluxa). Si falta algo, no lo decides tú: es devolución a Fluxa.
+Antes de componer, confirma que el documento de estructura trae: secciones en orden, campos por sección, **unidades** (fuertes o débiles), campos condicionales con su activador, página o pasos, acción principal y el contenido de ayudas, errores e indicadores (ver `estructura-de-formularios.md` de Kompa). Si falta algo, no lo decides tú: es devolución a Kompa.
 
 ## 2. Ancho del formulario
 
 - Un formulario de captura no ocupa todo el ancho de una pantalla de escritorio. Mecanismo: con líneas muy largas el ojo pierde la columna de regreso y las etiquetas quedan lejos de las acciones.
-- Usa el ancho máximo de contenedor de formulario del proyecto (token o clase del sistema). Si no existe, es hueco de token para Kura; no inventes un valor.
+- Usa el ancho máximo de contenedor de formulario del proyecto (token o clase del sistema). Si no existe, es hueco de token para Kompa; no inventes un valor.
 - Alineado a la izquierda del área de contenido, como el resto de la vista, salvo que el sistema del proyecto centre los formularios de forma consistente (por ejemplo, pantallas de acceso).
 - En teléfono ocupa el ancho del contenedor, con el margen lateral del sistema.
 
@@ -57,9 +57,9 @@ Reglas:
 - La superficie de contraste usa el token de fondo secundario del sistema y respeta el contraste de los campos que contiene (sus bordes siguen distinguiéndose).
 - Un título de sección lleva más espacio arriba que abajo, para pegarse a su contenido.
 
-## 5. Filas: de las unidades de Fluxa a columnas
+## 5. Filas: de las unidades de Kompa a columnas
 
-- **Una columna por defecto.** Solo van en la misma fila los campos que Fluxa declaró como unidad.
+- **Una columna por defecto.** Solo van en la misma fila los campos que Kompa declaró como unidad.
 - **Unidad fuerte** (nombre + apellidos, fecha inicio + fin): en la misma fila en escritorio y tablet, si cada campo conserva su ancho mínimo usable. En teléfono se apilan en el mismo orden.
 - **Unidad débil** (RFC + razón social): en la misma fila solo si los dos tienen ancho por contenido parecido y caben sin bajar de su mínimo; si no, cada uno en su fila.
 - Dentro de la fila, cada campo toma su ancho por contenido (`formularios-y-barras-de-acciones.md`, sección 3). Si la unidad mezcla un dato corto y uno largo (lada + teléfono), el corto va por contenido y el largo crece.
@@ -71,7 +71,7 @@ Reglas:
 - El **activador** (casilla o interruptor, según el sistema) va justo antes de lo que activa y con el mismo peso que un campo, no como texto de ayuda.
 - Al activarse, los campos aparecen **debajo del activador, en su lugar**, sin mover lo que está arriba. Si la sección es larga o de otro tema, va en una superficie de contraste sutil para leerse como un bloque que pertenece al activador.
 - La aparición no debe empujar al usuario fuera de su posición de lectura: el foco se queda en el activador y el primer campo nuevo queda visible.
-- Al desactivar, la sección se oculta; lo que Fluxa definió (conservar o descartar los datos) no cambia por la composición.
+- Al desactivar, la sección se oculta; lo que Kompa definió (conservar o descartar los datos) no cambia por la composición.
 - En teléfono, igual: el bloque aparece debajo del activador, a ancho completo.
 
 ## 7. Indicadores
@@ -94,7 +94,7 @@ Reglas:
 
 ## 9. Ejemplo: registro de usuarios
 
-Ejemplo hipotético. Entrada de Fluxa: tres secciones (Datos personales, Acceso a la cuenta, Facturación condicional), cierre con términos y "Crear cuenta"; unidades: Nombre + Apellidos (fuerte), RFC + Razón social (débil); opcionales marcados (minoría).
+Ejemplo hipotético. Entrada de Kompa: tres secciones (Datos personales, Acceso a la cuenta, Facturación condicional), cierre con términos y "Crear cuenta"; unidades: Nombre + Apellidos (fuerte), RFC + Razón social (débil); opcionales marcados (minoría).
 
 | Decisión | Resultado | Regla |
 |---|---|---|
@@ -117,7 +117,7 @@ Ejemplo hipotético. Entrada de Fluxa: tres secciones (Datos personales, Acceso 
 - [ ] El formulario usa el ancho máximo del sistema (o hay hueco de token anotado).
 - [ ] Solo el título tiene tamaño, peso y color principal; el subtítulo y los títulos de sección ceden.
 - [ ] Las secciones se separan con lo mínimo necesario; no hay superficies anidadas.
-- [ ] Solo van en fila los campos que Fluxa declaró como unidad, y cada uno conserva su mínimo.
+- [ ] Solo van en fila los campos que Kompa declaró como unidad, y cada uno conserva su mínimo.
 - [ ] Lo condicional aparece debajo de su activador sin mover lo de arriba.
 - [ ] Ningún indicador depende solo del color.
 - [ ] Lo que condiciona el envío está junto a la acción principal.
@@ -134,6 +134,6 @@ Ejemplo hipotético. Entrada de Fluxa: tres secciones (Datos personales, Acceso 
 
 ## 12. Límites
 
-Kompa compone. No agrega ni quita campos, no cambia unidades, condiciones ni orden (Fluxa), no decide qué componente se usa para cada campo (Kura) y no redacta ayudas ni errores (Fluxa).
+Kompa compone y redacta. No qué componente se usa para cada campo (Kompa) y no redacta ayudas ni errores (Kompa).
 
 Se apoya en las demás referencias de Kompa ("Refactoring UI" de Adam Wathan y Steve Schoger) y en "Web Form Design" de Luke Wroblewski.

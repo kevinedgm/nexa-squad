@@ -21,12 +21,12 @@ El código se lee muchas más veces de las que se escribe. Cada nombre y cada l�
 
 ## 2. Nombres en el lenguaje del dominio
 
-- **Fuente de los nombres**: el glosario y los requisitos del analista, y los nombres de datos del arquitecto. Si el analista dice "retirar", el código dice `retirarArchivo`, no `borrar`, `eliminar` ni `softDelete`.
+- **Fuente de los nombres**: el glosario y los requisitos del analista, y los nombres de datos de Forja. Si el analista dice "retirar", el código dice `retirarArchivo`, no `borrar`, `eliminar` ni `softDelete`.
 - **Una palabra por concepto** en todo el módulo. Si hay `obtener`, no mezclar con `traer` ni `buscar` para lo mismo. Palabras distintas solo si el significado es distinto (`retirar` oculta y conserva; `eliminar` quita de verdad).
 - **El nombre dice para qué existe**, sin comentario: `NIVEL_ADMINISTRACION` y no `n`; `puedeDescargar` y no `chk`.
 - Funciones con verbo + objeto (`subirArchivo`, `crearCarpeta`); datos y módulos con sustantivo (`Carpeta`, `RegistroDeRetiro`); preguntas sí/no como predicado (`estaRetirado`, `puedeAbrir`).
 - Sin abreviaturas ni códigos de tipo (`usr`, `strNom`, `arr1`). Largo proporcional al alcance: corto en un ciclo de tres líneas, descriptivo en lo que se usa en todo el módulo.
-- Números con significado tienen nombre: `TAMANO_MAXIMO_SUBIDA`, no un `10485760` suelto. El valor sale de lo que definió el arquitecto o el proyecto, no se inventa.
+- Números con significado tienen nombre: `TAMANO_MAXIMO_SUBIDA`, no un `10485760` suelto. El valor sale de lo que definió Forja o el proyecto, no se inventa.
 - Respetar la convención de nombres que el proyecto ya usa (idioma, mayúsculas, prefijos). Si el código existente nombra en inglés, se sigue la convención y el término del dominio se traduce de forma consistente; la tabla de equivalencias se anota en el registro de fase.
 - Si un término del dominio no existe en el glosario o tiene dos lecturas, no se elige uno: se pregunta al analista.
 
@@ -72,7 +72,7 @@ Ejemplo en pseudocódigo, en líneas:
 
 - DRY es sobre **conocimiento**, no sobre texto parecido. Una regla de negocio (quién puede retirar) vive en un solo lugar y todos la consultan.
 - Dos bloques iguales que obedecen a reglas distintas **no** son duplicación; unirlos amarra dos reglas que pueden cambiar por separado.
-- Regla de tres: la primera vez se escribe, la segunda se anota, la tercera se extrae. Dentro del módulo; lo que se comparta entre módulos lo decide el curador de componentes.
+- Regla de tres: la primera vez se escribe, la segunda se anota, la tercera se extrae. Dentro del módulo; lo que se comparta entre módulos lo decide Kompa.
 
 ## 6. Marcar lo PROVISIONAL
 
@@ -92,7 +92,7 @@ Cuando el constructor tiene que avanzar con algo que no está definido (un texto
 
 ## 8. Checklist por fase
 
-- [ ] Cada nombre nuevo de dominio existe en el glosario del analista o en el modelo del arquitecto.
+- [ ] Cada nombre nuevo de dominio existe en el glosario del analista o en el modelo de Forja.
 - [ ] Una palabra por concepto en todo el módulo.
 - [ ] Ninguna función nueva lleva argumentos bandera ni efectos que su nombre no diga.
 - [ ] Sin capturas vacías, sin nulos como "no hay", errores con nombre.

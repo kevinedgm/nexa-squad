@@ -66,6 +66,6 @@ De más a menos fuerte. Usa el más fuerte que el componente permita.
 
 ## 7. Límites
 
-Kompa decide la ubicación. Qué acciones existen y qué hacen lo decide Fluxa; qué componente resuelve la barra de selección, Kura.
+Kompa decide qué acciones se muestran y dónde. Qué hacen, si cambia una regla de negocio, lo decide Inqa.
 
 Adaptado de wondelai/skills (design-everyday-things, basado en "The Design of Everyday Things" de Don Norman), licencia MIT.

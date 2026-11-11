@@ -29,7 +29,7 @@ Propósito: componer formularios (alinear campos, agrupar, dar ancho a cada camp
 
 ## 2. Agrupación y orden visual de un formulario
 
-- Los grupos los define estructura; el compositor los hace visibles: encabezado de grupo en nivel secundario o principal chico, más espacio arriba del encabezado que abajo, y espacio "entre grupos" mayor que el de "relacionado".
+- Kompa define los grupos y los hace visibles: encabezado de grupo en nivel secundario o principal chico, más espacio arriba del encabezado que abajo, y espacio "entre grupos" mayor que el de "relacionado".
 - Delimitar con borde o tarjeta solo si el grupo se comporta como unidad (se colapsa, se repite, se habilita junto). Si no, basta el espacio.
 - Un grupo de casillas o radios va con su propia etiqueta de grupo y opciones alineadas a la izquierda, una por línea si son más de tres o si su texto es largo.
 - Todos los campos comparten el mismo borde izquierdo. Campos sueltos que "flotan" a otra alineación se leen como otro formulario.
@@ -118,7 +118,7 @@ Lo que **nunca cede**:
 
 ## 10. Ejemplo: barra del gestor de archivos
 
-Hechos de estructura: acción principal de la vista = buscar; grupo de gestión = subir archivo y nueva carpeta; retirar es acción por registro con confirmación. Supuesto: el grupo de gestión solo existe para niveles de acceso con permiso de escritura (lo decide quien define permisos, no el compositor).
+Hechos de estructura: acción principal de la vista = buscar; grupo de gestión = subir archivo y nueva carpeta; retirar es acción por registro con confirmación. Supuesto: el grupo de gestión solo existe para niveles de acceso con permiso de escritura (lo decide quien define permisos, no Kompa).
 
 | Ancho | Composición |
 |---|---|
@@ -157,7 +157,7 @@ Hechos de estructura: acción principal de la vista = buscar; grupo de gestión 
 
 - No agrega, quita ni reordena campos o acciones, ni cambia cuál es la principal: eso es de estructura.
 - No decide permisos ni qué niveles de acceso ven cada acción.
-- No crea componentes compartidos (barra de herramientas genérica, menú "Nuevo"): si hace falta, lo anota para el curador de componentes.
+- No crea componentes compartidos (barra de herramientas genérica, menú "Nuevo"): si hace falta, lo anota para el pedido de componente.
 - No redacta textos de botones o errores más allá de señalar que faltan o son ambiguos.
 
 Adaptado de wondelai/skills (refactoring-ui, basado en "Refactoring UI" de Adam Wathan y Steve Schoger; ios-hig-design, basado en las "Human Interface Guidelines" de Apple), licencia MIT.

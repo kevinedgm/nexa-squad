@@ -48,11 +48,11 @@ Mecanismo: opciones concretas bajan el esfuerzo de responder, pero opciones inve
 | No preguntes | Por qué | Qué hacer en su lugar |
 |---|---|---|
 | Frecuencia de uso | Se infiere del propósito del módulo | Anótala como supuesto con su base: "consulta diaria (inferido: los análisis generan archivos a diario)" |
-| Dispositivo o tamaño de pantalla | Se infiere del contexto de trabajo; la adaptación a pantallas es del compositor | Supuesto marcado; si hay duda real, la resuelve otro rol |
+| Dispositivo o tamaño de pantalla | Se infiere del contexto de trabajo; la adaptación a pantallas es de Kompa | Supuesto marcado; si hay duda real, la resuelve otro rol |
 | Quién lo usa | Se infiere del propósito y de los niveles de acceso del legacy | Describe a los usuarios por nivel y circunstancia, como supuesto |
 | Entorno (servidor, configuración, navegador, Docker) | No es decisión de producto | Va al checklist de implementación |
-| Cómo se debe ver, dónde va un botón, qué componente usar | Es de estructura, compositor y curador | No lo anotes como requisito |
-| Tablas, columnas, endpoints, tipos de dato | Es del arquitecto técnico | Anota la regla de negocio; el cómo lo decide él |
+| Cómo se debe ver, dónde va un botón, qué componente usar | Es de Kompa | No lo anotes como requisito |
+| Tablas, columnas, endpoints, tipos de dato | Es dForja | Anota la regla de negocio; el cómo lo decide él |
 | "¿Te gusta…?", "¿Sería útil…?", "¿Lo usarías?" | Respuesta siempre "sí" | Pregunta por la última vez que ocurrió la situación |
 | Lo que el código ya responde | Gasta una de las 5 | Léelo y anótalo como hecho con fuente |
 
@@ -111,7 +111,7 @@ Preguntas que NO se envían:
 - "¿Con qué frecuencia suben archivos?": se infiere.
 - "¿Lo usan en tablet?": se infiere o lo decide otro rol.
 - "¿Te gustaría arrastrar archivos para subir?": es una solución y es hipotética.
-- "¿Cómo quieres que se vea la confirmación?": la decide el compositor.
+- "¿Cómo quieres que se vea la confirmación?": la decide Kompa.
 - "¿Quién puede retirar?" y "¿retirar pide confirmación?": ya son reglas aprobadas.
 - "¿Ponemos una papelera para recuperar?": la recuperación es manual y queda fuera del módulo.
 - "¿Cada carpeta tiene sus propios permisos?": los permisos son globales.
@@ -131,7 +131,7 @@ Preguntas que sí se envían. Todas son ejemplos hipotéticos: enseñan la forma
 | Mandar 12 preguntas "por si acaso" | Kevin responde las fáciles; las críticas se pierden | Solo bloqueantes; el resto como supuestos |
 | Preguntar "¿está bien así?" | Confirma lo que ya pensabas | Pregunta por el último caso real |
 | Aceptar "sí, eso" como regla | No dice excepción ni condición | Aplica la receta de cinco piezas |
-| Anotar la solución que dio Kevin como requisito | Ata a estructura y compositor | Regístrala como idea y extrae la necesidad |
+| Anotar la solución que dio Kevin como requisito | Ata a Kompa | Regístrala como idea y extrae la necesidad |
 | Dejar un "no sé" sin supuesto | El requisito queda bloqueado | Supuesto por defecto, marcado y con dueño |
 
 ## 9. Límites

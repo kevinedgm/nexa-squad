@@ -45,8 +45,8 @@ De cada pieza anota, en una línea por punto:
 
 Reglas:
 
-- Solo usas variantes, tamaños y partes que el contrato ya tiene. Si la sección necesita algo que la pieza no ofrece (otro tamaño, otra parte), **no lo inventas ni lo simulas con estilos**: es un hueco para Kura.
-- Una pieza `draft` o `deprecated` no se compone como definitiva: márcala y avísale a Kura.
+- Solo usas variantes, tamaños y partes que el contrato ya tiene. Si la sección necesita algo que la pieza no ofrece (otro tamaño, otra parte), **no lo inventas ni lo simulas con estilos**: es un hueco para Kompa.
+- Una pieza `draft` o `deprecated` no se compone como definitiva: márcala y avísale a Kompa.
 - Si no encuentras el contrato, escríbelo como supuesto ("se asume que el autocomplete se estira al contenedor; sin documentación en el Hub") y como hueco.
 
 ## 3. Ancho en su contexto: llena, por contenido o fijo
@@ -61,7 +61,7 @@ Cada control de una fila toma uno de tres comportamientos:
 
 Reglas:
 
-- **Uno solo crece por fila.** Si dos controles llenan a la vez, se reparten el espacio sin criterio y ninguno anticipa su contenido. El que crece es el de mayor prioridad según Fluxa; los demás conservan su ancho.
+- **Uno solo crece por fila.** Si dos controles llenan a la vez, se reparten el espacio sin criterio y ninguno anticipa su contenido. El que crece es el de mayor prioridad según Kompa; los demás conservan su ancho.
 - **Todo lo que crece tiene mínimo y máximo.** El mínimo es el ancho en que la pieza sigue siendo usable (en un autocomplete: que se lea la sugerencia más común sin cortarse). El máximo evita líneas eternas en pantallas anchas; sale del ancho máximo del formulario o de la sección.
 - **Lo fijo nunca se aplasta.** Cuando falta espacio, primero cede lo que crece, hasta su mínimo; después se aplica el orden de cesión de la barra.
 - **En teléfono**, el control que crece pasa a ocupar la fila completa y sus acciones bajan o pasan a menú, según `responsivo-y-accesibilidad.md`.
@@ -82,7 +82,7 @@ Reglas:
 - Lo que va dentro del campo (limpiar, adorno de unidad) no compite con el texto: va al final y aparece solo cuando sirve (limpiar, solo si hay valor).
 - Una acción contigua va separada por el espacio *dentro de grupo*, no por el espacio *entre grupos* (ver `jerarquia-y-espaciado.md`). Si queda igual de lejos que la siguiente sección, nadie la relaciona con su campo.
 - Máximo una acción contigua por campo. Si hay más, van a un menú de la fila o a la barra de la sección.
-- Unir o separar no cambia qué acciones existen: eso lo decidió Fluxa.
+- Unir o separar no cambia qué acciones existen: eso lo decidió Kompa.
 
 ## 5. Escala de iconos
 
@@ -99,7 +99,7 @@ El tamaño de un icono no se elige por gusto: sigue al texto que acompaña y a l
 Reglas:
 
 - **Un tamaño de icono por fila o barra.** Dos tamaños en la misma fila se leen como dos jerarquías.
-- Los tamaños salen de la escala de iconos del proyecto (`.fruti/tokens.json` o el sistema visual). Si no hay escala de iconos, no inventes píxeles: es un hueco de token para Kura.
+- Los tamaños salen de la escala de iconos del proyecto (`.fruti/tokens.json` o el sistema visual). Si no hay escala de iconos, no inventes píxeles: es un hueco de token para Kompa.
 - Un icono funcional siempre tiene nombre accesible; uno decorativo junto a un texto se oculta a lectores de pantalla.
 - Cuándo un botón puede ir solo con icono lo decide `formularios-y-barras-de-acciones.md`, sección 7. Esta sección solo decide su tamaño.
 
@@ -120,7 +120,7 @@ Reglas:
 
 - Nada que la persona necesite para completar la tarea vive solo en una descripción emergente: en teléfono y con teclado no se ve.
 - El error ocupa el lugar del texto de ayuda, para que el campo no salte.
-- Si el contenido de la ayuda, la leyenda o el mensaje no está definido, no lo redactas: es una devolución a Fluxa, que define el contenido de los estados.
+- Si el contenido de la ayuda, la leyenda o el mensaje no está definido, lo redactas tú con las reglas C1–C8 de la skill; lo que dependa de una regla de negocio no confirmada queda como supuesto marcado.
 
 ## 7. Densidad de la sección
 
@@ -132,7 +132,7 @@ Reglas:
 
 Ejemplo hipotético para enseñar la forma; los nombres de variantes y tokens son genéricos.
 
-Entrada de Fluxa: sección "Datos de la muestra" con el campo Cliente (obligatorio, principal de la sección), la acción "Nuevo cliente" (secundaria, crea un cliente si no existe) y "Limpiar" (sobre el valor del campo). Debajo, Fecha de recepción y Folio.
+Entrada de Kompa: sección "Datos de la muestra" con el campo Cliente (obligatorio, principal de la sección), la acción "Nuevo cliente" (secundaria, crea un cliente si no existe) y "Limpiar" (sobre el valor del campo). Debajo, Fecha de recepción y Folio.
 
 Lectura de la pieza (registro y Hub): autocomplete `stable`; se estira al contenedor; tamaños normal y compacto; partes opcionales: icono inicial de búsqueda y botón de limpiar; resuelve carga, sin resultados y error por dentro.
 
@@ -144,7 +144,7 @@ Decisiones:
 | Limpiar | Unida, dentro del campo, al final; aparece solo si hay valor | Sección 4: opera sobre el valor |
 | Nuevo cliente | Separada y contigua, misma fila, botón secundario con texto | Sección 4: crea algo relacionado |
 | Iconos | Búsqueda y limpiar con el tamaño del control normal; "Nuevo cliente" con texto e icono "+" del mismo tamaño | Sección 5: un tamaño por fila |
-| Ayuda | "Escribe al menos 3 letras para buscar" bajo el campo (texto definido por Fluxa) | Sección 6 |
+| Ayuda | "Escribe al menos 3 letras para buscar" bajo el campo (texto definido por Kompa) | Sección 6 |
 | Fecha y Folio | Por contenido, en la fila siguiente, lado a lado en escritorio | Sección 3 |
 | Densidad | Normal en toda la sección | Sección 7 |
 
@@ -156,7 +156,7 @@ Por ancho:
 | Tablet | Igual que escritorio; si "Nuevo cliente" deja a Cliente por debajo de su mínimo, el botón pasa a solo icono "+" con nombre accesible (cumple las condiciones de icono solo). |
 | Teléfono | Cliente a ancho completo; "Nuevo cliente" baja a la fila siguiente con texto; Fecha y Folio a ancho completo, uno debajo del otro. |
 
-Hueco para Kura (si aplicara): si el diseño pidiera mostrar el RFC bajo cada sugerencia y el contrato no tiene esa parte, se registra como hueco ("variante de autocomplete con línea secundaria por sugerencia; 1 uso"), no se simula.
+Hueco para Kompa (si aplicara): si el diseño pidiera mostrar el RFC bajo cada sugerencia y el contrato no tiene esa parte, se registra como hueco ("variante de autocomplete con línea secundaria por sugerencia; 1 uso"), no se simula.
 
 ## 9. Checklist verificable
 
@@ -167,7 +167,7 @@ Hueco para Kura (si aplicara): si el diseño pidiera mostrar el RFC bajo cada su
 - [ ] Un solo tamaño de icono por fila, tomado de la escala del proyecto.
 - [ ] Ninguna información esencial vive solo en una descripción emergente.
 - [ ] Una densidad por sección, expresada con la variante del componente.
-- [ ] Todo lo que la pieza no ofrece quedó como hueco para Kura.
+- [ ] Todo lo que la pieza no ofrece quedó como hueco para Kompa.
 
 ## 10. Errores comunes
 
@@ -177,11 +177,11 @@ Hueco para Kura (si aplicara): si el diseño pidiera mostrar el RFC bajo cada su
 | Botón de acción a la misma distancia que otra sección | Nadie lo relaciona con su campo | Espacio de dentro de grupo, misma fila |
 | Iconos de distinto tamaño en una barra | Parecen dos niveles de importancia | Un tamaño por fila |
 | Agrandar un botón solo icono para que "se vea" | Compite con la acción principal | Mismo icono, área táctil mayor |
-| Simular una variante con estilos locales | Rompe el sistema y nadie la mantiene | Hueco para Kura |
+| Simular una variante con estilos locales | Rompe el sistema y nadie la mantiene | Hueco para Kompa |
 | Poner la regla en el marcador | Desaparece al escribir | Texto de ayuda visible |
 
 ## 11. Límites
 
-Kompa decide cómo se acomoda la pieza en su contexto. No cambia la pieza ni crea variantes (eso es de Fruti Squad, vía Kura), no decide si algo se vuelve componente compartido (Kura), no cambia qué acciones existen ni su orden (Fluxa) y no redacta el contenido de ayudas o mensajes (Fluxa).
+Kompa decide cómo se acomoda la pieza en su contexto. No cambia la pieza ni crea variantes (eso es de Fruti Squad, vía pedido), no decide si algo se vuelve componente compartido (Kompa), no cambia qué acciones existen ni su orden (Kompa) y no redacta el contenido de ayudas o mensajes (Kompa).
 
 Elaborada para Nexa Squad a partir de las demás referencias de Kompa; se apoya en "Refactoring UI" (Adam Wathan y Steve Schoger) y en las heurísticas de Nielsen ya citadas en el squad.

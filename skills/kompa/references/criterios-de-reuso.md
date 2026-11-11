@@ -1,6 +1,6 @@
 # Criterios de reuso: reutilizar, variante, compartido nuevo o resolver en el módulo
 
-Propósito: decidir, para cada hueco que deja el compositor, cuál de cuatro salidas toma y justificarla con una regla verificable. Úsala antes de proponer cualquier componente o variante.
+Propósito: decidir, para cada hueco que deja Kompa, cuál de cuatro salidas toma y justificarla con una regla verificable. Úsala antes de proponer cualquier componente o variante.
 
 ## Contenido
 
@@ -122,6 +122,6 @@ Un buen componente oculta mucho detrás de pocas opciones. Profundidad = lo que 
 
 ## 10. Límites del rol
 
-Con esta referencia el curador decide **qué salida toma cada hueco**. No decide el aspecto del componente, no acomoda secciones (eso es del compositor), no cambia contenido ni flujos (eso es de estructura) y no migra el proyecto a otro sistema visual. Si un hueco revela que falta contenido o una acción, lo devuelve a estructura.
+Con esta referencia Kompa decide **qué salida toma cada hueco**. No decide el aspecto del componente, no acomoda secciones (eso es de Kompa), no cambia contenido ni flujos (eso es de estructura) y no migra el proyecto a otro sistema visual. Si un hueco revela que falta contenido o una acción, lo devuelve a estructura.
 
 Adaptado de wondelai/skills (software-design-philosophy, basado en "A Philosophy of Software Design" de John Ousterhout; pragmatic-programmer, basado en "The Pragmatic Programmer" de Andrew Hunt y David Thomas), licencia MIT.

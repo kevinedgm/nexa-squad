@@ -94,7 +94,7 @@ El desliz por acción vecina se previene con distancia de grupo, no con adverten
 - Su nombre es inequívoco y distinto de cualquier otra acción del módulo.
 - En acciones masivas, la cantidad seleccionada es parte del contenido visible antes de ejecutar.
 
-Estructura entrega el agrupamiento y la prioridad; cómo se separa visualmente lo decide el compositor.
+Kompa decide el agrupamiento, la prioridad y cómo se separa visualmente.
 
 ## 6. Acciones sin permiso: ocultar o deshabilitar
 
@@ -110,7 +110,7 @@ Mostrar una acción que nunca se podrá usar genera ruido y falsas expectativas;
 Reglas:
 - Ningún deshabilitado sin razón. Un botón inactivo sin explicación parece descompuesto.
 - La razón vive en el contenido, no solo al pasar el puntero, para que funcione con teclado y en pantallas táctiles.
-- Ocultar en la interfaz no sustituye la validación en servidor; eso es del arquitecto técnico.
+- Ocultar en la interfaz no sustituye la validación en servidor; eso es dForja.
 
 ## 7. Capas de defensa
 
@@ -163,6 +163,6 @@ Ejemplo hipotético de deshabilitado temporal (no es regla aprobada): si una car
 
 ## 11. Límites
 
-Esta referencia decide qué restricciones, avisos, confirmaciones y estados existen, y su contenido y agrupación. No decide colores, iconos, distancias ni el aspecto de lo deshabilitado (compositor), ni cómo se valida el permiso en servidor o cómo se recupera desde "por eliminar" (arquitecto técnico y analista).
+Esta referencia decide qué restricciones, avisos, confirmaciones y estados existen, y su contenido y agrupación. No decide colores, iconos, distancias ni el aspecto de lo deshabilitado (Kompa), ni cómo se valida el permiso en servidor o cómo se recupera desde "por eliminar" (Forja y analista).
 
 Adaptado de wondelai/skills (design-everyday-things, basado en "The Design of Everyday Things" de Don Norman; ux-heuristics, basado en "10 Usability Heuristics" de Jakob Nielsen; microinteractions, basado en "Microinteractions" de Dan Saffer), licencia MIT.

@@ -6,15 +6,10 @@ Resumen: Nexa no fabrica piezas, acomoda las que ya existen. Por eso todos los s
 
 | Agente | Rol | Lema | Hueco |
 |---|---|---|---|
-| Nexa Squad | Composición de módulos | Ocho agentes que diseñan y construyen módulos completos acomodando bien los componentes que ya tienes. | Dos canales que parten el bloque en cuatro y se cruzan en un nexo redondo: cada decisión tiene un dueño y todas se encuentran en el módulo. |
-| Orka | Conductor | Dirige el squad: quién trabaja ahora y qué se aprueba solo. | Una cadena de tres huecos: hecho, actual y pendiente. Un rol a la vez. |
+| Nexa Squad | Composición de módulos | Tres skills que componen y construyen pantallas con los componentes que ya tienes. | Dos canales que parten el bloque en cuatro y se cruzan en un nexo redondo: cada decisión tiene un dueño y todas se encuentran en el módulo. |
 | Inqa | Product Analyst | Qué debe hacer la funcionalidad, para quién y cómo se comprueba. | Un renglón entero (hecho), uno partido (supuesto) y un punto (pregunta). |
-| Arko | Systems Architect | Cómo se construye por detrás: datos, API y permisos. | Una cerradura: solo pasa lo que el servidor permite. |
-| Fluxa | Flow Designer | Qué pantallas hay, qué contienen y en qué orden. | Una pantalla tallada: cabecera, ranura de herramientas, datos y pie. |
-| Kompa | Layout Composer | Cómo se acomoda cada sección: qué crece, qué cede y qué nunca se mueve. | La misma fila en tres anchos: el tramo final nunca cede. |
-| Kura | Component Curator | Reutilizar antes que crear. | El mismo hueco en tres lugares: ya toca un componente. |
-| Forja | Build Engineer | Escribe el código que cumple lo aprobado, fase por fase. | La base completa y la capa de arriba a medias: se construye de abajo hacia arriba. |
-| Vera | QA Auditor | Si pasa, o a quién regresa cada hallazgo. | Un hallazgo que sube por su canal hasta su dueño. |
+| Kompa | Layout Composer | Cómo se compone una pantalla: qué se ve primero, qué dice y qué nunca se mueve. | La misma fila en tres anchos: el tramo final nunca cede. |
+| Forja | Build Engineer | Construye datos, API, permisos y lógica. | La base completa y la capa de arriba a medias: se construye de abajo hacia arriba. |
 
 Cada símbolo tiene dos archivos: `<agente>.svg` para fondo claro y `<agente>-oscuro.svg` para fondo oscuro. En GitHub se usan juntos con `<picture>` para que cambien solos con el tema.
 

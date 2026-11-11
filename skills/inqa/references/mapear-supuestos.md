@@ -41,7 +41,7 @@ Hay cuatro tipos de riesgo. El analista evalúa dos y canaliza los otros dos.
 | Valor | ¿Existe la necesidad y es suficiente para cambiar lo que hacen hoy? | Analista |
 | Viabilidad | ¿Encaja con las reglas del laboratorio, normas, permisos y la operación? | Analista |
 | Factibilidad | ¿Se puede construir con lo que hay? | Arquitecto técnico (se anota como pregunta para él) |
-| Usabilidad | ¿Lo entenderán y lo completarán? | Estructura y compositor (se anota como riesgo para ellos) |
+| Usabilidad | ¿Lo entenderán y lo completarán? | Kompa (se anota como riesgo) |
 
 Patrones de supuesto de valor más peligrosos: "tienen este problema", "van a cambiar su forma de trabajar", "nadie depende del comportamiento viejo".
 
@@ -121,7 +121,7 @@ Mapa. Las filas marcadas "hipotético" enseñan el método; su respuesta no se c
 | Queda constancia de qué se retiró, quién y cuándo, para atender la recuperación manual | Supuesto (hipotético; base: la recuperación a petición necesita identificar qué recuperar) | Alta | Baja | Pregunta a Kevin |
 | Hay normas de retención de registros que limitan retirar | Pregunta de viabilidad (hipotético) | Alta | Baja | Pregunta a Kevin |
 | Se busca más por folio que por nombre | Supuesto (hipotético) | Baja | Baja | Aceptar marcado |
-| Lo retirado se conserva de forma que la recuperación manual sea posible | Pregunta para el arquitecto técnico | — | — | Se canaliza |
+| Lo retirado se conserva de forma que la recuperación manual sea posible | Pregunta para Forja | — | — | Se canaliza |
 
 Requisito: Retirar un archivo (solo nivel 1).
 

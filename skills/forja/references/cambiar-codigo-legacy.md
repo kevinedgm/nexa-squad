@@ -60,7 +60,7 @@ Cuando no se puede poner bajo prueba el código anfitrión hoy, no se teje lógi
 - Ciclo: pruebas en verde → **un** cambio → pruebas en verde → punto de retorno. Repetir.
 - Si algo falla tras un paso: **revertir, no depurar**. El paso era grande o equivocado; se intenta uno más chico.
 - Un paso cabe en una frase: "extraer la consulta", "agregar el filtro por nivel", "conectar el filtro en el listado". Si la frase lleva "y", son dos pasos.
-- Para cambiar algo que otros usan (nombre de función, formato de un dato) sin romperlos: **cambio paralelo**. Expandir (lo nuevo junto a lo viejo, lo viejo delega en lo nuevo) → migrar a los que llaman, uno por uno → contraer (quitar lo viejo cuando nadie lo usa). El cuándo y el qué de una migración de datos los decide el arquitecto; el constructor ejecuta sus fases así.
+- Para cambiar algo que otros usan (nombre de función, formato de un dato) sin romperlos: **cambio paralelo**. Expandir (lo nuevo junto a lo viejo, lo viejo delega en lo nuevo) → migrar a los que llaman, uno por uno → contraer (quitar lo viejo cuando nadie lo usa). El cuándo y el qué de una migración de datos los decide Forja; el constructor ejecuta sus fases así.
 - **No dejar ventanas rotas**: lo feo que encuentres en la zona que tocas se arregla en un paso de estructura aparte; lo que esté fuera de tu fase se anota en sugerencias del registro de fase, no se arregla de pasada.
 - **Registro de fase**: `docs/construccion/<modulo>-fase-<n>.md` con las secciones alcance, archivos, criterios probados, provisionales y pendientes (con su rol dueño), devoluciones y sugerencias. Todo lo que esta referencia manda "anotar" va a una de esas secciones.
 
@@ -71,7 +71,7 @@ Antes de ejecutar cualquier cosa que escriba en la base de datos o en el almacen
 1. Trabajar solo contra la copia local. Nunca contra producción.
 2. Respaldar las tablas y carpetas afectadas con las herramientas que el proyecto ya tiene; anotar en la sección archivos del registro de fase qué se respaldó, dónde y cuándo.
 3. Comprobar que el respaldo se puede restaurar (restaurarlo una vez en un lugar aparte o, como mínimo, contar registros y archivos y compararlos).
-4. Ejecutar el cambio. Comparar conteos y una muestra de registros antes y después contra lo que el arquitecto definió.
+4. Ejecutar el cambio. Comparar conteos y una muestra de registros antes y después contra lo que se definió.
 5. Si no hay herramienta de respaldo disponible, no instalar ninguna ni pedir configuración: detener ese paso y anotarlo como pendiente del checklist de implementación.
 
 Mecanismo: un error en datos no se revierte con el control de versiones. El respaldo verificado es el único punto de retorno real.

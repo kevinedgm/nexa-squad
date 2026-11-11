@@ -45,7 +45,7 @@ La competencia del módulo no es otro software: es el rodeo actual (correo, memo
 
 ## 3. Problemas como necesidades sin solución visual
 
-Una necesidad describe lo que la persona no logra hoy, desde su lado. Una solución describe lo que vamos a construir. El analista escribe necesidades; estructura y compositor deciden la solución.
+Una necesidad describe lo que la persona no logra hoy, desde su lado. Una solución describe lo que vamos a construir. El analista escribe necesidades; Kompa y Forja deciden la solución.
 
 | Escrito como solución (no) | Escrito como necesidad (sí) |
 |---|---|
@@ -81,7 +81,7 @@ Gravedad del problema, para ordenar:
 | Deseable | Solo lo reconocen cuando se lo planteas | Fuera de alcance, anotado |
 | No es problema | Nadie lo nota | No se escribe |
 
-La factibilidad técnica no la evalúa el analista: si dudas, se marca como pregunta para el arquitecto técnico.
+La factibilidad técnica no la evalúa el analista: si dudas, se marca como pregunta para Forja.
 
 ## 5. Clasificar cada comportamiento observado
 
@@ -135,11 +135,11 @@ Clasificación. Los comportamientos "observados" son ejemplos hipotéticos: veri
 | Copiar el legacy como requisito | Migra defectos y rodeos | Clasifica cada comportamiento |
 | Requisitos desde cero ignorando el legacy | Rompes dependencias ocultas | Documenta lo observado primero |
 | Corregir un defecto sin decirlo | Alguien dependía de él | Márcalo y haz explícito el cambio |
-| Necesidades con botones y pantallas | Invades a estructura y compositor | Reescribe desde lo que no se logra |
+| Necesidades con botones y pantallas | Invades a Kompa | Reescribe desde lo que no se logra |
 | "Los usuarios quieren X" sin evidencia | Es una solución disfrazada | Pregunta por qué y busca el rodeo |
 
 ## 9. Límites
 
-El analista decide qué necesita el usuario y qué reglas aplican. No decide cómo se ve ni cómo se acomoda (estructura, compositor), ni cómo se construye ni si es factible técnicamente (arquitecto técnico).
+El analista decide qué necesita el usuario y qué reglas aplican. No decide cómo se ve ni cómo se acomoda (Kompa), ni cómo se construye ni si es factible técnicamente (Forja).
 
 Adaptado de wondelai/skills (jobs-to-be-done, basado en "Competing Against Luck" de Clayton M. Christensen; inspired-product, basado en "Inspired" de Marty Cagan; continuous-discovery, basado en "Continuous Discovery Habits" de Teresa Torres; working-with-legacy-code, basado en "Working Effectively with Legacy Code" de Michael C. Feathers), licencia MIT.

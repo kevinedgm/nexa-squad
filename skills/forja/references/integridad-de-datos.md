@@ -128,7 +128,7 @@ Preguntas abiertas al analista: ¿"por eliminar" es una ubicación que alguien v
 ## 11. Límites de esta referencia
 
 - No decide reglas de negocio (quién puede retirar, retención, si los nombres distinguen mayúsculas): las recibe del analista o le pregunta.
-- No define cómo se ve la confirmación ni el mensaje de conteo (estructura y compositor).
+- No define cómo se ve la confirmación ni el mensaje de conteo (Kompa).
 - No configura almacenamiento, permisos de carpetas del sistema operativo ni respaldos: van al checklist de `docs/implementacion`.
 
 Adaptado de wondelai/skills (ddia-systems, basado en "Designing Data-Intensive Applications" de Martin Kleppmann; release-it, basado en "Release It!" de Michael T. Nygard; clean-architecture, basado en "Clean Architecture" de Robert C. Martin), licencia MIT.

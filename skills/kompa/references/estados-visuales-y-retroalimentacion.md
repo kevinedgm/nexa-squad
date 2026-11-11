@@ -52,7 +52,7 @@ Propósito: dar tratamiento visual a cada estado que estructura definió (carga,
 ## 4. Deshabilitado
 
 - Se ve claramente inactivo (token de deshabilitado) pero el texto sigue siendo legible. WCAG exime de contraste a los controles inactivos, pero un botón ilegible no explica nada.
-- Preferir **ocultar** lo que el usuario nunca podrá usar (por su nivel de acceso) y **deshabilitar** lo que podrá usar al cumplir una condición. Cuál aplica lo decide estructura; el compositor solo da el tratamiento.
+- Preferir **ocultar** lo que el usuario nunca podrá usar (por su nivel de acceso) y **deshabilitar** lo que podrá usar al cumplir una condición. Cuál aplica lo decide estructura; Kompa solo da el tratamiento.
 - Un deshabilitado temporal dice por qué, cerca del control (texto de ayuda), no solo en una descripción emergente que no existe en teléfono.
 
 ## 5. Carga
@@ -144,6 +144,6 @@ Elegir indicador por duración esperada:
 - No inventa estados que estructura no definió; si falta uno evidente (por ejemplo, error de carga), lo señala como pregunta para estructura.
 - No redacta el texto final de mensajes; marca qué partes faltan (qué, por qué, cómo).
 - No decide si una acción lleva confirmación o deshacer: eso es de estructura o de producto.
-- No crea componentes compartidos de aviso, esqueleto o diálogo: los pide al curador.
+- No crea componentes compartidos de aviso, esqueleto o diálogo: los pide como pedido de componente.
 
 Adaptado de wondelai/skills (microinteractions, basado en "Microinteractions" de Dan Saffer; refactoring-ui, basado en "Refactoring UI" de Adam Wathan y Steve Schoger), licencia MIT.

@@ -1,6 +1,6 @@
 # Especificar pedidos de componente para Fruti Squad
 
-Propósito: cuando el curador decide que hace falta un componente compartido nuevo o una variante que el proyecto no tiene, escribir el pedido para Fruti Squad describiendo la **necesidad** (qué debe lograr y cómo debe comportarse), no el **aspecto**. El aspecto lo decide quien diseña el componente.
+Propósito: cuando Kompa decide que hace falta un componente compartido nuevo o una variante que el proyecto no tiene, escribir el pedido para Fruti Squad describiendo la **necesidad** (qué debe lograr y cómo debe comportarse), no el **aspecto**. El aspecto lo decide quien diseña el componente.
 
 ## Contenido
 
@@ -128,7 +128,7 @@ Antes de enviarlo:
 - Dado un nivel de acceso sin permiso de descarga, cuando abro la vista previa, entonces la descarga no está disponible y se explica por qué.
 - Dado que abrí la vista previa con teclado, cuando la cierro, entonces el foco vuelve al documento que la abrió.
 
-**Hechos / supuestos / preguntas**: hecho, el gestor abre documentos desde lista y búsqueda. Supuesto, otros módulos tienen adjuntos que se beneficiarían. Pregunta: ¿qué formatos debe previsualizar el servidor? (va al arquitecto técnico).
+**Hechos / supuestos / preguntas**: hecho, el gestor abre documentos desde lista y búsqueda. Supuesto, otros módulos tienen adjuntos que se beneficiarían. Pregunta: ¿qué formatos debe previsualizar el servidor? (va a Forja).
 
 ## 6. Errores comunes
 
@@ -140,6 +140,6 @@ Antes de enviarlo:
 
 ## 7. Límites del rol
 
-El curador describe la necesidad y los criterios. No diseña el aspecto, no decide en qué parte de la pantalla va (compositor), no cambia el flujo ni agrega acciones que estructura no definió y no decide formatos soportados ni permisos en servidor (arquitecto técnico). Si al escribir el pedido falta información de otro rol, la deja como pregunta dirigida a ese rol.
+Kompa describe la necesidad y los criterios. No diseña el aspecto, no decide en qué parte de la pantalla va (Kompa), no cambia el flujo ni agrega acciones que estructura no definió y no decide formatos soportados ni permisos en servidor (Forja). Si al escribir el pedido falta información de otro rol, la deja como pregunta dirigida a ese rol.
 
 Adaptado de wondelai/skills (microinteractions, basado en "Microinteractions: Designing with Details" de Dan Saffer; refactoring-ui, basado en "Refactoring UI" de Adam Wathan y Steve Schoger), licencia MIT.

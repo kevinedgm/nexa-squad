@@ -1,6 +1,6 @@
 # Adaptar una funcionalidad de otra aplicación
 
-Propósito: traer al sistema de destino una funcionalidad que existe en otra aplicación (escenario "traer" de Orka) sin que el modelo, los nombres ni la tecnología de origen se filtren al destino.
+Propósito: traer al sistema de destino una funcionalidad que existe en otra aplicación (escenario "traer" de Inqa) sin que el modelo, los nombres ni la tecnología de origen se filtren al destino.
 
 ## Contenido
 
@@ -40,7 +40,7 @@ Un concepto sin equivalente en el destino no se inventa: es devolución a Inqa.
 | Nombres de tablas, campos y rutas | Se traducen con el glosario |
 | Tecnología (framework, librerías, formato de API) | Se reescribe con el stack del destino (perfil del proyecto) |
 | Reglas implícitas en el código | Evidencia: se listan para Inqa, no se copian |
-| Aspecto y acomodo | No pasa: lo deciden Fluxa y Kompa con el sistema del destino |
+| Aspecto y acomodo | No pasa: lo deciden Kompa con el sistema del destino |
 
 ## 5. Ejemplo
 
@@ -61,6 +61,6 @@ Ejemplo hipotético. Origen: la bitácora de análisis del sistema de laboratori
 
 ## 7. Límites
 
-Arko traduce el modelo y la tecnología. Qué comportamiento se trae lo decide Kevin con Inqa (tabla de adaptación); cómo se ve, Fluxa y Kompa.
+Forja traduce el modelo y la tecnología. Qué comportamiento se trae lo decide Kevin con Inqa (tabla de adaptación); cómo se ve, Kompa.
 
 Adaptado de wondelai/skills (domain-driven-design, basado en "Domain-Driven Design" de Eric Evans: contextos delimitados y capa anticorrupción), licencia MIT.

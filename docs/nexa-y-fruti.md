@@ -27,15 +27,14 @@ Ejemplo con la misma palabra, "autocomplete":
 | Crear los fundamentos de un sistema nuevo | Fruti | `fruti foundations --marca '#0B6E4F' --fuente Inter` |
 | Auditar o promover un componente | Fruti | "Audítalo", "promuévelo a estable" |
 | Documentar el Design Hub | Fruti | "Documenta el selector en el Hub" |
-| Un módulo nuevo del producto | Nexa | `/orka quiero registrar signos vitales en la consulta` |
-| Agregar un comportamiento a un módulo existente | Nexa | `/orka en pagos, avisa al cliente cuando se rechace un pago` |
-| Traer una funcionalidad de otra aplicación | Nexa | `/orka trae la bitácora del laboratorio, pero para radiología` |
-| Corregir cómo se acomoda un módulo ya construido | Nexa | `/orka corrige el diseño de cuentas; lo usa la recepcionista para…` |
-| Corregir el diseño o el flujo de un módulo que ya funciona | Nexa | `/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>` |
-| Migrar un módulo legacy a otro stack o a otra base de datos | Nexa | `/orka migra el módulo gestor a la base nueva` |
-| Definir los roles del producto | Nexa | `/orka init` |
+| Un módulo nuevo del producto | Nexa | "Usa inqa: quiero registrar signos vitales en la consulta", después forja y kompa |
+| Agregar un comportamiento a un módulo existente | Nexa | "Usa forja: en pagos, avisa al cliente cuando se rechace un pago" |
+| Traer una funcionalidad de otra aplicación | Nexa | "Usa inqa: trae la bitácora del laboratorio, pero para radiología" |
+| Corregir cómo se acomoda o qué dice una pantalla ya construida | Nexa | "Usa kompa: agrega separadores y textos de ayuda al formulario de cuentas" |
+| Migrar un módulo legacy a otro stack o a otra base de datos | Nexa | "Usa inqa" para las reglas y después "usa forja: migra el gestor a la base nueva" |
+| Definir los roles del producto (opcional) | Nexa | "Usa inqa para describir el producto y sus roles" |
 
-Para Nexa, empieza siempre con `/orka`. Si una frase como "rediseña el formulario de cuentas" le llega a Fruti y Nexa está instalado, Kiwi no la diseña: te responde con la frase para Nexa. Si lo que querías era el patrón reutilizable, pídelo así: "diseña el patrón de formulario de alta".
+Para Nexa, nombra la skill que es dueña de lo que pides: kompa (cómo se ve y qué dice), forja (cómo funciona) o inqa (qué reglas tiene un módulo nuevo). Si una frase como "rediseña el formulario de cuentas" le llega a Fruti y Nexa está instalado, Kiwi no la diseña: te responde con la frase para Nexa. Si lo que querías era el patrón reutilizable, pídelo así: "diseña el patrón de formulario de alta".
 
 ## 3. De qué se encarga cada uno
 
@@ -43,10 +42,10 @@ Para Nexa, empieza siempre con `/orka`. Si una frase como "rediseña el formular
 |---|---|---|
 | Pregunta que responde | ¿Cómo es y cómo funciona esta pieza en cualquier pantalla? | ¿Qué necesita esta persona para hacer su tarea, y cómo se arma? |
 | Unidad de trabajo | Componente, variante, patrón, token | Módulo del producto (pantallas, datos, servidor) |
-| Agentes | Kiwi (estructura), Lima (gobierno), Coco (capa visual y auditoría), Bruno (comportamiento), Mora (documentación) | Orka (conductor), Inqa (requisitos), Arko (servidor), Fluxa (pantallas), Kompa (acomodo), Kura (componentes), Forja (código), Vera (revisión) |
+| Agentes | Kiwi (estructura), Lima (gobierno), Coco (capa visual y auditoría), Bruno (comportamiento), Mora (documentación) | Kompa (composición, contenido e integración), Forja (código, datos y servidor), Inqa (reglas de un módulo nuevo) |
 | Decide | Anatomía, variantes, estados y transiciones, API, tokens, ciclo de vida | Reglas de negocio, roles y permisos, datos y API del servidor, qué pantallas hay, cómo se acomodan las piezas en cada una |
-| Entrega | Componente en el código, contrato, registro, página del Design Hub | Módulo funcionando, documentos en `docs/` y revisión por rol |
-| Dónde guarda su estado | `.fruti/` (perfil, tokens, registro, handoffs) | `docs/` (producto, requisitos, estructura, composición, componentes, revisión) |
+| Entrega | Componente en el código, contrato, registro, página del Design Hub | Pantallas y módulo funcionando; requisitos en `docs/requisitos/` solo para módulos nuevos |
+| Dónde guarda su estado | `.fruti/` (perfil, tokens, registro, handoffs) | El código y, si existen, `docs/producto.md`, `docs/requisitos/` y `docs/componentes/pedidos/` |
 | No hace | No decide reglas de negocio, roles ni el servidor de un módulo. Con Nexa instalado, no diseña pantallas del producto | No crea ni modifica componentes, variantes, patrones ni tokens |
 
 ## 4. Cuándo trabajan juntos
@@ -55,40 +54,40 @@ Para Nexa, empieza siempre con `/orka`. Si una frase como "rediseña el formular
 
 El caso más común.
 
-1. Nexa arma un módulo. **Kura** y **Kompa** buscan cada pieza en `.fruti/catalog.md`, un catálogo que mantiene Mora: qué piezas existen, para qué sirven, cómo se importan, sus variantes, tamaños y estados, y en qué estado están (el estado lo toman del registro). Abren la página del Design Hub solo de la pieza elegida y solo si al catálogo le falta un dato.
-2. Si no existe, o le falta una variante, Kura escribe un pedido en `docs/componentes/pedidos/<id>.md`. El pedido describe la necesidad, no el aspecto: propósito, dónde se usa, partes, estados con su disparador, regla y feedback, accesibilidad y criterios de aceptación.
-3. **Forja** construye el módulo y deja ese lugar marcado como pendiente. El resto del módulo avanza.
+1. Nexa arma una pantalla. **Kompa** busca cada pieza en `.fruti/catalog.md`, un catálogo que mantiene Mora: qué piezas existen, para qué sirven, cómo se importan, sus variantes, tamaños y estados, y en qué estado están (el estado lo toman del registro). Abren la página del Design Hub solo de la pieza elegida y solo si al catálogo le falta un dato.
+2. Si no existe, o le falta una variante, y se usará en 3 o más lugares, Kompa escribe un pedido en `docs/componentes/pedidos/<id>.md`. El pedido describe la necesidad, no el aspecto: propósito, dónde se usa, partes, estados con su disparador, regla y feedback, accesibilidad y criterios de aceptación.
+3. Kompa resuelve la pantalla con lo que hay y deja ese lugar marcado `PENDIENTE`. El resto avanza.
 4. Le das el pedido a Fruti: "Diseña el componente de `docs/componentes/pedidos/<id>.md`".
 5. Fruti lo recorre completo: Kiwi → Lima → Coco → Bruno → Coco (auditoría) → Lima → Mora. La tabla de estados del pedido alimenta la tabla de transiciones del contrato de Lima.
-6. Cuando el componente queda en el registro, le dices a Nexa `/orka continúa <módulo>`. Kura lo reutiliza y Forja reemplaza el pendiente.
+6. Cuando el componente queda en el registro, le dices a Nexa "usa kompa: reemplaza el pendiente de <pantalla> con <componente>".
 
-Solo Kura pide cosas a Fruti. Ningún otro agente de Nexa lo hace.
+Solo Kompa pide cosas a Fruti.
 
 ### B. Un módulo hecho con piezas de Fruti se ve mal
 
 Ejemplo: Cuentas tiene buenos componentes, pero el autocomplete ocupa todo el ancho y empuja el botón a otra línea.
 
-1. `/orka corrige el diseño de cuentas; lo usa la recepcionista para…`
-2. **Vera** revisa el módulo con las tareas de ese rol y separa los problemas por dueño:
-   - de acomodo (anchos, filas, jerarquía) → los corrige Nexa (Kompa y Forja);
-   - de la pieza misma (no tiene la variante que hace falta, o su comportamiento está mal) → Kura escribe un pedido y vuelve al caso A.
+1. "Usa kompa: corrige el diseño de cuentas".
+2. **Kompa** califica la pantalla y separa los problemas por dueño:
+   - de acomodo, textos o integración (anchos, filas, jerarquía, ayudas) → los corrige Kompa en el código;
+   - de la pieza misma (no tiene la variante que hace falta, o su comportamiento está mal) → Kompa escribe un pedido y vuelve al caso A.
 
 ### C. Rediseñar una aplicación existente
 
 1. Fruti (Kiwi) entiende la dirección visual, hace el inventario y tú apruebas el alcance.
 2. El plan de Fruti cubre fundamentos, primitivas, patrones y componentes. Las vistas quedan con `owner: nexa`.
-3. Cada vista se rediseña con Nexa: `/orka corrige el diseño de <módulo>; lo usa <rol> para <tareas>`. Nexa la arma con las piezas y los patrones nuevos.
+3. Cada vista se rediseña con Nexa: "usa kompa: corrige el diseño de <pantalla>". Nexa la arma con las piezas y los patrones nuevos.
 
 ### D. Cambia la marca o un token
 
 1. Fruti cambia el token en `.fruti/tokens.json` (Lima) y regenera lo que depende de él.
 2. Los módulos de Nexa usan tokens, no valores sueltos, así que el cambio les llega solo.
-3. Si quieres comprobar que ningún módulo se rompió, pídele a Nexa `/vera diagnostica el módulo de <módulo>`.
+3. Si quieres comprobar que una pantalla no se rompió, pídele a Nexa "usa kompa: audita <pantalla>".
 
 ### E. Un producto que empieza desde cero
 
-1. Con Nexa, `/orka init` define el producto y sus roles.
-2. Con Fruti, `fruti foundations` propone los fundamentos visuales y Lima los aprueba. Si no se hace antes, el primer pedido de Kura inicia el Design Hub.
+1. Con Nexa, si quieres, Inqa describe el producto y sus roles en `docs/producto.md`.
+2. Con Fruti, `fruti foundations` propone los fundamentos visuales y Lima los aprueba. Si no se hace antes, el primer pedido de Kompa inicia el Design Hub.
 3. Desde ahí, cada módulo sigue el caso A.
 
 ## 5. Quién gana cuando no coinciden
@@ -99,6 +98,6 @@ Ejemplo: Cuentas tiene buenos componentes, pero el autocomplete ocupa todo el an
 | Valores visuales (color, tipografía, espacios, radios) | Fruti (`.fruti/tokens.json`) | Un solo lugar para cambiar la marca |
 | Reglas de negocio, roles y permisos | Nexa (requisitos de Inqa, aprobados por ti) | Dependen del producto, no de la pieza |
 | Cómo se acomodan las piezas en una pantalla | Nexa (Kompa) | Depende del contexto y del rol |
-| Una norma obligatoria (por ejemplo, WCAG) contra una regla del sistema | La norma | Nexa lo reporta como hallazgo y Kura se lo pide a Fruti; ninguno compone en contra de la norma |
+| Una norma obligatoria (por ejemplo, WCAG) contra una regla del sistema | La norma | Kompa lo reporta y se lo pide a Fruti; ninguno compone en contra de la norma |
 
 Si Nexa necesita que un componente cambie, no lo modifica: lo pide. Si Fruti necesita saber cómo se usa una pieza en el producto, lo toma del pedido, no lo inventa.

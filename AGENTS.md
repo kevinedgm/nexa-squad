@@ -1,78 +1,28 @@
-# Nexa Squad: política de ejecución
+# Nexa Squad: política
 
-Este archivo es la política común del squad para Claude Code, Codex y Kiro. Es la única fuente: el instalador la copia al proyecto y la importa desde `CLAUDE.md`, `AGENTS.md` o el steering de Kiro. El usuario habla en lenguaje natural; nunca tiene que nombrar fases, archivos internos ni estados.
+Este archivo es la política común del squad para Claude Code, Codex y Kiro. El instalador la copia al proyecto. Kevin habla en lenguaje natural; nunca tiene que nombrar fases, archivos internos ni estados.
 
-## La cadena
+## Tres roles, cada uno dueño de una decisión
 
-| Paso | Rol (skill) | Subagente | Entrega |
-|---|---|---|---|
-| 0 | orka (Conductor) | — (corre en la conversación principal) | docs/orquestacion/<modulo>.md |
-| 1 | inqa (Product Analyst) | inqa-agent | docs/requisitos/<modulo>.md |
-| — | Punto de control 1 | | Kevin aprueba las reglas de negocio |
-| 2 | arko (Systems Architect) | arko-agent | docs/arquitectura/<modulo>.md + docs/implementacion/<modulo>.md |
-| 3 | fluxa (Flow Designer) | fluxa-agent | docs/estructura/<modulo>.md |
-| 4 | kompa (Layout Composer) | kompa-agent | docs/composicion/<modulo>.md |
-| 5 | kura (Component Curator) | kura-agent | docs/componentes/<modulo>.md + docs/componentes/catalogo.md |
-| 6 | forja (Build Engineer) | forja-agent | código + docs/construccion/<modulo>-fase-<n>.md |
-| 7 | vera (QA Auditor) | vera-agent | docs/revision/<modulo>-fase-<n>.md |
-| — | Punto de control 2 | | Antes de cualquier acción irreversible |
-
-Los pasos 6 y 7 se repiten por cada fase del plan del arquitecto.
-
-## Escenarios
-
-No toda petición recorre la cadena completa. Orka reconoce el escenario y decide dónde arranca y qué roles se saltan (detalle en `skills/orka/references/escenarios.md`):
-
-| Escenario | Arranca en | Se salta |
+| Rol | Decide | Úsalo cuando… |
 |---|---|---|
-| Nuevo | Inqa | Nada |
-| Extender un módulo existente | Orka en modo rápido (tabla de tareas) | Inqa si la regla ya está confirmada; Arko si no toca datos |
-| Traer una funcionalidad de otra aplicación | Inqa, con tabla de adaptación | Nada; se adapta al stack de destino |
-| Corregir el diseño o el flujo de un módulo que ya funciona (hecho con Fruti, a mano o legacy) | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
-| Migrar legacy: cambia el stack, el framework o el modelo de datos | Inqa | Nada |
-| Un solo rol | El rol nombrado | Todos los demás |
+| kompa | Cómo se compone una pantalla: jerarquía, alineación, separadores, textos de ayuda, contraste, semántica e integración con los componentes existentes | Algo se ve mal, está mal acomodado, le faltan ayudas o separadores, o hay que componer una pantalla nueva |
+| forja | Cómo se construye: datos, API, permisos y lógica | Hay que agregar o cambiar comportamiento, o migrar código |
+| inqa | Qué debe hacer un módulo y con qué reglas | Módulo nuevo, migración o traer algo de otra app, con reglas de negocio por confirmar |
 
-Si el módulo sigue en el mismo stack y con los mismos datos, es corregir aunque Kevin diga "rediseña" o "migra el diseño".
-
-Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este repo, `comandos/comandos.md`, generado desde `comandos/comandos.json`).
+Cada rol trabaja en la conversación y edita el código él mismo. No hay orquestador, subagentes ni documentos intermedios. Si al trabajar aparece algo que es de otro rol, se dice en una línea y se sigue con lo propio: el problema regresa al dueño de la decisión que falló.
 
 ## Reglas comunes
 
-1. **Una decisión por rol.** Cada rol decide solo lo suyo (su skill lo dice en la primera línea). Lo que pertenece a otro rol va como devolución a su dueño, nunca se resuelve en silencio.
-2. **Se lee lo necesario, cuando se necesita.** Ningún rol carga sus `references/` por adelantado: cada SKILL.md dice qué referencia abrir y en qué momento.
-3. **Hechos, supuestos y preguntas, siempre separados.** Un supuesto sin marca viaja por la cadena como si fuera regla.
-4. **Las reglas de negocio no se inventan.** Lo que hace el legacy es evidencia, no requisito. Lo no confirmado queda como supuesto marcado o como pregunta para el punto de control.
-5. **El entorno nunca bloquea.** Configuración de servidor, versiones o herramientas no se preguntan: van al checklist docs/implementacion/<modulo>.md.
-6. **Lo irreversible espera a Kevin.** Borrar o migrar datos, o cambiar algo que afecta a otros módulos, solo se ejecuta tras el punto de control 2.
-7. **Cada entrega empieza con un resumen de máximo 5 líneas.**
-8. **Nada se decide por gusto.** Toda regla de estructura, composición, componentes o revisión cita su fuente del catálogo `.nexa-squad/estandares.md` (en este repo, `estandares/estandares.md`), según su orden de autoridad. Lo que no tiene fuente es preferencia: se marca como supuesto y nunca bloquea.
-9. **Se diseña para perfiles concretos.** `docs/producto.md` (se crea con `/orka init`) define qué es el producto, quién lo usa, sus tareas, frecuencia y contexto, y quién revisa el trabajo de quién. Cada requisito nombra a su perfil, cada vista tiene un perfil principal y cada hallazgo dice a qué perfil afecta.
-10. **El estado vive en los documentos.** El encabezado YAML de cada docs/... y la bitácora de Orka son la verdad actual; una petición nueva arranca leyéndolos, no reconstruyendo la historia. Un documento `aprobado` no se regenera ni se reescribe: un cambio posterior es una fila nueva de la tabla de tareas o una sección `## Cambio <id>` de máximo 10 líneas al final.
-11. **Profundidad proporcional al cambio.** Cada rol analiza solo lo que el cambio toca. Lo que no toca no se inspecciona, no se pregunta y no entra al checklist de implementación. Una corrección no lleva fase de preparación de datos (respaldo, copia anonimizada, inventario) si no modifica ni borra datos. Si un rol cree que algo fuera del alcance importa, lo anota en una línea como "fuera de alcance" para Kevin; no lo desarrolla.
-12. **El código se lee una vez y se comparte.** El primer rol que inspecciona algo deja lo que vio en `docs/contexto/`, y los siguientes parten de ahí en lugar de volver a recorrer el repositorio:
-    - `docs/contexto/proyecto.md`, uno por producto: stack con versiones, sistema visual (librería y dónde se carga), componentes disponibles y dónde viven los tokens (y, si hay Fruti Squad, el registro, el Hub y `.fruti/tokens.json`). Cita rutas; no copia valores de tokens.
-    - `docs/contexto/<modulo>.md`: los archivos del módulo (rutas, vistas, controladores, consultas, tablas) con la función y la línea de lo relevante.
-    - Formato para agentes, no para Kevin, que no los lee: sin prosa, tablas ni títulos de adorno; una línea por hecho, `ruta:línea qué` (p. ej. `src/consulta/EmbarazoSwitch.vue:212 guardar() → POST /api/embarazo`). Lo que Kevin sí lee y aprueba (requisitos, bitácora) sigue en prosa.
-    - Solo hechos con ruta: ni decisiones ni supuestos. El encabezado YAML lleva `commit:` (el `git rev-parse --short HEAD` al escribir; sin git, la fecha) y `actualizado-por:`.
-    - Antes de usarlo, `git diff --name-only <commit> HEAD -- <rutas del mapa>` (y `git status --short` de esas rutas): si nada cambió, el mapa vale; si cambió algo, se relee solo eso y se actualiza el mapa. Lo que le falte a un rol lo inspecciona él y lo agrega.
-    - **Archivos largos (más de 300 líneas):** primero abres su radiografía, `docs/contexto/archivos/<ruta con __>.md`: un índice sin IA, una línea por bloque, componente, método y estilo con su rango (`go() 220-322`). Si no existe o su `sha1` no coincide, corre `node .nexa-squad/radiografia.mjs <archivo>` (en Kiro la mantienen al día los hooks del squad). Sin radiografía, `grep -n` del selector, la función o el texto que buscas. Después lees solo ese rango. No vuelves a leer en la misma corrida lo que ya leíste: tras tu propia edición, confías en ella y solo relees si la edición falló. Si las líneas del mapa ya no coinciden con el archivo, corrígelas en el mapa al encontrarlas, para que el siguiente rol vaya directo.
-13. **Decide y entrega; no sobreanalices.** El trabajo de un rol termina cuando cada punto de su alcance tiene una decisión con fuente o un supuesto marcado. En ese momento entrega.
-    - Da una decisión, no un menú. Elige la opción por defecto del catálogo o de la referencia y anota el porqué en una línea. Solo propones alternativas si Kevin las pide o si dos opciones tienen consecuencias de negocio distintas, y en ese caso es una pregunta para el punto de control.
-    - Abre una referencia solo cuando su disparador coincide con lo que estás decidiendo, y lee solo la sección que lo cubre: cada referencia tiene un índice. Nunca la abras "por si acaso".
-    - El documento dice qué cambia y por qué. Lo que ya está en una referencia, en el catálogo o en otro documento se cita; no se copia.
-    - Una decisión que ya entregaste solo se reabre si aparece evidencia nueva.
-14. **Estado por tarea y registro compartido.** Para no volver a revisar todo en cada vuelta:
-    - **Tareas.** Cada hallazgo o pieza de trabajo es una fila en la tabla de tareas de la bitácora de Orka (id, qué, dónde, cambio, dueño, estado `pendiente | hecho | verificado | pulido`). Solo Orka la edita. Cada rol recibe y trabaja solo sus filas, y al terminar reporta por id qué quedó hecho y en qué archivos.
-    - **Registro.** `docs/registro.md` es un log compartido, solo de agregar. Cada rol, como skill o como subagente, anota una fila al terminar: fecha, hora de inicio, hora de fin, minutos, módulo, rol, qué hizo en una línea y los ids de tarea que tocó. La hora se toma con `date +%H:%M` al empezar y al terminar. Si el archivo no existe, se crea con el encabezado `| fecha | inicio | fin | min | módulo | rol | qué hizo | tareas |`.
-
-## Skill o subagente
-
-- Usado **solo** ("analiza el módulo de pagos"), cada rol corre como skill en la conversación principal y puede preguntarle a Kevin.
-- Usado **en cadena** (`/orka …`), Orka lanza cada rol como subagente: contexto limpio, sin preguntas, y solo devuelve su resumen, preguntas y devoluciones.
-- **Al corregir o extender (modo rápido)**, el diagnóstico de Vera, Fluxa, Kompa y Kura no se lanzan como subagentes ni escriben documentos. Orka hace esas partes en su propia conversación, en un solo pase, y el resultado es la tabla de tareas de su bitácora (máximo 40 líneas), que va directo a Forja. Como subagentes, cada uno arrancaba de cero y volvía a leer todo; como documentos, cada vuelta reescribía 12-19 KB. El diagnóstico usa la checklist corta de Vera (`references/diagnostico-rapido.md`) y, si está instalado, el detector de impecable. Si las filas se reparten en grupos que tocan archivos distintos, Orka lanza un Forja por grupo al mismo tiempo (máximo 3) y después un solo Vera para todas. El modo completo, con un documento por rol, queda para nuevo, traer y migrar, o si Kevin lo pide.
-- **Kiro**: cada rol es un agente personalizado en `.kiro/agents/<rol>-agent.md`, con su skill, la política y solo los permisos que su rol necesita. Orka es el agente `orka` y lanza a los demás con la herramienta de subagentes.
-- **Entornos sin subagentes** (Codex): Orka ejecuta cada rol cargando su skill en la conversación, uno a la vez, y aplica como ajustes las reglas de `.nexa-squad/agents/<rol>-agent.md` (el instalador las deja ahí).
+1. **El alcance lo pone la petición.** "Agrega separadores" es agregar separadores: se abre el archivo de la pantalla y se edita. No se diagnostica todo, no se recorren componentes vecinos y no se pregunta. Lo demás que falla se nombra en una línea al final.
+2. **Se lee lo necesario.** El archivo que se cambia, sus imports directos si hace falta y, para integrar un componente nuevo, un solo uso existente como referencia. Un archivo de más de 300 líneas se lee por rangos (`grep -n`). Nada se relee después de editarlo. Ninguna referencia se abre "por si acaso".
+3. **Nada se decide por gusto.** Las reglas de composición citan su fuente de `.nexa-squad/estandares.md`. Lo que no tiene fuente es preferencia y no bloquea.
+4. **Las reglas de negocio no se inventan.** Lo que hace el legacy es evidencia, no requisito. Un dato de negocio que falta se escribe con el mejor supuesto, se marca `SUPUESTO` en el código y se pregunta una vez, al final.
+5. **Lo irreversible espera a Kevin.** Borrar o migrar datos, o cambiar algo que afecta a otros módulos, solo se ejecuta con su OK. Nadie hace commit ni push.
+6. **El entorno nunca bloquea.** Versiones, servidor o herramientas no se preguntan: se anotan al final.
+7. **Entregas cortas.** Cada respuesta cabe en 12 líneas: qué cambió, cómo se comprobó, supuestos. Sin documentos salvo los requisitos de Inqa.
+8. **Se diseña para perfiles concretos.** Si existe `docs/producto.md`, el perfil que usa la pantalla decide la densidad y los valores por defecto. Si no existe, no se pide: se usa lo que Kevin dijo en la petición.
 
 ## Frontera con Fruti Squad
 
-Este squad compone e integra **módulos** con las piezas que ya existen. Fruti Squad fabrica **componentes compartidos** y patrones reutilizables. Cuando los dos están instalados, las pantallas del producto (también las vistas de un rediseño) son de este squad: Fluxa y Kompa usan los patrones de Fruti cuando existen, y Fruti no diseña pantallas. El único puente es Kura (curador de componentes): cuando un hueco necesita un componente o variante que no existe, escribe un pedido para Fruti Squad. Ningún otro rol le pide nada a Fruti Squad, y el constructor deja ese lugar marcado como pendiente. Cuándo usar cada squad y cómo colaboran: `.nexa-squad/nexa-y-fruti.md` (en este repo, `docs/nexa-y-fruti.md`).
+Fruti Squad fabrica componentes compartidos y patrones. Nexa compone las pantallas del producto con ellos. Cuando una pantalla necesita un componente o variante que no existe y que se usará en 3 o más lugares, Kompa lo resuelve con lo que hay, deja el lugar marcado `PENDIENTE` y escribe el pedido en `docs/componentes/pedidos/<id>.md`. Detalle: `.nexa-squad/nexa-y-fruti.md` (en este repo, `docs/nexa-y-fruti.md`).

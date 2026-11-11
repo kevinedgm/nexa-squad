@@ -1,6 +1,6 @@
 # Perfiles de usuario del producto
 
-Propósito: definir **qué es el producto y para quién se diseña** una sola vez, en `docs/producto.md` (se crea con `/orka init`), para que todos los roles tomen sus decisiones pensando en las mismas personas y sus tareas. Ejemplo: en un sistema de laboratorio, la analista captura resultados en la bitácora y el supervisor los revisa y libera.
+Propósito: definir **qué es el producto y para quién se diseña** una sola vez, en `docs/producto.md` (se crea con `/inqa init`), para que todos los roles tomen sus decisiones pensando en las mismas personas y sus tareas. Ejemplo: en un sistema de laboratorio, la analista captura resultados en la bitácora y el supervisor los revisa y libera.
 
 ## Contenido
 
@@ -17,7 +17,7 @@ Propósito: definir **qué es el producto y para quién se diseña** una sola ve
 
 ## 1. Por qué un documento de perfiles
 
-Sin perfiles, cada rol supone por su cuenta quién usa la pantalla: Fluxa imagina a alguien que consulta de vez en cuando, Kompa compone para un principiante y Vera revisa con un administrador. Cada decisión es razonable y el conjunto no sirve a nadie. Mecanismo: la usabilidad solo existe **para usuarios concretos, con objetivos concretos, en un contexto concreto** (ISO 9241-11). Si eso no está escrito, no se puede comprobar.
+Sin perfiles, cada rol supone por su cuenta quién usa la pantalla: Kompa imagina a alguien que consulta de vez en cuando, o compone para un principiante y Kompa revisa con un administrador. Cada decisión es razonable y el conjunto no sirve a nadie. Mecanismo: la usabilidad solo existe **para usuarios concretos, con objetivos concretos, en un contexto concreto** (ISO 9241-11). Si eso no está escrito, no se puede comprobar.
 
 ## 2. Qué es un perfil (y qué no)
 
@@ -33,7 +33,7 @@ Sin perfiles, cada rol supone por su cuenta quién usa la pantalla: Fluxa imagin
 2. **Del código**, como evidencia: roles y permisos existentes, quién crea qué registros, qué pantallas usa cada nivel.
 3. **De los datos**, si los hay: volumen por día, horarios, quién captura más.
 
-Lo que no venga de Kevin queda como supuesto marcado. Los perfiles se aprueban en el punto de control 1, junto con las reglas de negocio, y valen para todos los módulos del producto: el segundo módulo los reutiliza y solo agrega lo que cambie.
+Lo que no venga de Kevin queda como supuesto marcado. Los perfiles se aprueban en el la aprobación de Kevin, junto con las reglas de negocio, y valen para todos los módulos del producto: el segundo módulo los reutiliza y solo agrega lo que cambie.
 
 ## 4. El documento `docs/producto.md`
 
@@ -67,7 +67,7 @@ perfiles: [P-01, P-02]
 
 ### Módulos y quién los usa
 
-Cada módulo nuevo agrega su fila en la sección 4 cuando Kevin dice quién lo usa ("el módulo de cuentas lo ocupa la recepcionista: paga muestras pendientes, adjunta vouchers, marca como pagadas o cancela"). Esa fila es la entrada de Fluxa (perfil principal de cada vista) y de Vera (qué tareas recorrer). Si Kevin no lo dice, Inqa lo infiere del código (quién entra hoy al módulo) y lo marca como supuesto.
+Cada módulo nuevo agrega su fila en la sección 4 cuando Kevin dice quién lo usa ("el módulo de cuentas lo ocupa la recepcionista: paga muestras pendientes, adjunta vouchers, marca como pagadas o cancela"). Esa fila es la entrada de Kompa (perfil principal de cada vista) y de Kompa (qué tareas recorrer). Si Kevin no lo dice, Inqa lo infiere del código (quién entra hoy al módulo) y lo marca como supuesto.
 
 ## 5. Relaciones entre perfiles
 
@@ -84,11 +84,11 @@ Inqa convierte cada relación en reglas (BR) y requisitos (REQ) con Dado/Cuando/
 | Rol | Qué toma de los perfiles |
 |---|---|
 | Inqa | El actor de cada requisito es un perfil (P-01), no "el usuario" |
-| Arko | Permisos en servidor por perfil; rastro de auditoría que piden las relaciones |
-| Fluxa | Cada vista declara su perfil principal; las tareas frecuentes de ese perfil van primero y con menos pasos |
+| Forja | Permisos en servidor por perfil; rastro de auditoría que piden las relaciones |
+| Kompa | Cada vista declara su perfil principal; las tareas frecuentes de ese perfil van primero y con menos pasos |
 | Kompa | Densidad, valores por defecto y atajos según tarea y contexto del perfil principal (captura diaria → densa y de teclado) |
-| Kura | Si un perfil necesita una variante (p. ej. densidad compacta), la pide con ese motivo |
-| Vera | Recorre las tareas de cada perfil de punta a punta y cada hallazgo dice a qué perfil afecta |
+| Kompa | Si un perfil necesita una variante (p. ej. densidad compacta), la pide con ese motivo |
+| Kompa | Recorre las tareas de cada perfil de punta a punta y cada hallazgo dice a qué perfil afecta |
 
 ## 7. Cuando dos perfiles chocan
 
@@ -96,7 +96,7 @@ Una misma vista puede servir a dos perfiles con necesidades opuestas (la analist
 
 1. Cada vista tiene **un perfil principal**: el de la tarea más frecuente en esa vista. Sus decisiones mandan.
 2. Lo que el perfil secundario necesita se resuelve sin estorbar al principal: divulgación progresiva, un panel de detalle o una vista propia.
-3. Si la tensión no se resuelve así, son dos vistas. Lo decide Fluxa con su motivo.
+3. Si la tensión no se resuelve así, son dos vistas. Lo decide Kompa con su motivo.
 
 Fuentes: ISO 9241-11 (usuarios, objetivos y contexto de uso); NN (tensiones entre simplicidad y potencia, ver catálogo de estándares, sección 6).
 
@@ -113,7 +113,7 @@ Ejemplo hipotético; lo confirma Kevin.
 |---|---|---|---|
 | P-01 | P-02 | Envía resultados a revisión | Estados capturado → en revisión → liberado / devuelto; bandeja de pendientes del supervisor; motivo obligatorio al devolver; la analista ve lo devuelto primero; rastro de quién capturó y quién liberó |
 
-Consecuencias en el diseño: la captura de la analista es una cuadrícula densa de teclado (Kompa); la vista del supervisor es una consulta con filtros por estado con revisión por lote (Fluxa); la analista no puede liberar lo que ella capturó (Arko, en servidor).
+Consecuencias en el diseño: la captura de la analista es una cuadrícula densa de teclado (Kompa); la vista del supervisor es una consulta con filtros por estado con revisión por lote (Kompa); la analista no puede liberar lo que ella capturó (Forja, en servidor).
 
 ## 9. Checklist verificable
 
