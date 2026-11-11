@@ -52,8 +52,8 @@
       "decir": "/orka en <módulo>, cuando <pasa X>, ahora tiene que <pasar Y>",
       "ejemplo": "/orka en pagos, cuando se rechace un pago, ahora hay que avisar al cliente",
       "invoca": "orka",
-      "arranca": "inqa",
-      "que_pasa": "Inqa documenta solo el cambio; los roles cuya decisión no cambia se saltan.",
+      "arranca": "orka",
+      "que_pasa": "Orka escribe el cambio como tabla de tareas (sin documentos de rol) y lanza a Forja. Inqa entra solo si hay una regla de negocio sin confirmar, y Arko solo si toca datos, permisos o API.",
       "claves": [
         "cuando",
         "ahora tiene que",
@@ -97,7 +97,7 @@
       "ejemplo": "/orka corrige el diseño del módulo de cuentas; lo usa la recepcionista para pagar muestras pendientes, adjuntar vouchers y marcarlas como pagadas o canceladas",
       "invoca": "orka",
       "arranca": "vera",
-      "que_pasa": "Vera hace un diagnóstico contra los estándares; solo se corrigen las regiones con hallazgos, sin inventario ni preparación de datos. Si un hallazgo cambia lo que hace el módulo, va a Inqa.",
+      "que_pasa": "Vera hace un diagnóstico contra los estándares y cada hallazgo queda como fila de la tabla de tareas; Forja arranca sin documentos de rol. Si un hallazgo cambia lo que hace el módulo, va a Inqa.",
       "claves": [
         "corrige",
         "corregir",

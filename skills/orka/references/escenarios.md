@@ -32,9 +32,9 @@ Si la frase admite dos escenarios con caminos distintos (por ejemplo, "arregla e
 | Escenario | Frases típicas | Arranca en | Se salta | Documentos |
 |---|---|---|---|---|
 | **Nuevo** | "quiero construir…", "necesito una funcionalidad para…" | Inqa (`origen: nuevo`) | Nada | Completos |
-| **Extender** | "en este módulo, cuando pase X, ahora tiene que pasar Y" | Inqa (`origen: existente`), solo el cambio | Arko si no toca datos, API ni permisos; Fluxa, Kompa y Kura si no cambia ninguna vista | De cambio (sección 8) |
+| **Extender** | "en este módulo, cuando pase X, ahora tiene que pasar Y" | Orka en modo rápido (tabla de tareas) | Inqa si la regla ya la dijo Kevin; Arko si no toca datos, API ni permisos | Ninguno: filas de la tabla de tareas |
 | **Traer de otra app** | "lee esta funcionalidad de tal aplicación y tráela aquí, pero para…" | Inqa (`origen: externo`), leyendo la app de origen como evidencia | Nada; Arko adapta al stack de destino | Completos, con tabla de adaptación |
-| **Corregir diseño o flujo** | "este módulo se ve o se acomoda mal", "corrige el diseño y el flujo de clientes", "rediseña la pantalla de pagos" (el módulo ya funciona: hecho con Fruti, a mano o legacy) | Vera en modo diagnóstico | Inqa y Arko, salvo que un hallazgo toque comportamiento o datos | Diagnóstico + de cambio por región |
+| **Corregir diseño o flujo** | "este módulo se ve o se acomoda mal", "corrige el diseño y el flujo de clientes", "rediseña la pantalla de pagos" (el módulo ya funciona: hecho con Fruti, a mano o legacy) | Vera en modo diagnóstico (modo rápido) | Inqa y Arko, salvo que un hallazgo toque comportamiento o datos | Ninguno: filas de la tabla de tareas |
 | **Migrar legacy** | "migra el gestor a Laravel", "pasa pagos a la base nueva" (cambia el stack, el framework o el modelo de datos) | Inqa (`origen: legacy`) | Nada | Completos |
 
 **Corregir o migrar.** Si el módulo sigue en el mismo stack y con los mismos datos, es corregir, aunque la frase diga "rediseña" o el código sea legacy. Que el código sea viejo no convierte una corrección en migración: la cadena completa, el inventario y la preparación de datos solo se justifican cuando cambian el stack o los datos.
@@ -50,6 +50,8 @@ Cadena completa. Inqa no tiene código que inspeccionar: trabaja con la descripc
 ## 4. Extender un módulo existente
 
 La forma de la petición es un disparador y un resultado: "cuando hago X, ahora tiene que suceder Y".
+
+Por defecto corre en **modo rápido** (skill de Orka): la regla y el cambio de cada vista son filas de la tabla de tareas, y Forja arranca sin documentos de rol. La tabla de abajo dice qué decide cada rol, aplicado por Orka en su pase, o en documentos solo en modo completo.
 
 | Rol | Qué hace en este escenario |
 |---|---|
@@ -95,7 +97,7 @@ Caso típico: un módulo que ya funciona (hecho con Fruti Squad, a mano o legacy
    | Toca datos o permisos | Arko | — |
 
    Orden: primero estructura (Fluxa), después composición (Kompa), después piezas (Kura). Pulir el acomodo de un flujo confuso no lo arregla, y un cambio de estructura invalida la composición de esa región.
-3. **Un solo pase en la conversación de Orka** (no como subagentes). Orka lee una vez el código de las regiones con hallazgos y, para cada una, aplica la skill de Fluxa (estructura: cómo está y cómo debe quedar), después la de Kompa (composición de esas mismas regiones) y al final la de Kura (piezas). Cada parte se escribe como sección de cambio en el documento de su rol. No se rediseña lo que no tiene hallazgo. Inqa y Arko, si un hallazgo los toca, sí van como subagentes.
+3. **Un solo pase en la conversación de Orka** (no como subagentes). Orka lee una vez el código de las regiones con hallazgos y, para cada una, aplica la skill de Fluxa (estructura: cómo está y cómo debe quedar), después la de Kompa (composición de esas mismas regiones) y al final la de Kura (piezas). Cada parte se escribe como una línea en la columna `cambio` de su fila (modo rápido); solo en modo completo va como sección de cambio en el documento del rol. No se rediseña lo que no tiene hallazgo. Inqa y Arko, si un hallazgo los toca, sí van como subagentes.
 4. **Forja** recibe solo las filas pendientes de la tabla de tareas y reporta por id; **Vera** (subagente) revisa solo las filas `hecho`.
 5. Un hallazgo que cambia comportamiento no se corrige en este escenario: va a Inqa y, si Kevin lo aprueba, se vuelve un escenario de extender.
 
@@ -105,7 +107,7 @@ Lanza el rol nombrado como skill (puede preguntar a Kevin) y detente. Si le falt
 
 ## 8. Documentos de cambio
 
-En extender y corregir, los documentos del módulo no se reescriben. Cada rol agrega una sección al final de su documento (o crea uno si no existía):
+Solo en modo completo (en modo rápido el cambio vive en la tabla de tareas). En extender y corregir, los documentos del módulo no se reescriben. Cada rol agrega una sección al final de su documento (o crea uno si no existía):
 
 ```text
 ## Cambio <id>: <título corto>

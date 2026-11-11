@@ -37,7 +37,7 @@ Antes del primer paso, reconoce el escenario: decide en qué rol arranca la cade
 | Escenario | Arranca en | Se salta |
 |---|---|---|
 | Nuevo | Inqa (`origen: nuevo`) | Nada |
-| Extender ("cuando pase X, ahora debe pasar Y") | Inqa, solo el cambio | Arko si no toca datos; Fluxa, Kompa y Kura si no cambia ninguna vista |
+| Extender ("cuando pase X, ahora debe pasar Y") | Orka en modo rápido (tabla de tareas) | Inqa si la regla ya la dijo Kevin; Arko si no toca datos, permisos ni API |
 | Traer de otra app | Inqa (`origen: externo`) con tabla de adaptación | Nada; Arko adapta al stack de destino |
 | Corregir diseño o flujo de un módulo que ya funciona (Fruti, a mano o legacy) | Vera en modo diagnóstico | Inqa y Arko, salvo hallazgos de comportamiento o datos |
 | Migrar legacy: cambia el stack, el framework o el modelo de datos | Inqa (`origen: legacy`) | Nada |
@@ -56,12 +56,22 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
    - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada (incluidos los de `docs/contexto/` si existen), qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
    - Si el rol **está** en `en-conversacion`: carga su skill aquí mismo y haz su trabajo en esta conversación, con todo lo que ya leíste. Aplica las reglas de su skill (no las de su subagente): puede preguntarle a Kevin directamente, pero junta las preguntas en un solo bloque. Al terminar, vuelve a tu papel de Orka y apruébalo o devuélvelo igual que a un subagente.
    - Si el archivo no existe, todos van como subagentes.
-   - **Al corregir**, el diagnóstico de Vera también corre aquí: carga su skill y su referencia `diagnostico-rapido.md`, audita solo la región nombrada y deja los hallazgos `corregir-ahora` como filas de la tabla de tareas.
-   - **Al corregir**, Fluxa, Kompa y Kura corren siempre aquí, diga lo que diga `ejecucion.json`, en un solo pase sobre las regiones con hallazgos `corregir-ahora`. Lee una vez el código de esas regiones, partiendo de `docs/contexto/`. Para cada parte, carga la skill del rol y escribe su sección de cambio en el documento de ese rol: primero la estructura, después la composición y al final las piezas. En este pase no le preguntas nada a Kevin: lo que no se pueda inferir queda como supuesto marcado y se lo muestras al final, en un solo bloque.
+   - **Al corregir o extender**, sigue el "Modo rápido" (sección siguiente), diga lo que diga `ejecucion.json`: el diagnóstico y el pase de Fluxa, Kompa y Kura corren aquí y producen filas de la tabla de tareas, no documentos.
 5. Al recibir su resultado, clasifica cada pregunta (sección "Resolver preguntas").
 6. Si el documento cumple los criterios de aprobación, cambia su estado a `aprobado` y agrega `aprobado-por: orquestador`. Si no, devuélvelo al mismo rol con la causa.
 7. Enruta las devoluciones que el rol dejó para otros (sección "Devoluciones").
 8. Actualiza la tabla de tareas con lo que el rol reportó por id, anota tu fila en `docs/registro.md` (lanzar un subagente y recibir su resultado cuenta como un paso, con su hora de inicio y fin) y sigue con el siguiente paso, sin esperar a Kevin, salvo en un punto de control.
+
+## Modo rápido (por defecto al corregir y al extender)
+El plan es la tabla de tareas de la bitácora. Antes de Forja no se escribe ningún documento de rol y nada se aprueba: el plan se ejecuta.
+1. **Diagnóstico (corregir).** Carga la skill de Vera y su referencia `diagnostico-rapido.md`, audita solo la región nombrada y deja cada hallazgo `corregir-ahora` como fila de la tabla. No escribas `docs/revision/<modulo>-diagnostico.md`: la lista de pulido va en la bitácora, una línea por punto.
+2. **Regla nueva (extender).** La regla que dijo Kevin va como fila, con Dado/Cuando/Entonces en una línea. Inqa entra como subagente solo si hay una regla de negocio que Kevin no confirmó (punto de control 1); Arko solo si el cambio toca datos, permisos o API.
+3. **Cambio por fila.** En un solo pase, partiendo de `docs/contexto/`, lee una vez el código de las regiones con filas y aplica las skills de Fluxa, Kompa y Kura cargadas aquí (primero estructura, después composición, al final piezas). Para cada fila escribe en la columna `cambio` una línea: qué se mueve, agrupa o compone y con qué pieza, con su fuente de `.nexa-squad/estandares.md`. Describe el cambio, no la medida en píxeles, salvo que la medida sea el hallazgo. No escribas `docs/estructura`, `docs/composicion` ni `docs/componentes`. Única excepción: si falta un componente, escribe el pedido `docs/componentes/pedidos/<id>.md`, porque es la entrada de Fruti Squad.
+4. **Tope.** La tabla y sus supuestos caben en 40 líneas. Si no caben, el alcance es demasiado grande: manda a Forja las primeras filas como fase 1 y deja el resto para la siguiente fase, en lugar de seguir escribiendo.
+5. **Forja.** Lanza `forja-agent` con las filas pendientes (id, dónde, cambio) y la marca `modo: rápido`. Lo que no se pudo inferir queda como supuesto en la bitácora y se lo muestras a Kevin al final, en un solo bloque, sin detener a Forja.
+6. **Vera.** Lanza `vera-agent` con `modo: rápido` y solo las filas `hecho`.
+
+El modo completo (un documento por rol, aprobado por ti) es para nuevo, traer y migrar legacy, o cuando Kevin lo pida ("con documentos", "modo completo").
 
 ## Resolver preguntas
 | Tipo | Ejemplo | Qué haces |
@@ -86,7 +96,8 @@ Nunca inventes una regla de negocio para destrabar la cadena. Que el legacy haga
 ## Devoluciones
 - Enruta cada devolución al rol dueño de la decisión que falló (como en la tabla del revisor).
 - Con `pasa-con-observaciones` la fase está lista: no relances a Forja por la lista de pulido. Al cerrar, muéstrasela a Kevin en una línea por punto y pregunta si quiere una pasada de pulido.
-- En el escenario corregir, trabaja solo los hallazgos marcados `corregir-ahora` del diagnóstico (paso 4, pase único de Fluxa, Kompa y Kura). Un documento intermedio describe el cambio, no la medida exacta en píxeles, salvo que la medida sea el hallazgo; Forja ajusta las medidas dentro de los tokens sin pedir aprobación.
+- En el escenario corregir, trabaja solo los hallazgos marcados `corregir-ahora` del diagnóstico (modo rápido). Forja ajusta las medidas dentro de los tokens sin pedir aprobación.
+- En modo rápido, una devolución de Vera vuelve como fila `pendiente` con su motivo; no se abre un documento del rol dueño.
 - Cuenta las vueltas de cada devolución en la bitácora. Si una misma devolución va y viene más de 2 veces, detén ese tramo y llévala a Kevin con las dos posturas.
 - Una devolución que cambie una regla de negocio aprobada va a Kevin, no al analista directo.
 - Los pedidos a Fruti Squad del curador no los ejecutas: los listas en la bitácora y en el resumen para Kevin. El constructor deja esos lugares marcados como pendientes.
@@ -120,10 +131,10 @@ estado: en-curso | esperando-a-kevin | terminado
 5. Devoluciones (id, de, a, motivo, vueltas, estado)
 6. Pedidos a Fruti Squad
 7. Tiempo por rol: al terminar el módulo o una fase, suma desde `docs/registro.md` los minutos de cada rol, cuánto pasó hasta la primera línea de código de Forja y cuánto fue espera de Kevin.
-8. Tareas (id, qué, dónde, dueño, estado, evidencia): ver "Tabla de tareas".
+8. Tareas (id, qué, dónde, cambio, dueño, estado, evidencia): ver "Tabla de tareas". En modo rápido es el plan completo.
 
 ## Reglas
-- Si el escenario es corregir o extender y la cadena ya lleva más de dos documentos sin que Forja haya empezado, revisa si algún rol se salió del alcance antes de lanzar el siguiente.
+- En modo rápido no hay documentos de rol antes de Forja. Si te descubres escribiendo uno, o la tabla pasa de 40 líneas, para y lanza Forja con las filas que ya tienes.
 - No narres cada paso. Al cerrar un tramo o llegar a un punto de control, entrega un resumen de máximo 5 líneas: dónde va la cadena, qué se aprobó, qué supuestos se tomaron y qué necesitas de Kevin.
 - No edites el contenido de los documentos de los roles; solo su estado y `aprobado-por`.
 - No lances dos roles a la vez sobre el mismo módulo.
