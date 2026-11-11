@@ -2,6 +2,10 @@
 
 ## Sin publicar
 
+- Al corregir, Fluxa, Kompa y Kura hacen un solo pase en la conversación de Orka, en vez de correr como 3 subagentes que releían el mismo código. Antes de Forja quedan 1 subagente (Vera) en lugar de 4.
+- Regla común 13, "Decide y entrega": una decisión con fuente en lugar de un menú de alternativas, referencias solo cuando su disparador coincide, citar en lugar de copiar y no reabrir lo ya decidido sin evidencia nueva.
+- Vera: si Kevin nombra una región, el diagnóstico audita solo esa región y no hace el recorrido de punta a punta.
+- Subagentes: `disallowedTools: Agent` en lugar de pedirlo en el texto.
 - El código se lee una vez y se comparte (regla común 12): el primer rol que inspecciona deja un mapa con rutas en `docs/contexto/proyecto.md` (stack, sistema visual, componentes, tokens) y `docs/contexto/<modulo>.md` (archivos del módulo). Los siguientes parten de ahí y releen solo lo que cambió desde el `commit` del mapa. Inqa, Arko, Fluxa, Kompa, Kura, Forja, Vera y Orka lo usan.
 - Orka abre `references/escenarios.md` solo si la frase no cae en su tabla de escenarios o un rol necesita el detalle del escenario.
 - `npm run medir -- <transcripcion.jsonl>`: mide una corrida de Claude Code (tiempo total, hasta que arranca Forja, hasta el primer código, y por rol: duración, lecturas de código y herramientas). `evals/resultados.md` registra tiempos además de calidad.

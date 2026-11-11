@@ -56,6 +56,7 @@ Un rol se salta solo porque su decisión no cambia; si a mitad de la cadena apar
    - Si el rol **no** está en `en-conversacion` (lo normal): lanza su subagente con un encargo corto: módulo, ruta de los documentos de entrada (incluidos los de `docs/contexto/` si existen), qué se espera y las respuestas o supuestos ya decididos que le afectan. Un solo rol a la vez, en primer plano, porque cada uno depende del anterior.
    - Si el rol **está** en `en-conversacion`: carga su skill aquí mismo y haz su trabajo en esta conversación, con todo lo que ya leíste. Aplica las reglas de su skill (no las de su subagente): puede preguntarle a Kevin directamente, pero junta las preguntas en un solo bloque. Al terminar, vuelve a tu papel de Orka y apruébalo o devuélvelo igual que a un subagente.
    - Si el archivo no existe, todos van como subagentes.
+   - **Al corregir**, Fluxa, Kompa y Kura corren siempre aquí, diga lo que diga `ejecucion.json`, en un solo pase sobre las regiones con hallazgos `corregir-ahora`. Lee una vez el código de esas regiones, partiendo de `docs/contexto/`. Para cada parte, carga la skill del rol y escribe su sección de cambio en el documento de ese rol: primero la estructura, después la composición y al final las piezas. En este pase no le preguntas nada a Kevin: lo que no se pueda inferir queda como supuesto marcado y se lo muestras al final, en un solo bloque.
 5. Al recibir su resultado, clasifica cada pregunta (sección "Resolver preguntas").
 6. Si el documento cumple los criterios de aprobación, cambia su estado a `aprobado` y agrega `aprobado-por: orquestador`. Si no, devuélvelo al mismo rol con la causa.
 7. Enruta las devoluciones que el rol dejó para otros (sección "Devoluciones").
@@ -84,7 +85,7 @@ Nunca inventes una regla de negocio para destrabar la cadena. Que el legacy haga
 ## Devoluciones
 - Enruta cada devolución al rol dueño de la decisión que falló (como en la tabla del revisor).
 - Con `pasa-con-observaciones` la fase está lista: no relances a Forja por la lista de pulido. Al cerrar, muéstrasela a Kevin en una línea por punto y pregunta si quiere una pasada de pulido.
-- En el escenario corregir, lanza a Fluxa, Kompa y Kura solo con los hallazgos marcados `corregir-ahora` del diagnóstico. Un documento intermedio describe el cambio, no la medida exacta en píxeles, salvo que la medida sea el hallazgo; Forja ajusta las medidas dentro de los tokens sin pedir aprobación.
+- En el escenario corregir, trabaja solo los hallazgos marcados `corregir-ahora` del diagnóstico (paso 4, pase único de Fluxa, Kompa y Kura). Un documento intermedio describe el cambio, no la medida exacta en píxeles, salvo que la medida sea el hallazgo; Forja ajusta las medidas dentro de los tokens sin pedir aprobación.
 - Cuenta las vueltas de cada devolución en la bitácora. Si una misma devolución va y viene más de 2 veces, detén ese tramo y llévala a Kevin con las dos posturas.
 - Una devolución que cambie una regla de negocio aprobada va a Kevin, no al analista directo.
 - Los pedidos a Fruti Squad del curador no los ejecutas: los listas en la bitácora y en el resumen para Kevin. El constructor deja esos lugares marcados como pendientes.

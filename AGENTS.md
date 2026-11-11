@@ -54,11 +54,17 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
     - `docs/contexto/<modulo>.md`: los archivos del módulo (rutas, vistas, controladores, consultas, tablas) con la función y la línea de lo relevante.
     - Solo hechos con ruta: ni decisiones ni supuestos. El encabezado YAML lleva `commit:` (el `git rev-parse --short HEAD` al escribir; sin git, la fecha) y `actualizado-por:`.
     - Antes de usarlo, `git diff --name-only <commit> HEAD -- <rutas del mapa>` (y `git status --short` de esas rutas): si nada cambió, el mapa vale; si cambió algo, se relee solo eso y se actualiza el mapa. Lo que le falte a un rol lo inspecciona él y lo agrega.
+13. **Decide y entrega; no sobreanalices.** El trabajo de un rol termina cuando cada punto de su alcance tiene una decisión con fuente o un supuesto marcado. En ese momento entrega.
+    - Da una decisión, no un menú. Elige la opción por defecto del catálogo o de la referencia y anota el porqué en una línea. Solo propones alternativas si Kevin las pide o si dos opciones tienen consecuencias de negocio distintas, y en ese caso es una pregunta para el punto de control.
+    - Abre una referencia solo cuando su disparador coincide con lo que estás decidiendo, y lee solo la sección que lo cubre: cada referencia tiene un índice. Nunca la abras "por si acaso".
+    - El documento dice qué cambia y por qué. Lo que ya está en una referencia, en el catálogo o en otro documento se cita; no se copia.
+    - Una decisión que ya entregaste solo se reabre si aparece evidencia nueva.
 
 ## Skill o subagente
 
 - Usado **solo** ("analiza el módulo de pagos"), cada rol corre como skill en la conversación principal y puede preguntarle a Kevin.
 - Usado **en cadena** (`/orka …`), Orka lanza cada rol como subagente: contexto limpio, sin preguntas, y solo devuelve su resumen, preguntas y devoluciones.
+- **Al corregir**, Fluxa, Kompa y Kura no se lanzan como subagentes. Orka hace sus tres partes en su propia conversación, en un solo pase, porque trabajan sobre la misma región y el mismo código. Como subagentes, cada uno arrancaba de cero y volvía a leer todo.
 - **Entornos sin subagentes** (Codex, Kiro): Orka ejecuta cada rol cargando su skill en la conversación, uno a la vez, y aplica como ajustes las reglas de `.nexa-squad/agents/<rol>-agent.md` (el instalador las deja ahí).
 
 ## Frontera con Fruti Squad
