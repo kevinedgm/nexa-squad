@@ -59,12 +59,15 @@ Qué decir en cada caso y a quién invocar: `.nexa-squad/comandos.md` (en este r
     - Abre una referencia solo cuando su disparador coincide con lo que estás decidiendo, y lee solo la sección que lo cubre: cada referencia tiene un índice. Nunca la abras "por si acaso".
     - El documento dice qué cambia y por qué. Lo que ya está en una referencia, en el catálogo o en otro documento se cita; no se copia.
     - Una decisión que ya entregaste solo se reabre si aparece evidencia nueva.
+14. **Estado por tarea y registro compartido.** Para no volver a revisar todo en cada vuelta:
+    - **Tareas.** Cada hallazgo o pieza de trabajo es una fila en la tabla de tareas de la bitácora de Orka (id, qué, dónde, dueño, estado `pendiente | hecho | verificado | pulido`). Solo Orka la edita. Cada rol recibe y trabaja solo sus filas, y al terminar reporta por id qué quedó hecho y en qué archivos.
+    - **Registro.** `docs/registro.md` es un log compartido, solo de agregar. Cada rol, como skill o como subagente, anota una fila al terminar: fecha, hora de inicio, hora de fin, minutos, módulo, rol, qué hizo en una línea y los ids de tarea que tocó. La hora se toma con `date +%H:%M` al empezar y al terminar. Si el archivo no existe, se crea con el encabezado `| fecha | inicio | fin | min | módulo | rol | qué hizo | tareas |`.
 
 ## Skill o subagente
 
 - Usado **solo** ("analiza el módulo de pagos"), cada rol corre como skill en la conversación principal y puede preguntarle a Kevin.
 - Usado **en cadena** (`/orka …`), Orka lanza cada rol como subagente: contexto limpio, sin preguntas, y solo devuelve su resumen, preguntas y devoluciones.
-- **Al corregir**, Fluxa, Kompa y Kura no se lanzan como subagentes. Orka hace sus tres partes en su propia conversación, en un solo pase, porque trabajan sobre la misma región y el mismo código. Como subagentes, cada uno arrancaba de cero y volvía a leer todo.
+- **Al corregir**, el diagnóstico de Vera, Fluxa, Kompa y Kura no se lanzan como subagentes. Orka hace esas partes en su propia conversación, en un solo pase, porque trabajan sobre la misma región y el mismo código. Como subagentes, cada uno arrancaba de cero y volvía a leer todo. El diagnóstico usa la checklist corta de Vera (`references/diagnostico-rapido.md`) y, si está instalado, el detector de impecable.
 - **Kiro**: cada rol es un agente personalizado en `.kiro/agents/<rol>-agent.md`, con su skill, la política y solo los permisos que su rol necesita. Orka es el agente `orka` y lanza a los demás con la herramienta de subagentes.
 - **Entornos sin subagentes** (Codex): Orka ejecuta cada rol cargando su skill en la conversación, uno a la vez, y aplica como ajustes las reglas de `.nexa-squad/agents/<rol>-agent.md` (el instalador las deja ahí).
 

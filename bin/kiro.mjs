@@ -7,19 +7,19 @@
 
 // Herramientas y permisos por rol. Escritura: libre en la carpeta del documento del rol y en docs/contexto/
 // (mapa compartido del código, regla 12); el resto pide permiso.
-const LEER = ['ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*'];
+const LEER = ['date*', 'ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*'];
 const PRUEBAS = ['npm test*', 'npm run *', 'node *', 'npx *', 'php *', 'composer *', 'vendor/bin/*', 'python3 *', 'pytest*', 'curl *'];
 const PROHIBIDO = ['rm -rf *', 'sudo *', 'git push*', 'git reset --hard*', 'git clean*', 'git checkout -- *', 'mysql *', 'psql *', 'mongo*', 'redis-cli *'];
 
 export const KIRO_ROLES = {
   orka: { tools: ['read', 'write', 'shell', 'subagent'], escribe: ['docs/**'], shell: LEER },
-  'inqa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/requisitos/**', 'docs/producto.md', 'docs/contexto/**'], shell: LEER },
-  'arko-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/arquitectura/**', 'docs/implementacion/**', 'docs/contexto/**'], shell: LEER },
-  'fluxa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/estructura/**', 'docs/contexto/**'], shell: LEER },
-  'kompa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/composicion/**', 'docs/contexto/**'], shell: LEER },
-  'kura-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/componentes/**', 'docs/contexto/**'], shell: LEER },
+  'inqa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/requisitos/**', 'docs/producto.md', 'docs/contexto/**'], shell: LEER },
+  'arko-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/arquitectura/**', 'docs/implementacion/**', 'docs/contexto/**'], shell: LEER },
+  'fluxa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/estructura/**', 'docs/contexto/**'], shell: LEER },
+  'kompa-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/composicion/**', 'docs/contexto/**'], shell: LEER },
+  'kura-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/componentes/**', 'docs/contexto/**'], shell: LEER },
   'forja-agent': { tools: ['read', 'write', 'shell'], escribe: ['**'], shell: [...LEER, ...PRUEBAS] },
-  'vera-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/revision/**', 'docs/contexto/**'], shell: [...LEER, ...PRUEBAS] },
+  'vera-agent': { tools: ['read', 'write', 'shell'], escribe: ['docs/registro.md', 'docs/revision/**', 'docs/contexto/**'], shell: [...LEER, ...PRUEBAS] },
 };
 // Pueden correr sin pedir aprobación: los que solo escriben su documento. Forja no, porque escribe código.
 const CONFIABLES = ['inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'kura-agent', 'vera-agent'];

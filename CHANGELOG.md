@@ -2,6 +2,8 @@
 
 ## Sin publicar
 
+- Regla común 14, estado por tarea y registro compartido. Cada hallazgo es una fila de la tabla de tareas de Orka (`pendiente`, `hecho`, `verificado`, `pulido`): Forja recibe solo las pendientes y Vera revisa solo las hechas, con `git diff`. `docs/registro.md` es un log compartido donde cada rol anota qué hizo, cuándo empezó, cuándo terminó y cuántos minutos le tomó; Orka suma desde ahí el tiempo por rol y el tiempo hasta el primer código. Sirve en Kiro y Codex, donde `npm run medir` no tiene transcripción.
+- Al corregir, el diagnóstico de Vera corre en la conversación de Orka con una checklist corta (`references/diagnostico-rapido.md`) y, si impecable está instalado, con su detector (`impeccable detect`). Las otras referencias de Vera quedan para revisar contra documentos aprobados.
 - Versión para Kiro, según la guía "Kiro — Agents, Skills & Steering": skills en `.kiro/skills/`, un agente por rol en `.kiro/agents/` con su skill (`skill://`), las reglas comunes (`file://`) y permisos de menor privilegio; `orka` delega con la herramienta de subagentes (`availableAgents`, `trustedAgents`; Forja no es de confianza porque escribe código). El steering es `always` y corto, e incluye la política con `#[[file:…]]`.
 - `update`: renueva lo del squad sin tocar `docs/` ni `ejecucion.json`. Con `--dry-run` dice, archivo por archivo, qué es nuevo, qué cambia, qué queda igual y qué quedó obsoleto de una instalación anterior (no lo borra).
 - `install` ya no reporta como "omitido" lo que está igual; solo lo que cambiaste.

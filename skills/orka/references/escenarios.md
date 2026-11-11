@@ -83,7 +83,7 @@ Caso típico: un módulo que ya funciona (hecho con Fruti Squad, a mano o legacy
 
 **Proporción.** Este escenario es para avanzar rápido. Solo entran a la cadena los hallazgos `corregir-ahora` del diagnóstico (bloqueantes e importantes que estorban una tarea frecuente); el resto queda en la lista de pulido para Kevin. Vera solo devuelve la fase por un bloqueante o una regresión fuera del alcance. Además: diagnóstico, estructura y composición solo de las regiones con hallazgo, y después código. No hay inventario del módulo, ni fase de preparación de datos, ni checklist de servidor, salvo que un hallazgo los necesite.
 
-1. **Vera, modo diagnóstico.** Audita la pantalla funcionando y su código contra el catálogo de estándares y el sistema de diseño del proyecto (no hay documentos de Nexa contra los cuales comparar), recorriendo las tareas del perfil que usa el módulo (fila del módulo en `docs/producto.md` o lo que dijo Kevin). Cada hallazgo cita su fuente y se clasifica por dueño. Si Kevin nombra una tarea que el módulo hoy no permite (p. ej. adjuntar un voucher), no es corrección de composición: se anota para Inqa como escenario extender.
+1. **Vera, modo diagnóstico, en la conversación de Orka** con `skills/vera/references/diagnostico-rapido.md` (y el detector de impecable si está instalado). Audita la pantalla funcionando y su código contra el catálogo de estándares y el sistema de diseño del proyecto (no hay documentos de Nexa contra los cuales comparar), recorriendo las tareas del perfil que usa el módulo (fila del módulo en `docs/producto.md` o lo que dijo Kevin). Cada hallazgo cita su fuente y se clasifica por dueño. Si Kevin nombra una tarea que el módulo hoy no permite (p. ej. adjuntar un voucher), no es corrección de composición: se anota para Inqa como escenario extender.
 2. **Orka agrupa los hallazgos por dueño.** Solo trabaja el dueño de cada hallazgo:
 
    | Hallazgo | Dueño | Ejemplo |
@@ -96,7 +96,7 @@ Caso típico: un módulo que ya funciona (hecho con Fruti Squad, a mano o legacy
 
    Orden: primero estructura (Fluxa), después composición (Kompa), después piezas (Kura). Pulir el acomodo de un flujo confuso no lo arregla, y un cambio de estructura invalida la composición de esa región.
 3. **Un solo pase en la conversación de Orka** (no como subagentes). Orka lee una vez el código de las regiones con hallazgos y, para cada una, aplica la skill de Fluxa (estructura: cómo está y cómo debe quedar), después la de Kompa (composición de esas mismas regiones) y al final la de Kura (piezas). Cada parte se escribe como sección de cambio en el documento de su rol. No se rediseña lo que no tiene hallazgo. Inqa y Arko, si un hallazgo los toca, sí van como subagentes.
-4. **Forja** corrige solo esas regiones; **Vera** revisa contra el diagnóstico y los documentos nuevos.
+4. **Forja** recibe solo las filas pendientes de la tabla de tareas y reporta por id; **Vera** (subagente) revisa solo las filas `hecho`.
 5. Un hallazgo que cambia comportamiento no se corrige en este escenario: va a Inqa y, si Kevin lo aprueba, se vuelve un escenario de extender.
 
 ## 7. Un solo rol o un tramo
