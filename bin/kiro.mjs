@@ -13,7 +13,7 @@
 // (mapa compartido del código, regla 12); el resto pide permiso.
 const LEER = ['date*', 'ls *', 'cat *', 'head *', 'tail *', 'grep *', 'rg *', 'find *', 'wc *', 'git status', 'git log*', 'git diff*', 'git show*'];
 const PRUEBAS = ['npm test*', 'npm run *', 'node *', 'npx *', 'php *', 'composer *', 'vendor/bin/*', 'python3 *', 'pytest*', 'curl *'];
-const PROHIBIDO = ['rm -rf *', 'sudo *', 'git push*', 'git reset --hard*', 'git clean*', 'git checkout -- *', 'mysql *', 'psql *', 'mongo*', 'redis-cli *'];
+const PROHIBIDO = ['rm -rf *', 'sudo *', 'git add*', 'git commit*', 'git push*', 'git reset --hard*', 'git clean*', 'git checkout -- *', 'mysql *', 'psql *', 'mongo*', 'redis-cli *'];
 
 export const KIRO_ROLES = {
   orka: { tools: ['read', 'write', 'shell', 'subagent'], escribe: ['docs/**'], shell: LEER },
@@ -28,8 +28,9 @@ export const KIRO_ROLES = {
 // Roles cuya skill usa docs/producto.md (perfiles, tareas y frecuencia). Kura y Forja no lo usan.
 export const USAN_PRODUCTO = ['orka', 'inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'vera-agent'];
 
-// Pueden correr sin pedir aprobación: los que solo escriben su documento. Forja no, porque escribe código.
-const CONFIABLES = ['inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'kura-agent', 'vera-agent'];
+// Corren sin pedir aprobación al lanzarse. Forja también (Kevin, 2026-11-11): con varios en paralelo eran varios clics,
+// y lo irreversible ya lo bloquean los permisos deny (PROHIBIDO); nadie hace commit, Kevin revisa y commitea.
+const CONFIABLES = ['inqa-agent', 'arko-agent', 'fluxa-agent', 'kompa-agent', 'kura-agent', 'forja-agent', 'vera-agent'];
 
 const q = (s) => JSON.stringify(s);
 const lista = (xs) => `[${xs.map(q).join(', ')}]`;
