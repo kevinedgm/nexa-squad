@@ -10,6 +10,7 @@
 //   codex   skills -> .codex/skills/<skill>/    + ajustes de rol en .<slug>/agents/ + bloque en AGENTS.md
 //   kiro    skills -> .kiro/skills/<skill>/     agentes -> .kiro/agents/<rol>.md (con permisos)
 //           + .kiro/steering/<slug>.md (inclusión always, incluye la política)
+//           + .kiro/steering/<slug>-contexto.md (always, incluye docs/producto.md y docs/contexto/proyecto.md)
 //
 // Opciones:
 //   --target <env>  claude | codex | kiro   (por defecto: autodetecta, si no claude)
@@ -28,7 +29,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, wri
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve, relative } from 'node:path';
 import { homedir } from 'node:os';
-import { agenteKiro, cuerpoOrka, partirAgente, steeringKiro } from './kiro.mjs';
+import { agenteKiro, cuerpoOrka, partirAgente, steeringContexto, steeringKiro } from './kiro.mjs';
 
 const PKG_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SQUAD = JSON.parse(readFileSync(join(PKG_ROOT, 'squad.json'), 'utf8'));
@@ -211,6 +212,7 @@ function writeKiro(args, roles) {
     }
   }
   writeGenerated(join(args.base, '.kiro', 'steering', `${SQUAD.slug}.md`), steeringKiro(SQUAD, roles.map((r) => r.skill)), args, 'steering');
+  writeGenerated(join(args.base, '.kiro', 'steering', `${SQUAD.slug}-contexto.md`), steeringContexto(SQUAD), args, 'steering de contexto');
 }
 
 function instructionLines(roles, target) {

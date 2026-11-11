@@ -3,7 +3,9 @@
 //   - un agente por responsabilidad, con solo las herramientas que su rol necesita (menor privilegio);
 //   - un agente personalizado no recibe steering solo: se le declara en resources (file://) y su skill con skill://;
 //   - el orquestador delega con la herramienta subagent, limitada por availableAgents / trustedAgents;
-//   - el steering always queda corto y apunta a la política, que se incluye con #[[file:...]].
+//   - el steering always queda corto y apunta a la política, que se incluye con #[[file:...]];
+//   - cada agente recibe todo .kiro/steering/ (también el product/tech/structure del proyecto), y
+//     <slug>-contexto.md mete docs/producto.md y docs/contexto/proyecto.md para que ningún rol los vuelva a buscar.
 
 // Herramientas y permisos por rol. Escritura: libre en la carpeta del documento del rol y en docs/contexto/
 // (mapa compartido del código, regla 12); el resto pide permiso.
@@ -52,7 +54,7 @@ export function agenteKiro({ name, skill, description, body, slug, skillsRel, ag
   const spec = KIRO_ROLES[name];
   const fm = ['---', `name: ${name}`, `description: ${q(description)}`, `tools: ${lista(spec.tools)}`,
     'resources:',
-    `  - file://.kiro/steering/${slug}.md`,
+    '  - file://.kiro/steering/**/*.md',
     `  - file://.${slug}/politica.md`,
     `  - skill://${skillsRel}/${skill}/SKILL.md`];
   if (name === 'orka') {
@@ -89,6 +91,26 @@ export function steeringKiro(squad, roles) {
     `Qué decir en cada caso: \`.${squad.slug}/comandos.md\`.`,
     '',
     `#[[file:.${squad.slug}/politica.md]]`,
+    '',
+  ].join('\n');
+}
+
+// Contexto del producto como steering always: lo que los roles leían al empezar (regla común 12) ya llega cargado.
+export function steeringContexto(squad) {
+  return [
+    '---',
+    'inclusion: always',
+    '---',
+    '',
+    `# Contexto del producto (${squad.name})`,
+    '',
+    'Ya está cargado: no vuelvas a recorrer el repositorio para saber qué es el producto, quién lo usa, el stack o dónde viven los componentes y tokens.',
+    'Si un archivo de abajo todavía no existe, se crea con `/orka init` (producto) o lo escribe el primer rol que inspecciona el código (proyecto).',
+    'El mapa de cada módulo está en `docs/contexto/<modulo>.md`, y el estado de cada tarea en la tabla de tareas de `docs/orquestacion/<modulo>.md`.',
+    '',
+    '#[[file:docs/producto.md]]',
+    '',
+    '#[[file:docs/contexto/proyecto.md]]',
     '',
   ].join('\n');
 }
